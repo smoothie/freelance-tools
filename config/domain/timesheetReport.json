@@ -1,0 +1,41 @@
+{
+    "id": {
+        "type": "uuid"
+    },
+    "title": {
+        "type": "varchar",
+        "length": 255
+    },
+    "start_date": {
+        "type": "date"
+    },
+    "end_date": {
+        "type": "date"
+    },
+    "approved_at_date": {
+        "type": "date"
+    },
+    "approved_by": {
+        "type": "json",
+        "domain": "Person"
+    },
+    "billed_to": {
+        "type": "json",
+        "domain": "Person"
+    },
+    "billed_by": {
+        "type": "json",
+        "domain": "Person"
+    },
+    "provided_by": {
+        "type": "json",
+        "domain": "Person"
+    },
+    "duration_for_month": {
+        "type": "dateInterval"
+    },
+    "list_of_tasks_in_a_day_for_time_range": {
+        "type": "simpleArray",
+        "domain": "taskInADayForATimeRange"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "smoothie/contractor-tools",
+    "description": "Package for freelance (billing, sheets, cv) stuff.",
+    "license": "Apache-2.0",
+    "type": "project",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {},
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Smoothie\\ContractorTools\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Smoothie\\Tests\\ContractorTools\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

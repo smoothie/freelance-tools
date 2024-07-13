@@ -1,0 +1,43 @@
+{
+    "id": {
+        "type": "uuid"
+    },
+    "description":  {
+        "type": "varchar",
+        "length": 255
+    },
+    "duration": {
+        "type": "varchar",
+        "length": 20
+    },
+    "start_date": {
+        "type": "date"
+    },
+    "start_time":  {
+        "type": "time"
+    },
+    "end_date": {
+        "type": "date"
+    },
+    "end_time":  {
+        "type": "time"
+    },
+    "tags":  {
+        "type": "simpleArray",
+        "domain": "Tags"
+    },
+    "client": {
+        "type": "varchar",
+        "length": 255
+    },
+    "project": {
+        "type": "varchar",
+        "length": 255
+    },
+    "created_at": {
+        "type": "datetime"
+    },
+    "updated_at":  {
+        "type": "datetime"
+    }
+}
