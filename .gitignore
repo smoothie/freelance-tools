@@ -1,5 +1,16 @@
-/.php-cs-fixer.cache
-/.php-cs-fixer.php
-/.phpunit.cache
-/composer.lock
+.env.*.local
+.env.local
+.env.local.php
+.php-cs-fixer.cache
+.php-cs-fixer.php
+.phpunit.cache
+composer.lock
+symfony.lock
+
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles
+/var
 /vendor
+
+###> symfony/framework-bundle ###
+###< symfony/framework-bundle ###
