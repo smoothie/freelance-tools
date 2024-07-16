@@ -1,13 +1,11 @@
-.env.*.local
-.env.local
-.env.local.php
+*.cache
+*.env*
 .php-cs-fixer.cache
 .php-cs-fixer.php
-.phpunit.cache
 composer.lock
 symfony.lock
 
-/config/secrets/prod/prod.decrypt.private.php
+/config/secrets
 /public/bundles
 /var
 /vendor
