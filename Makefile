@@ -3,7 +3,7 @@ PATH_QA_CONFIG=./
 EXEC_PHP=/usr/bin/php
 APP_ENV=dev
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL:= help
 .PHONY: help
 
 help: ## Show this help.
