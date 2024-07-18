@@ -47,4 +47,4 @@ fix-types: ## Try to fix broken code analyzer.
 	${EXEC_PHP} ${PATH_QA_BIN}psalm --config=psalm.xml.dist --no-progress --alter
 
 fix-composer-normalize: ## Fix composer-normalize.
-	${PATH_QA_BIN}composer-normalize composer.json --diff --dry-run --no-interaction --ansi
+	${PATH_QA_BIN}composer-normalize composer.json --no-interaction --ansi
