@@ -28,6 +28,8 @@ deptrac:
             collectors:
                 -   type: classLike
                     value: ^(Doctrine|Symfony|ApiPlatform|Twig)\\.*
+                -   type: classLike
+                    value: ^Smoothie\\ContractorTools\\(Symfony|Doctrine|Contracts)\\.*
 
     ruleset:
         Domain:

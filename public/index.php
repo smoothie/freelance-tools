@@ -1,6 +1,6 @@
 <?php
 
-use Smoothie\ContractorTools\Kernel;
+use Smoothie\ContractorTools\Symfony\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
