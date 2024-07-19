@@ -9,6 +9,3 @@ symfony.lock
 /public/bundles
 /var
 /vendor
-
-###> symfony/framework-bundle ###
-###< symfony/framework-bundle ###

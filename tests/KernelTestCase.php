@@ -6,9 +6,10 @@ namespace Smoothie\ContractorTools\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as SymfonyKernelTestCase;
 
-class KernelTestCase extends SymfonyKernelTestCase implements PathsForTesting
+class KernelTestCase extends SymfonyKernelTestCase implements PathsForTesting, Snapshots
 {
     use ProvidesPathsForTesting;
+    use ProvidesSnapshots;
 
     /**
      * Ensures we clean up the error handler while shutdown.

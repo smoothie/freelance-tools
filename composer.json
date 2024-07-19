@@ -17,6 +17,7 @@
         "symfony/yaml": "~7.1.0"
     },
     "require-dev": {
+        "spatie/phpunit-snapshot-assertions": "^5.1",
         "symfony/maker-bundle": "^1.60"
     },
     "replace": {

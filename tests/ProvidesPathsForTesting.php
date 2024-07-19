@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Smoothie\ContractorTools\Tests;
 
+/**
+ * @implements PathsForTesting
+ */
 trait ProvidesPathsForTesting
 {
     public function getDoublesDirectory(string $path = ''): string
