@@ -4,12 +4,21 @@ declare(strict_types=1);
 
 namespace Smoothie\ContractorTools\Tests;
 
+use PHPUnit\Framework\Attributes\After;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as SymfonyWebTestCase;
 
-class WebTestCase extends SymfonyWebTestCase
+class WebTestCase extends SymfonyWebTestCase implements PathsForTesting
 {
-    public function getDoublesDirectory(string $path = ''): string
+    use ProvidesPathsForTesting;
+
+    /**
+     * Ensures we clean up the error handler while shutdown.
+     *
+     * @see https://github.com/symfony/symfony/issues/53812
+     */
+    #[After]
+    public function __internalDisableErrorHandler(): void
     {
-        return sprintf('%1$s/Doubles/%2$s', __DIR__, $path);
+        restore_exception_handler();
     }
 }

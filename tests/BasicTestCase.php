@@ -6,15 +6,7 @@ namespace Smoothie\ContractorTools\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class BasicTestCase extends TestCase
+class BasicTestCase extends TestCase implements PathsForTesting
 {
-    public function getDoublesDirectory(string $path = ''): string
-    {
-        return sprintf('%1$s/Doubles/%2$s', __DIR__, $path);
-    }
-
-    public function getTmpDirectory(string $path = ''): string
-    {
-        return sys_get_temp_dir().$path;
-    }
+    use ProvidesPathsForTesting;
 }
