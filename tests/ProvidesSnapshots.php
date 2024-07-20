@@ -13,6 +13,16 @@ trait ProvidesSnapshots
 {
     use MatchesSnapshots;
 
+    /**
+     * Sets the snapshot directory to a specific pattern.
+     *
+     * Trying to keep the structure simple and still kind a guessable what belongs to where.
+     * The current structure implies the layer and that the next nested namespace item is the context.
+     *
+     * {$SNAPSHOT_DIRECTORY}/{$LAYER}/{$CONTEXT}/{$TESTFILE}/
+     *
+     * @example tests/Snapshots/Integration/Doctrine/TasksRepositoryTest/
+     */
     public function getSnapshotDirectory(): string
     {
         $reflectedClass = (new \ReflectionClass($this));
@@ -40,6 +50,13 @@ trait ProvidesSnapshots
             .$reflectedClass->getShortName();
     }
 
+    /**
+     * Sets the snapshot filename to a specific pattern.
+     *
+     * {$TEST_NAME_WITHOUT_CLASS}--{$DATA_OR_DATASET}__{$SNAPSHOT_COUNTER}
+     *
+     * @example testThatWeAreGood--forSure__1.yml
+     */
     public function getSnapshotId(): string
     {
         return $this->name().'--'.$this->dataName().'__'.$this->snapshotIncrementor;
