@@ -8,15 +8,20 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3",
+        "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
-        "symfony/console": "~7.1.0",
-        "symfony/dotenv": "~7.1.0",
+        "doctrine/orm": "^3.3",
+        "ramsey/uuid": "^4.7",
+        "symfony/console": "~7.2.0",
+        "symfony/dotenv": "~7.2.0",
         "symfony/flex": "^2",
-        "symfony/framework-bundle": "~7.1.0",
-        "symfony/runtime": "~7.1.0",
-        "symfony/yaml": "~7.1.0"
+        "symfony/framework-bundle": "~7.2.0",
+        "symfony/runtime": "~7.2.0",
+        "symfony/yaml": "~7.2.0",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
+        "behat/behat": "^3.16",
         "spatie/phpunit-snapshot-assertions": "^5.1",
         "symfony/maker-bundle": "^1.60"
     },
@@ -37,12 +42,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Smoothie\\ContractorTools\\": "src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Smoothie\\ContractorTools\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -57,7 +62,7 @@
         "symfony": {
             "allow-contrib": false,
             "docker": false,
-            "require": "7.1.*"
+            "require": "7.2.*"
         }
     },
     "scripts": {

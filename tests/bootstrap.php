@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-$autoloadFile = dirname(__FILE__, 2).'/vendor/autoload.php';
-if (! is_readable($autoloadFile)) {
-    echo $autoloadFile;
+use Symfony\Component\Dotenv\Dotenv;
 
-    throw new RuntimeException('Unable to find composer autoload files. Run `composer install` and try again');
+require dirname(__DIR__).'/vendor/autoload.php';
+
+if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
+    require dirname(__DIR__).'/config/bootstrap.php';
+} elseif (method_exists(Dotenv::class, 'bootEnv')) {
+    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 }
-
-require_once $autoloadFile;

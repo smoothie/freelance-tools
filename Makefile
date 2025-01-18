@@ -2,6 +2,7 @@ PATH_QA_BIN=./tools/
 PATH_QA_CONFIG=./
 EXEC_PHP=/usr/bin/php
 APP_ENV=dev
+CURRENT_DIR=$(shell pwd)
 
 .DEFAULT_GOAL:= help
 .PHONY: help

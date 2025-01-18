@@ -1,46 +1,46 @@
 deptrac:
-    paths:
-        - ./src
-    exclude_files:
-        - '#.*test.*#'
-    layers:
-        -   name: Infrastructure
-            collectors:
-                -   type: classLike
-                    value: .*\\Infrastructure\\.*
-        -   name: Application
-            collectors:
-                -   type: classLike
-                    value: .*\\Application\\.*
-        -   name: Domain
-            collectors:
-                -   type: classLike
-                    value: .*\\Domain\\.*
-        -   name: VendorDomain
-            collectors:
-                -   type: classLike
-                    value: ^(Webmozart)\\.*
-        -   name: VendorApplication
-            collectors:
-                -   type: classLike
-                    value: ^(Psr)\\.*
-        -   name: VendorInfrastructure
-            collectors:
-                -   type: classLike
-                    value: ^(Doctrine|Symfony|ApiPlatform|Twig)\\.*
-                -   type: classLike
-                    value: ^Smoothie\\ContractorTools\\(Symfony|Doctrine|Contracts)\\.*
+  paths:
+    - ./src
+  exclude_files:
+    - '#.*test.*#'
+  layers:
+    - name: Infrastructure
+      collectors:
+        - type: classLike
+          value: .*\\Infrastructure\\.*
+    - name: Application
+      collectors:
+        - type: classLike
+          value: .*\\Application\\.*
+    - name: Domain
+      collectors:
+        - type: classLike
+          value: .*\\Domain\\.*
+    - name: VendorDomain
+      collectors:
+        - type: classLike
+          value: ^(Webmozart)\\.*
+    - name: VendorApplication
+      collectors:
+        - type: classLike
+          value: ^(Psr)\\.*
+    - name: VendorInfrastructure
+      collectors:
+        - type: classLike
+          value: ^(Doctrine|Symfony|ApiPlatform|Twig)\\.*
+        - type: classLike
+          value: ^Smoothie\\ContractorTools\\(Symfony|Doctrine|Contracts)\\.*
 
-    ruleset:
-        Domain:
-            - VendorDomain
-        Application:
-            - Domain
-            - VendorApplication
-            - VendorDomain
-        Infrastructure:
-            - Application
-            - Domain
-            - VendorDomain
-            - VendorApplication
-            - VendorInfrastructure
+  ruleset:
+    Domain:
+      - VendorDomain
+    Application:
+      - Domain
+      - VendorApplication
+      - VendorDomain
+    Infrastructure:
+      - Application
+      - Domain
+      - VendorDomain
+      - VendorApplication
+      - VendorInfrastructure

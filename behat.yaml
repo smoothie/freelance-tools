@@ -1,0 +1,8 @@
+---
+
+default:
+  suites:
+    acceptance:
+      paths: [ "%paths.base%/tests/Acceptance/features" ]
+      contexts:
+        - App\Tests\Acceptance\TimesheetContext

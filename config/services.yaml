@@ -11,19 +11,14 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in ... available to be used as services
-    Smoothie\ContractorTools\Symfony\:
-        resource: '../src/Symfony'
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
         exclude:
-            - '../src/Symfony/DependencyInjection/'
-            - '../src/Symfony/Kernel.php'
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
 
-    Smoothie\ContractorTools\Doctrine\:
-        resource: '../src/Doctrine'
-
-    Smoothie\ContractorTools\Contracts\:
-        resource: '../src/Contracts'
-
-    # TODO: Consider moving to extension and load those from the kernel
-    Smoothie\ContractorTools\Timesheet\:
-        resource: '../src/Timesheet'
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
