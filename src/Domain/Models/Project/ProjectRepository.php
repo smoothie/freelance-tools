@@ -7,4 +7,5 @@ namespace App\Domain\Models\Project;
 interface ProjectRepository
 {
     public function getById(ProjectId $id): Project;
+    public function save(Project $project): void;
 }

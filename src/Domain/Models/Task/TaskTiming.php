@@ -13,7 +13,6 @@ class TaskTiming
     private TaskId $taskId;
     private ProjectId $projectId;
     private TimingId $timingId;
-
     private Duration $duration;
 
     private function __construct()

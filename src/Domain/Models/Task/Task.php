@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Models\Task;
 
+use App\Domain\Models\Common\DateTime;
 use App\Domain\Models\Common\Duration;
 use App\Domain\Models\Common\EventRecordingCapabilities;
 use App\Domain\Models\Common\UsesEventRecordingCapabilities;
 use App\Domain\Models\Project\ProjectId;
-use App\Domain\Models\Timing\TimingId;
+use App\Domain\Models\Timing\Timing;
 
 class Task implements EventRecordingCapabilities
 {
@@ -18,8 +19,8 @@ class Task implements EventRecordingCapabilities
     private ProjectId $projectId;
     private string $description;
     private Duration $duration;
-    private string $importedAt;
-    private string $lastModifiedAt;
+    private DateTime $importedAt;
+    private DateTime $lastModifiedAt;
     private array $tags;
 
     /**
@@ -31,22 +32,12 @@ class Task implements EventRecordingCapabilities
     {
     }
 
-    public function taskId(): TaskId
-    {
-        return $this->taskId;
-    }
-
-    public function lastModifiedAt(): string
-    {
-        return $this->lastModifiedAt;
-    }
-
     public static function import(
         TaskId $taskId,
         ProjectId $projectId,
         string $description,
-        string $importedAt,
-        string $lastModifiedAt,
+        DateTime $importedAt,
+        DateTime $lastModifiedAt,
     ): self {
         $task = new self();
         $task->taskId = $taskId;
@@ -67,8 +58,21 @@ class Task implements EventRecordingCapabilities
         return $task;
     }
 
-    public function trackTime(TimingId $timingId, Duration $duration): void
+    public function taskId(): TaskId
     {
+        return $this->taskId;
+    }
+
+    public function lastModifiedAt(): DateTime
+    {
+        return $this->lastModifiedAt;
+    }
+
+    public function trackTime(Timing $timing): void
+    {
+        $timingId = $timing->getTimingId();
+        $duration = $timing->getDuration();
+
         $this->timings[] = TaskTiming::create($this->taskId, $this->projectId, $timingId, $duration);
         $this->duration->add($duration);
 
@@ -81,10 +85,10 @@ class Task implements EventRecordingCapabilities
         );
     }
 
-    public function untrackTime(TimingId $timingId, Duration $duration): void
+    public function untrackTime(Timing $untracked): void
     {
         foreach ($this->timings as $key => $timing) {
-            if (! $timing->timingId()->equals($timingId)) {
+            if (! $timing->timingId()->equals($untracked->getTimingId())) {
                 continue;
             }
 
@@ -92,13 +96,13 @@ class Task implements EventRecordingCapabilities
             $this->events[] = new UntrackedTimeOnTask(
                 taskId: $this->taskId,
                 projectId: $this->projectId,
-                timingId: $timingId,
+                timingId: $untracked->getTimingId(),
                 newDuration: $this->duration,
-                decreasedDurationBy: $duration,
+                decreasedDurationBy: $untracked->getDuration(),
             );
         }
 
         $this->timings = array_values($this->timings);
-        $this->duration->subtract($duration);
+        $this->duration->subtract($untracked->getDuration());
     }
 }

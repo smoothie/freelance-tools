@@ -5933,6 +5933,26 @@
         </y:ShapeNode>
       </data>
     </node>
+    <node id="n83">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d7">
+        <y:ShapeNode>
+          <y:Geometry height="144.78870617346865" width="214.8934530612246" x="-2969.340319682362" y="2864.1621889992443"/>
+          <y:Fill color="#ED6464" transparent="false"/>
+          <y:BorderStyle color="#ED6464" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="node_width" configuration="CroppingLabel" fontFamily="Mulish SemiBold" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="33.9375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#212121" verticalTextPosition="bottom" visible="true" width="214.8934530612246" x="0.0" xml:space="preserve" y="55.4256030867341">Grouping: Date + Project + Task + Tag</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="130.78773851972574" y="101.52104380118044">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.5" nodeRatioX="0.11792361111110194" nodeRatioY="0.22879333333331453" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
     <edge id="e0" source="n5" target="n4">
       <data key="d11">
         <y:SplineEdge>

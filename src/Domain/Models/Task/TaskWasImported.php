@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Models\Task;
 
+use App\Domain\Models\Common\DateTime;
 use App\Domain\Models\Project\ProjectId;
 
 class TaskWasImported
@@ -12,8 +13,8 @@ class TaskWasImported
         private TaskId $taskId,
         private ProjectId $projectId,
         private string $description,
-        private string $importedAt,
-        private string $lastModifiedAt,
+        private DateTime $importedAt,
+        private DateTime $lastModifiedAt,
     ) {
     }
 
@@ -32,12 +33,12 @@ class TaskWasImported
         return $this->description;
     }
 
-    public function importedAt(): string
+    public function importedAt(): DateTime
     {
         return $this->importedAt;
     }
 
-    public function lastModifiedAt(): string
+    public function lastModifiedAt(): DateTime
     {
         return $this->lastModifiedAt;
     }
