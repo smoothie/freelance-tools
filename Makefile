@@ -28,7 +28,7 @@ check-build-php: ## Check composer stuff (e.g. lock in sync).
 	${PATH_QA_BIN}composer audit --ansi --no-interaction
 
 check-acceptance: ## Run acceptance test suite.
-	XDEBUG_TRIGGER=PHPSTROM ${PATH_QA_BIN}phpunit --configuration="phpunit.xml.dist" --testsuite="Acceptance"
+	XDEBUG_TRIGGER=PHPSTROM ${PATH_QA_BIN}behat --strict --xdebug
 
 check-integration: ## Run integration test suite.
 	XDEBUG_TRIGGER=PHPSTROM ${PATH_QA_BIN}phpunit --configuration="phpunit.xml.dist" --testsuite="Integration"
@@ -65,3 +65,6 @@ debug-env-vars:
 
 debug-container:
 	${EXEC_PHP} ./bin/console debug:container --ansi --no-interaction
+
+init:
+	bin/console secrets:generate-keys

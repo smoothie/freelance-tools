@@ -1,8 +1,12 @@
 ---
-
 default:
   suites:
     acceptance:
       paths: [ "%paths.base%/tests/Acceptance/features" ]
       contexts:
         - App\Tests\Acceptance\TimesheetContext
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+      kernel:
+        environment: acceptance

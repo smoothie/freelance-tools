@@ -27,7 +27,8 @@ class BasicTestCase extends TestCase
             $objects,
             static function ($object) use ($expectedClass) {
                 return $object instanceof $expectedClass;
-            });
+            },
+        );
 
         self::assertNotEmpty($objectsOfExpectedType, 'Expected array to contain object of type '.$expectedClass);
     }

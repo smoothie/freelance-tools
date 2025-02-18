@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Model;
+
+use App\Domain\Model\Common\DateTime;
+use App\Domain\Model\Common\Duration;
+use App\Domain\Model\Group\ListOfTasksInAProject;
+
+class TimesheetReport implements Component
+{
+    public function __construct(
+        private TimesheetReportId $timesheetReportId,
+        private ProjectId $projectId,
+        private string $title,
+        private string $approvedBy,
+        private DateTime $approvedAt,
+        private string $billedTo,
+        private string $billedBy,
+        private ProvidedBy $providedBy,
+        private DateTime $startDate,
+        private DateTime $endDate,
+        private Duration $totalDuration,
+        private ListOfTasksInAProject $listOfTasks,
+    ) {
+    }
+
+    public function projectId(): ProjectId
+    {
+        return $this->projectId;
+    }
+
+    public function timesheetReportId(): TimesheetReportId
+    {
+        return $this->timesheetReportId;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function template(): string
+    {
+        return 'pdf/timesheet/report.html.twig';
+    }
+
+    public function context(): array
+    {
+        return [
+            'timesheetReportId' => $this->timesheetReportId,
+            'project' => $this->projectId,
+            'title' => $this->title,
+            'approvedBy' => $this->approvedBy,
+            'approvedAt' => $this->approvedAt,
+            'billedTo' => $this->billedTo,
+            'billedBy' => $this->billedBy,
+            'providedBy' => $this->providedBy,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'totalDuration' => $this->totalDuration,
+            'listOfTasks' => $this->listOfTasks,
+        ];
+    }
+}

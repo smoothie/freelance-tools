@@ -1,3 +1,6 @@
+imports:
+  - { resource: services/ }
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -6,19 +9,56 @@
 parameters:
 
 services:
-    # default configuration for services in *this* file
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Kernel.php'
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+
+  tools.toggl_http_client:
+    class: '@http_client'
+    factory: [ Symfony\Component\HttpClient\HttpClient, create ]
+    arguments:
+      $defaultOptions:
+        base_uri: '%tools.toggl_api_url%'
+        auth_basic: [ '%tools.toggl_api_key%', api_token ]
+
+  tools.toggl_api_client:
+    class: Symfony\Component\HttpClient\CachingHttpClient
+    decorates: http_client
+    arguments:
+      $client: '@tools.toggl_http_client'
+      $store: '@http_cache.store'
+      $defaultOptions:
+        base_uri: '%tools.toggl_api_url%'
+        auth_basic: [ '%tools.toggl_api_key%', api_token ]
+        default_ttl: 300
+        skip_response_headers: true
+
+  tools.toggl_report_client:
+    class: '@http_client'
+    factory: [ Symfony\Component\HttpClient\HttpClient, create ]
+    arguments:
+      $defaultOptions:
+        base_uri: '%tools.toggl_report_url%%tools.toggl_workspace_id%/'
+        auth_basic: [ '%tools.toggl_api_key%', api_token ]
+
+when@acceptance:
+  services:
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+      autowire: true
+      autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Tests\Acceptance\:
+      resource: '../tests/Acceptance/*'

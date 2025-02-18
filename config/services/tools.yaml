@@ -1,0 +1,16 @@
+tools:
+  #default:
+  #  providedBy:
+  #    name: some contractor
+  #    street: some street + house number
+  #    location: some city + zip
+  dompdf:
+    #creator: Marc Eichenseher
+    #producer: smoothie <hello@marceichenseher.com>
+    #fontsDirectory: '%twig.default_path%/fonts/'
+    #templateDirectory: '%twig.default_path%/pdf/'
+    fonts:
+      - { file: Mulish/Mulish-Regular.ttf, style: { family: Mulish, style: normal, weight: 400 } }
+      - { file: Mulish/Mulish-SemiBold.ttf, style: { family: Mulish, style: normal, weight: 500 } }
+      - { file: Mulish/Mulish-Bold.ttf, style: { family: Mulish, style: normal, weight: 700 } }
+      - { file: Mulish/Mulish-Black.ttf, style: { family: Mulish, style: normal, weight: 900 } }

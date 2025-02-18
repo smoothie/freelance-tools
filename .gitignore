@@ -14,7 +14,7 @@ symfony.lock
 /.env.local
 /.env.local.php
 /.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
+/config/secrets/*/*.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
@@ -24,3 +24,7 @@ symfony.lock
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###
