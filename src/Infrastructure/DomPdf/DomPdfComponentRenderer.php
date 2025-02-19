@@ -6,33 +6,37 @@ namespace App\Infrastructure\DomPdf;
 
 use App\Domain\Model\Component;
 use App\Domain\Service\ComponentRenderer;
+use App\Infrastructure\Symfony\Filesystem\FilesystemInterface;
+use App\Infrastructure\Twig\TwigComponentRenderer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Twig\Environment;
 
 class DomPdfComponentRenderer implements ComponentRenderer
 {
     public function __construct(
-        private Environment $twig,
+        #[Autowire(service: TwigComponentRenderer::class)]
+        private ComponentRenderer $twig,
         private DomPdfBuilder $domPdfBuilder,
-        #[Autowire(param: 'tools.dompdf_templateDirectory')]
-        private ?string $templateDirectory = null,
+        private FilesystemInterface $filesystem,
     ) {
     }
 
     public function render(Component $component): string
     {
-        $context = $component->context();
-
-        $html = $this->twig->render($component->template(), $context);
+        $html = $this->twig->render($component);
 
         $builder = $this->domPdfBuilder->initialize($component->title());
 
-        $context['last_page_number'] = $builder->getPageNumber($html);
+        $component->setPageNumber($builder->getPageNumber($html));
 
-        $html = $this->twig->render($component->template(), $context);
+        $html = $this->twig->render($component);
 
-        return $builder
+        $pdf = $builder
+            ->initialize($component->title())
             ->load($html)
             ->build();
+
+        $this->filesystem->dumpExport(file: $component->fileName(extension: 'pdf'), content: $pdf);
+
+        return $pdf;
     }
 }

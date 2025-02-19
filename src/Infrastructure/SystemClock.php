@@ -20,9 +20,9 @@ class SystemClock implements Clock
         return $this->now;
     }
 
-    public function setCurrentDate(string $dateTime): void
+    public function setCurrentDate(DateTime $dateTime): void
     {
-        $this->now = new \DateTimeImmutable($dateTime, new \DateTimeZone('UTC'));
+        $this->now = $dateTime->asPhpDateTime();
     }
 
     public function lastDayOfLastMonth(): DateTime

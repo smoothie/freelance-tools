@@ -14,7 +14,7 @@ class TimesheetReport implements Component
         private TimesheetReportId $timesheetReportId,
         private ProjectId $projectId,
         private string $title,
-        private string $approvedBy,
+        private ApprovedBy $approvedBy,
         private DateTime $approvedAt,
         private string $billedTo,
         private string $billedBy,
@@ -23,6 +23,7 @@ class TimesheetReport implements Component
         private DateTime $endDate,
         private Duration $totalDuration,
         private ListOfTasksInAProject $listOfTasks,
+        private ?int $lastPageNumber = null,
     ) {
     }
 
@@ -39,6 +40,23 @@ class TimesheetReport implements Component
     public function title(): string
     {
         return $this->title;
+    }
+
+    public function fileName(string $extension = ''): string
+    {
+        return \sprintf(
+            '%s%s',
+            implode(' - ', array_filter([
+                (new \DateTimeImmutable('now'))->format('Y-m-d'),
+                $this->billedTo,
+                strcmp($this->billedTo, $this->approvedBy->company()) === 0
+                    ? null
+                    : $this->approvedBy->company(),
+                str_replace('.', '-', $this->title),
+                $this->billedBy,
+            ])),
+            empty($extension) ? '' : \sprintf('.%s', $extension),
+        );
     }
 
     public function template(): string
@@ -61,6 +79,12 @@ class TimesheetReport implements Component
             'endDate' => $this->endDate,
             'totalDuration' => $this->totalDuration,
             'listOfTasks' => $this->listOfTasks,
+            'lastPageNumber' => $this->lastPageNumber,
         ];
+    }
+
+    public function setPageNumber(int $pageNumber): void
+    {
+        $this->lastPageNumber = $pageNumber;
     }
 }

@@ -27,7 +27,7 @@ services:
   # please note that last definitions always *replace* previous ones
 
   tools.toggl_http_client:
-    class: '@http_client'
+    class: Symfony\Contracts\HttpClient\HttpClientInterface
     factory: [ Symfony\Component\HttpClient\HttpClient, create ]
     arguments:
       $defaultOptions:
@@ -47,12 +47,19 @@ services:
         skip_response_headers: true
 
   tools.toggl_report_client:
-    class: '@http_client'
+    class: Symfony\Contracts\HttpClient\HttpClientInterface
     factory: [ Symfony\Component\HttpClient\HttpClient, create ]
     arguments:
       $defaultOptions:
         base_uri: '%tools.toggl_report_url%%tools.toggl_workspace_id%/'
         auth_basic: [ '%tools.toggl_api_key%', api_token ]
+
+when@test:
+  services:
+    App\Tests\Acceptance\:
+      resource: '../tests/Acceptance/*'
+
+    App\Infrastructure\Symfony\Filesystem\FilesystemInterface: '@App\Tests\Acceptance\InMemoryFilesystem'
 
 when@acceptance:
   services:

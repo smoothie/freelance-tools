@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Doctrine\Lexer;
 
+use App\Domain\Model\Common\DateTime;
 use App\Domain\Model\Expression;
 use App\Domain\Model\FilterCriteria;
+use App\Domain\Model\FilterExpressions;
 use App\Domain\Model\PerformancePeriod;
 use App\Infrastructure\Doctrine\Lexer\FilterCriteriaQueryParser;
 use App\Infrastructure\Doctrine\Lexer\Lexer;
@@ -20,13 +22,15 @@ use PHPUnit\Framework\Attributes\Large;
 #[Group('integration')]
 #[Group('integration-doctrine')]
 #[CoversClass(FilterCriteriaQueryParser::class)]
+#[CoversClass(Expression::class)]
+#[CoversClass(FilterExpressions::class)]
 class FilterCriteriaExtractorTest extends BasicTestCase
 {
     #[DataProvider('providePerformancePeriodFilterCriteria')]
     public function testThatWeCanQuery(array $assertions, array $expectations): void
     {
         $clock = new SystemClock();
-        $clock->setCurrentDate($assertions['currentDate']);
+        $clock->setCurrentDate(DateTime::fromDateString($assertions['currentDate']));
 
         $extractor = new FilterCriteriaQueryParser(new Lexer(), $clock);
         $actual = $extractor->parse(FilterCriteria::fromString($assertions['query']));

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Acceptance;
 
 use App\Application\ApplicationInterface;
+use App\Domain\Model\Common\DateTime;
 use Behat\Behat\Context\Context;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -16,7 +17,7 @@ abstract class FeatureContext implements Context
         #[Autowire(param: 'tools.default_providedBy')]
         private array $providedBy,
     ) {
-        $this->serviceContainer->setCurrentTime('2025-02-17 14:09:00');
+        $this->serviceContainer->setCurrentTime(DateTime::fromString('2025-02-17 14:09:00'));
     }
 
     protected function application(): ApplicationInterface

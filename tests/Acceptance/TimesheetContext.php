@@ -33,13 +33,12 @@ final class TimesheetContext extends FeatureContext
             timesheetId: Uuid::uuid4()->toString(),
             exportFormat: 'PDF',
             project: 'cheesecake-agile',
-            title: 'Some title',
-            approvedBy: 'Marc Eichenseher',
             approvedAt: '2025-02-14',
             billedTo: 'pobbd',
             billedBy: 'Marc Timite',
             startDate: '2025-01-01',
             performancePeriod: 'LAST_MONTH',
+            approvedBy: ['name' => 'Marc Eichenseher', 'company' => 'pobbd'],
             providedBy: $this->defaultProvidedBy(),
         );
 
@@ -65,7 +64,13 @@ final class TimesheetContext extends FeatureContext
             'Assumed that we render PDF for timesheet report',
         );
         Assert::assertSame(
-            $this->command->title(),
+            $this->serviceContainer()
+                ->translator()
+                ->trans(
+                    'timesheet.title',
+                    ['MM.YYYY' => '12.2024'],
+                    domain: 'tools',
+                ),
             $generated['title'],
             'Assumed, that the title is provided as context',
         );

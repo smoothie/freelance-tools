@@ -10,7 +10,7 @@ interface Clock
 {
     public function currentTime(): \DateTimeImmutable;
 
-    public function setCurrentDate(string $dateTime): void;
+    public function setCurrentDate(DateTime $dateTime): void;
 
     public function lastDayOfLastMonth(): DateTime;
 

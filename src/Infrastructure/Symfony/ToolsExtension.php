@@ -47,16 +47,24 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             return;
         }
 
-        foreach ($config['dompdf'] as $name => $secondLevel) {
+        foreach ($config['dompdf'] as $name => $value) {
             if (! \in_array(
                 $name,
-                ['creator', 'producer', 'fontsDirectory', 'templateDirectory', 'tmpDirectory', 'fonts'],
+                [
+                    'creator',
+                    'producer',
+                    'exportDirectory',
+                    'fontsDirectory',
+                    'templateDirectory',
+                    'tmpDirectory',
+                    'fonts',
+                ],
                 true,
             )) {
                 continue;
             }
 
-            $container->setParameter('tools.dompdf_'.$name, $secondLevel);
+            $container->setParameter('tools.dompdf_'.$name, $value);
         }
     }
 
@@ -66,7 +74,7 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             return;
         }
 
-        foreach ($config['default'] as $name => $secondLevel) {
+        foreach ($config['default'] as $name => $value) {
             if (! \in_array(
                 $name,
                 ['providedBy'],
@@ -75,7 +83,7 @@ class ToolsExtension extends Extension implements ConfigurationInterface
                 continue;
             }
 
-            $container->setParameter('tools.default_'.$name, $secondLevel);
+            $container->setParameter('tools.default_'.$name, $value);
         }
     }
 
@@ -100,7 +108,10 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->arrayNode('dompdf')
             ->children()
             ->scalarNode('creator')->defaultValue('%env(string:TOOLS_PROVIDED_BY_NAME)%')->cannotBeEmpty()->end()
-            ->scalarNode('producer')->defaultValue('%env(default:tools.default_author:string:TOOLS_AUTHOR)%')->cannotBeEmpty()->end()
+            ->scalarNode('producer')->defaultValue(
+                '%env(default:tools.default_author:string:TOOLS_AUTHOR)%',
+            )->cannotBeEmpty()->end()
+            ->scalarNode('exportDirectory')->defaultValue('%kernel.project_dir%/var/pdf/')->cannotBeEmpty()->end()
             ->scalarNode('fontsDirectory')->defaultValue('%twig.default_path%/fonts/')->cannotBeEmpty()->end()
             ->scalarNode('templateDirectory')->defaultValue('%twig.default_path%/pdf/')->cannotBeEmpty()->end()
             ->scalarNode('tmpDirectory')->defaultValue(sys_get_temp_dir().'/')->cannotBeEmpty()->end()

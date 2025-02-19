@@ -9,6 +9,7 @@ tools:
     #producer: smoothie <hello@marceichenseher.com>
     #fontsDirectory: '%twig.default_path%/fonts/'
     #templateDirectory: '%twig.default_path%/pdf/'
+    #exportDirectory: '%kernel.project_dir%/var/pdf/'
     fonts:
       - { file: Mulish/Mulish-Regular.ttf, style: { family: Mulish, style: normal, weight: 400 } }
       - { file: Mulish/Mulish-SemiBold.ttf, style: { family: Mulish, style: normal, weight: 500 } }

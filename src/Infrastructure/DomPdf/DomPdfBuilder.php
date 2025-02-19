@@ -7,12 +7,15 @@ namespace App\Infrastructure\DomPdf;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Path;
 use Webmozart\Assert\Assert;
 
 class DomPdfBuilder
 {
     private Dompdf $domPdf;
     private int $pageNumber = 0;
+
+    private ?string $title = null;
 
     public function __construct(
         #[Autowire(param: 'tools.dompdf_creator')]
@@ -37,23 +40,23 @@ class DomPdfBuilder
     public function initialize(
         string $title,
     ): self {
+        $this->title = $title;
+
         $cloned = clone $this;
 
         $options = $this->newOptions();
-        $cloned->domPdf->setOptions($options);
+        $domPdf = new Dompdf($options);
 
         foreach ($this->fonts as $font) {
-            $cloned->domPdf->getFontMetrics()
+            $file = Path::canonicalize($this->fontsDirectory.$font['file']);
+            $domPdf->getFontMetrics()
                 ->registerFont(
-                    style: $font->style(),
-                    remoteFile: $font->file(),
+                    style: $font['style'],
+                    remoteFile: $file,
                 );
         }
 
-        $cloned = $cloned
-            ->setTitle($title)
-            ->setCreator($this->creator)
-            ->setProducer($this->producer);
+        $cloned->domPdf = $domPdf;
 
         return $cloned;
     }
@@ -90,31 +93,11 @@ class DomPdfBuilder
     {
         $cloned = clone $this;
 
+        $cloned->domPdf->addInfo('Title', $this->title);
+        $cloned->domPdf->addInfo('Creator', $this->creator);
+        $cloned->domPdf->addInfo('Producer', $this->producer);
+
         return $cloned->domPdf->output();
-    }
-
-    public function setTitle(string $title): self
-    {
-        $cloned = clone $this;
-        $cloned->domPdf->addInfo('Title', $title);
-
-        return $cloned;
-    }
-
-    public function setCreator(string $creator): self
-    {
-        $cloned = clone $this;
-        $cloned->domPdf->addInfo('Creator', $creator);
-
-        return $cloned;
-    }
-
-    public function setProducer(string $producer): self
-    {
-        $cloned = clone $this;
-        $cloned->domPdf->addInfo('Producer', $producer);
-
-        return $cloned;
     }
 
     public function newOptions(): Options

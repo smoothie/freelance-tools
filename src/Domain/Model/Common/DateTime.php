@@ -51,7 +51,7 @@ class DateTime
         return new self($date.' 00:00:00', $timeZone);
     }
 
-    public static function fromDateTime(\DateTimeImmutable $dateTime): self
+    public static function fromDateTime(\DateTimeInterface $dateTime): self
     {
         $dateTimeAsString = $dateTime
             ->setTimezone(new \DateTimeZone('UTC'))

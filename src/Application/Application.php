@@ -14,6 +14,7 @@ use App\Domain\Service\WorkTimeProcessor;
 use App\Infrastructure\DomPdf\DomPdfComponentRenderer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
 class Application implements ApplicationInterface
@@ -24,13 +25,14 @@ class Application implements ApplicationInterface
         private ComponentRenderer $componentRenderer,
         private WorkTimeProcessor $workTimeProcessor,
         private EventDispatcherInterface $eventDispatcher,
+        private TranslatorInterface $translator,
     ) {
     }
 
     public function generateTimesheet(GenerateTimesheet $command): void
     {
         $performancePeriod = $command->performancePeriod();
-        $this->clock->setCurrentDate($command->startDate()->asString());
+        $this->clock->setCurrentDate($command->startDate());
         $startDate = $this->applyDateFilter($performancePeriod->performancePeriodStartsOn());
         $endDate = $this->applyDateFilter($performancePeriod->performancePeriodEndsOn());
 
@@ -42,10 +44,12 @@ class Application implements ApplicationInterface
         Assert::count($listOfTasksInProjects->lists(), 1);
         $listOfTasks = current($listOfTasksInProjects->lists());
 
+        $title = $this->replaceTitle($startDate);
+
         $report = new TimesheetReport(
             timesheetReportId: $command->timesheetId(),
             projectId: $command->project(),
-            title: $command->title(),
+            title: $title,
             approvedBy: $command->approvedBy(),
             approvedAt: $command->approvedAt(),
             billedTo: $command->billedTo(),
@@ -84,5 +88,14 @@ class Application implements ApplicationInterface
     public function renderComponent(Component $component): string
     {
         return $this->componentRenderer->render($component);
+    }
+
+    private function replaceTitle(DateTime $dateTime): string
+    {
+        return $this->translator->trans(
+            'timesheet.title',
+            ['MM.YYYY' => $dateTime->asPhpDateTime()->format('m.Y')],
+            domain: 'tools',
+        );
     }
 }

@@ -41,6 +41,7 @@ class TogglReportClient
         } catch (DecodingExceptionInterface $exception) {
         } catch (HttpExceptionInterface $exception) {
         }
+        // TODO handle not so good cases
 
         return [];
     }
@@ -55,8 +56,8 @@ class TogglReportClient
         $data = [
             'grouped' => true,
             'first_row_number' => 1,
-            'start_date' => DateTime::fromString($expressions->startDate()->value())->asPhpDateTime()->format('Y-m-d'),
-            'end_date' => DateTime::fromString($expressions->endDate()->value())->asPhpDateTime()->format('Y-m-d'),
+            'start_date' => DateTime::fromDateString($expressions->startDate()->value())->asPhpDateTime()->format('Y-m-d'),
+            'end_date' => DateTime::fromDateString($expressions->endDate()->value())->asPhpDateTime()->format('Y-m-d'),
         ];
 
         $me = $this->togglApi->whoIsMe();

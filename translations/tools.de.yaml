@@ -2,3 +2,6 @@
 
 label:
   monthlyHours: "Monatsstunden"
+
+timesheet:
+  title: "Stundenzettel - MM.YYYY"

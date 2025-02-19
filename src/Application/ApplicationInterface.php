@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application;
 
+use App\Domain\Model\Component;
 use App\Domain\Model\FilterCriteria;
 use App\Domain\Model\Group\ListOfTasksInProjects;
 use App\Domain\Service\WorkTimeProcessor;
@@ -15,6 +16,6 @@ interface ApplicationInterface
     public function generateTimesheet(GenerateTimesheet $command): void;
 
     public function getListOfTasks(FilterCriteria $filter, WorkTimeProcessor $workTimeProcessor): ListOfTasksInProjects;
-    //    public function importTasks(WorkTimeProvider $workTimeProvider): void;
-    //    public function render(Component $component): void;
+
+    public function renderComponent(Component $component): string;
 }

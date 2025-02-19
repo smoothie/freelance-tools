@@ -8,10 +8,12 @@ use App\Application\Application;
 use App\Application\ApplicationInterface;
 use App\Application\Clock;
 use App\Application\GeneratedATimesheetReport;
+use App\Domain\Model\Common\DateTime;
 use App\Infrastructure\SystemClock;
 use App\Infrastructure\Twig\TwigComponentRenderer;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
 class ServiceContainerForAcceptanceTesting
@@ -23,6 +25,7 @@ class ServiceContainerForAcceptanceTesting
         private TwigComponentRenderer $twigComponentRenderer,
         private SystemClock $clock,
         private EventDispatcherInterface $eventDispatcher,
+        private TranslatorInterface $translator,
     ) {
         $eventDispatcher->addListener(
             ApplicationInterface::EVENT_GENERATED_TIMESHEET,
@@ -39,6 +42,7 @@ class ServiceContainerForAcceptanceTesting
             componentRenderer: $this->componentRenderer(),
             workTimeProcessor: $this->workTimeProcessor(),
             eventDispatcher: $this->eventDispatcher(),
+            translator: $this->translator,
         );
     }
 
@@ -59,6 +63,11 @@ class ServiceContainerForAcceptanceTesting
         return $this->componentRenderer;
     }
 
+    public function translator(): TranslatorInterface
+    {
+        return $this->translator;
+    }
+
     public function workTimeProcessor(): InMemoryWorkTimeProcessor
     {
         if ($this->workTimeProcessor === null) {
@@ -73,7 +82,7 @@ class ServiceContainerForAcceptanceTesting
         return $this->clock;
     }
 
-    public function setCurrentTime(string $dateTime): void
+    public function setCurrentTime(DateTime $dateTime): void
     {
         $clock = $this->clock();
 

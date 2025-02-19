@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application;
 
+use App\Domain\Model\ApprovedBy;
 use App\Domain\Model\Common\DateTime;
 use App\Domain\Model\PerformancePeriod;
 use App\Domain\Model\ProjectId;
@@ -15,17 +16,17 @@ class GenerateTimesheet
 {
     public function __construct(
         private string $timesheetId,
-        private string $exportFormat,
         private string $project,
-        private string $title,
-        private string $approvedBy,
-        private string $approvedAt,
-        private string $billedTo,
-        private string $billedBy,
-        private string $startDate,
-        private string $performancePeriod,
-        private array $providedBy = [],
+        private array $approvedBy,
+        private array $providedBy,
+        private string $performancePeriod = 'CURRENT_MONTH',
+        private string $exportFormat = 'PDF',
+        private ?string $startDate = null,
+        private ?string $approvedAt = null,
+        private ?string $billedTo = null,
+        private ?string $billedBy = null,
     ) {
+        Assert::notEmpty($providedBy);
     }
 
     public function timesheetId(): TimesheetReportId
@@ -46,28 +47,38 @@ class GenerateTimesheet
         return ProjectId::fromString($this->project);
     }
 
-    public function title(): string
+    public function approvedBy(): ApprovedBy
     {
-        return $this->title;
-    }
+        Assert::keyExists($this->approvedBy, 'name');
+        Assert::keyExists($this->approvedBy, 'company');
 
-    public function approvedBy(): string
-    {
-        return $this->approvedBy;
+        return new ApprovedBy($this->approvedBy['name'], $this->approvedBy['company']);
     }
 
     public function approvedAt(): DateTime
     {
+        if ($this->approvedAt === null) {
+            return DateTime::fromDateTime(new \DateTimeImmutable('now'));
+        }
+
         return DateTime::fromDateString($this->approvedAt);
     }
 
     public function billedTo(): string
     {
+        if ($this->billedTo === null) {
+            return $this->approvedBy()->company();
+        }
+
         return $this->billedTo;
     }
 
     public function billedBy(): string
     {
+        if ($this->billedBy === null) {
+            return $this->providedBy()->name();
+        }
+
         return $this->billedBy;
     }
 
@@ -82,6 +93,10 @@ class GenerateTimesheet
 
     public function startDate(): DateTime
     {
+        if ($this->startDate === null) {
+            return DateTime::fromDateTime(new \DateTimeImmutable('now'));
+        }
+
         return DateTime::fromDateString($this->startDate);
     }
 

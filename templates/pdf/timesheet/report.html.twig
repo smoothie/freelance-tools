@@ -1,7 +1,7 @@
 {% trans_default_domain 'tools' %}
 <html lang="de-DE">
 <head>
-    <title>Document</title>
+    <title>{{ title }}</title>
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -319,7 +319,7 @@
             <p class="text -xs">{{ title }}</p>
         </div>
         <div class="rowCell -s">
-            <p class="text -xs -end">Seite <span class="pagenum"></span> von {{ last_page_number | default('') }}</p>
+            <p class="text -xs -end">Seite <span class="pagenum"></span> von {{ lastPageNumber | default('') }}</p>
         </div>
     </div>
 </footer>
@@ -347,7 +347,7 @@
                 <p class="text">Zeitraum (von - bis):</p>
             </div>
             <div class="rowCell -xl -underlined">
-                <p class="text -pl-xs">{{ startDate.asDateString }} - {{ endDate.asDateString }}</p>
+                <p class="text -pl-xs">{{ startDate|to_date }} - {{ endDate|to_date }}</p>
             </div>
         </div>
     </div>
@@ -376,16 +376,16 @@
                 {% for task in list.tasks %}
                     <tr class="table-row">
                         <td class="table-cell">
-                            <p class="text -xl">{{ task.group }}</p>
+                            <p class="text -xl">{{ task.group|to_date }}</p>
                         </td>
                         <td class="table-cell">
                             <p class="text">{{ task.description }}</p>
                         </td>
                         <td class="table-cell -center">
-                            <p class="text">{{ task.duration.asInt() }}</p>
+                            <p class="text">{{ task.duration|sec_to_hour_and_minute }}</p>
                         </td>
                         {% if loop.last %}
-                            <td class="table-cell -center">{{ list.duration.asInt() }}</td>
+                            <td class="table-cell -center">{{ list.duration|sec_to_hour_and_minute }}</td>
                         {% else %}
                             <td class="table-cell -center"></td>
                         {% endif %}
@@ -401,7 +401,7 @@
                     <p class="text">{{ 'label.monthlyHours'|trans }}</p>
                 </td>
                 <td class="table-cell -center">
-                    <p class="text">{{ listOfTasks.totalDuration.asInt() }}</p>
+                    <p class="text">{{ listOfTasks.totalDuration|sec_to_hour }}</p>
                 </td>
             </tr>
             </tfoot>
@@ -411,9 +411,9 @@
     <div class="section -approval">
         <p class="text -decorated">
             <span>Genehmigt von:</span>
-            <span class="underlined -xl">{{ approvedBy }}</span>
+            <span class="underlined -xl">{{ approvedBy.name }}</span>
             <span>Datum:</span>
-            <span class="underlined">{{ approvedAt.asDateString() }}</span>
+            <span class="underlined">{{ approvedAt|to_date }}</span>
         </p>
     </div>
 
