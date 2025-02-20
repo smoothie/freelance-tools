@@ -7,11 +7,7 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/dbal": "^4.2",
-        "doctrine/doctrine-bundle": "^2.13",
-        "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/lexer": "^3.0",
-        "doctrine/orm": "^3.3",
         "dompdf/dompdf": "^3.1",
         "ramsey/uuid": "^4.7",
         "symfony/config": "~7.2.0",
@@ -31,8 +27,8 @@
         "behat/behat": "^3.16",
         "friends-of-behat/symfony-extension": "^2.6",
         "phpstan/phpstan-symfony": "^2.0",
-        "spatie/phpunit-snapshot-assertions": "^5.1",
-        "symfony/maker-bundle": "^1.60"
+        "symfony/maker-bundle": "^1.60",
+        "symfony/stopwatch": "~7.2.0"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",

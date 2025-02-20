@@ -7,8 +7,8 @@ namespace App\Tests\Acceptance;
 use App\Application\ApplicationInterface;
 use App\Domain\Model\Common\DateTime;
 use Behat\Behat\Context\Context;
-use PHPUnit\Framework\Assert;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Webmozart\Assert\Assert;
 
 abstract class FeatureContext implements Context
 {
@@ -43,6 +43,6 @@ abstract class FeatureContext implements Context
             }
         }
 
-        Assert::assertTrue(false, \sprintf('The event "%s" has been not dispatched', $eventName));
+        Assert::true(false, \sprintf('The event "%s" has been not dispatched', $eventName));
     }
 }

@@ -11,8 +11,8 @@ use App\Domain\Model\Timing;
 use Behat\Step\Given;
 use Behat\Step\Then;
 use Behat\Step\When;
-use PHPUnit\Framework\Assert;
 use Ramsey\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 
 final class TimesheetContext extends FeatureContext
 {
@@ -55,15 +55,16 @@ final class TimesheetContext extends FeatureContext
     public function aTimesheetHasBeenRendered(): void
     {
         $generated = $this->serviceContainer()->componentRenderer()->generated();
-        Assert::assertCount(1, $generated, 'We have assumed that we rendered exactly one timesheet');
+        Assert::count($generated, 1, 'We have assumed that we rendered exactly one timesheet');
         $generated = current($generated);
         $context = $generated['context'];
-        Assert::assertSame(
-            'pdf/timesheet/report.html.twig',
+        Assert::same(
             $generated['template'],
+            'pdf/timesheet/report.html.twig',
             'Assumed that we render PDF for timesheet report',
         );
-        Assert::assertSame(
+        Assert::same(
+            $generated['title'],
             $this->serviceContainer()
                 ->translator()
                 ->trans(
@@ -71,16 +72,15 @@ final class TimesheetContext extends FeatureContext
                     ['MM.YYYY' => '12.2024'],
                     domain: 'tools',
                 ),
-            $generated['title'],
-            'Assumed, that the title is provided as context',
+            'Assumed, that the title is provided as context.',
         );
-        Assert::assertSame(
-            $this->command->project()->asString(),
+        Assert::same(
             $context['project']->asString(),
+            $this->command->project()->asString(),
             'Assumed, that the project is provided as context',
         );
 
-        Assert::assertNotEmpty($generated['rendered']);
+        Assert::notEmpty($generated['rendered']);
     }
 
     #[Then('the timesheet should have been generated')]
