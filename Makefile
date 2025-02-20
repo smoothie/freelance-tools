@@ -12,15 +12,6 @@ help: ## Show this help.
 	@echo "=================="
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-run-migrations: ## Run DB migrations.
-	APP_ENV=${APP_ENV} ${EXEC_PHP} ./bin/console doctrine:migrations:migrate -n
-
-diff-schema: ## Generate new migration when schema has changed.
-	${EXEC_PHP} ./bin/console doctrine:migrations:diff --allow-empty-diff --ansi --no-interaction
-
-create-new-migration: ## Generate a blank migration.
-	${EXEC_PHP} ./bin/console doctrine:migrations:generate --ansi --no-interaction
-
 check-build-php: ## Check composer stuff (e.g. lock in sync).
 	${PATH_QA_BIN}composer validate --ansi --strict
 	${PATH_QA_BIN}composer-normalize composer.json --diff --dry-run --no-interaction --ansi
@@ -36,7 +27,9 @@ check-integration: ## Run integration test suite.
 check-unit: ## Run unit test suite.
 	XDEBUG_TRIGGER=PHPSTROM ${PATH_QA_BIN}phpunit --configuration="phpunit.xml.dist" --testsuite="Unit"
 
-check-quality: check-build-php check-linters check-cs check-types check-layers ## Assure some kind of a quality.
+check-tests: check-unit check-integration check-acceptance ## Run the test suites
+
+check-quality: check-build-php check-linters check-cs check-types check-layers check-tests ## Assure some kind of a quality.
 
 check-linters: ## Run all the linters.
 	${EXEC_PHP} ./bin/console lint:container --ansi --no-interaction
@@ -49,13 +42,10 @@ check-cs: ## Ensure application adheres to code style.
 	${EXEC_PHP} ${PATH_QA_BIN}php-cs-fixer check --config=${PATH_QA_CONFIG}.php-cs-fixer.dist.php --no-interaction --ansi
 
 check-types: ## Ensure static code analyzer is happy.
-	${EXEC_PHP} ${PATH_QA_BIN}psalm --config=psalm.xml.dist --no-progress --output-format=console
+	${EXEC_PHP} ${PATH_QA_BIN}phpstan analyse --configuration=phpstan.neon.dist --no-progress --error-format=table
 
 fix-cs: ## Fix code style.
 	${EXEC_PHP} ${PATH_QA_BIN}php-cs-fixer fix --config=${PATH_QA_CONFIG}.php-cs-fixer.dist.php --no-interaction
-
-fix-types: ## Try to fix broken code analyzer.
-	${EXEC_PHP} ${PATH_QA_BIN}psalm --config=psalm.xml.dist --no-progress --alter
 
 fix-composer-normalize: ## Fix composer-normalize.
 	${PATH_QA_BIN}composer-normalize composer.json --no-interaction --ansi

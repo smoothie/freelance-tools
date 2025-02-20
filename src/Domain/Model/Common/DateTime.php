@@ -53,6 +53,9 @@ class DateTime
 
     public static function fromDateTime(\DateTimeInterface $dateTime): self
     {
+        Assert::methodExists($dateTime, 'setTimezone', 'The dateTime must support setting a timezone. Received a "%s"');
+        \assert(method_exists($dateTime, 'setTimezone'));
+
         $dateTimeAsString = $dateTime
             ->setTimezone(new \DateTimeZone('UTC'))
             ->format(self::DATE_TIME_FORMAT);

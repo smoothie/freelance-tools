@@ -17,12 +17,12 @@ class ToolsExtension extends Extension implements ConfigurationInterface
 
         $container->setParameter('tools.default_author', 'smoothie <hello@marceichenseher.de>');
 
-        $this->applyToggle($config, $container);
+        $this->applyToggle($container);
         $this->applyDomPdf($config, $container);
         $this->applyDefaults($config, $container);
     }
 
-    private function applyToggle(array $config, ContainerBuilder $container): void
+    private function applyToggle(ContainerBuilder $container): void
     {
         $container->setParameter('tools.default_toggl_api_url', 'https://api.track.toggl.com/api/v9/');
         $container->setParameter(
@@ -41,6 +41,9 @@ class ToolsExtension extends Extension implements ConfigurationInterface
         $container->setParameter('tools.toggl_workspace_id', '%env(int:TOOLS_TOGGL_WORKSPACE_ID)%');
     }
 
+    /**
+     * @param array<string, array<string, mixed>> $config
+     */
     private function applyDomPdf(array $config, ContainerBuilder $container): void
     {
         if (! \array_key_exists('dompdf', $config)) {
@@ -68,6 +71,9 @@ class ToolsExtension extends Extension implements ConfigurationInterface
         }
     }
 
+    /**
+     * @param array<string, array<string, mixed>> $config
+     */
     private function applyDefaults(array $config, ContainerBuilder $container): void
     {
         if (! \array_key_exists('default', $config)) {
@@ -91,7 +97,8 @@ class ToolsExtension extends Extension implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('tools');
 
-        $treeBuilder->getRootNode()
+        $treeBuilder
+            ->getRootNode()
             ->children()
             ->arrayNode('default')->addDefaultsIfNotSet()
             ->children()
@@ -103,7 +110,8 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->end()
             ->end();
 
-        $treeBuilder->getRootNode()
+        $treeBuilder
+            ->getRootNode()
             ->children()
             ->arrayNode('dompdf')
             ->children()

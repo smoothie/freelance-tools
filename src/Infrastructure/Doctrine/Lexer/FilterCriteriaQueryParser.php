@@ -9,7 +9,6 @@ use App\Domain\Model\Expression;
 use App\Domain\Model\FilterCriteria;
 use App\Domain\Model\FilterExpressions;
 use App\Domain\Service\FilterQueryParser;
-use Doctrine\Common\Lexer\Token;
 
 class FilterCriteriaQueryParser implements FilterQueryParser
 {
@@ -38,9 +37,12 @@ class FilterCriteriaQueryParser implements FilterQueryParser
         return new Expression($identifier, $operator, $value);
     }
 
-    private function extractValue(): string|int|array|null
+    /**
+     * @return string|string[]
+     */
+    private function extractValue(): string|array
     {
-        if ($this->lexer->isNextTokenAny(TokenType::filters())) {
+        if ($this->isNextTokenAFilter()) {
             $this->match($this->lexer->lookahead->type);
 
             return match ($this->lexer->token->type) {
@@ -48,11 +50,13 @@ class FilterCriteriaQueryParser implements FilterQueryParser
                 TokenType::T_LAST_DAY_OF_LAST_MONTH => $this->clock->lastDayOfLastMonth()->asDateString(),
                 TokenType::T_FIRST_DAY_OF_THE_MONTH => $this->clock->firstDayOfTheMonth()->asDateString(),
                 TokenType::T_LAST_DAY_OF_THE_MONTH => $this->clock->lastDayOfTheMonth()->asDateString(),
-                default => throw new \LogicException('Unsupported filter "'.$this->lexer->lookahead->type.'"'),
+                default => throw new \LogicException(
+                    \sprintf('Unsupported filter "%s"', $this->lexer->lookahead->type->value),
+                ),
             };
         }
 
-        if ($this->lexer->isNextTokenAny(TokenType::scalar())) {
+        if ($this->isNextTokenAScalar()) {
             $this->match($this->lexer->lookahead->type);
 
             return $this->lexer->token->value;
@@ -91,10 +95,6 @@ class FilterCriteriaQueryParser implements FilterQueryParser
     {
         $this->match(TokenType::T_IDENTIFIER);
         $identifier = $this->lexer->token->value;
-
-        if (! \is_string($identifier)) {
-            $this->syntaxError('Identifier must be a string');
-        }
 
         return $identifier;
     }
@@ -156,29 +156,12 @@ class FilterCriteriaQueryParser implements FilterQueryParser
             return;
         }
 
-        // If parameter is not identifier (1-99) must be exact match
-        if ($token->value < TokenType::T_IDENTIFIER->value) {
-            $this->syntaxError($this->lexer->getLiteral($token));
-        }
-
-        // If parameter is keyword (200+) must be exact match
-        if ($token->value > TokenType::T_IDENTIFIER->value) {
-            $this->syntaxError($this->lexer->getLiteral($token));
-        }
-
-        // If parameter is T_IDENTIFIER, then matches T_IDENTIFIER (100) and keywords (200+)
-        if ($token->value === TokenType::T_IDENTIFIER->value && $lookaheadType->value < TokenType::T_IDENTIFIER->value) {
-            $this->syntaxError($this->lexer->getLiteral($token));
-        }
-
         $this->lexer->moveNext();
     }
 
-    public function syntaxError(string $expected = '', ?Token $token = null): never
+    private function syntaxError(string $expected = ''): never
     {
-        if ($token === null) {
-            $token = $this->lexer->lookahead;
-        }
+        $token = $this->lexer->lookahead;
 
         $tokenPos = $token->position ?? '-1';
 
@@ -187,5 +170,15 @@ class FilterCriteriaQueryParser implements FilterQueryParser
         $message .= $this->lexer->lookahead === null ? 'end of string.' : \sprintf('\'%s\'', $token->value);
 
         throw new \RuntimeException(\sprintf('[Syntax Error] %s.', $message));
+    }
+
+    private function isNextTokenAScalar(): bool
+    {
+        return $this->lexer->isNextTokenAny(array_values(TokenType::scalar()));
+    }
+
+    private function isNextTokenAFilter(): bool
+    {
+        return $this->lexer->isNextTokenAny(array_values(TokenType::filters()));
     }
 }

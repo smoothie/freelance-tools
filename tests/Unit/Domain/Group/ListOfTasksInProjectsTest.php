@@ -19,19 +19,20 @@ use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\UsesClass;
 
 #[Small]
 #[Group('group')]
-#[CoversClass(ClientId::class)]
-#[CoversClass(DateTime::class)]
-#[CoversClass(Duration::class)]
-#[CoversClass(ListOfTasksInAProject::class)]
-#[CoversClass(ListOfTasksInDays::class)]
 #[CoversClass(ListOfTasksInProjects::class)]
-#[CoversClass(ProjectId::class)]
-#[CoversClass(Task::class)]
-#[CoversClass(TaskInAList::class)]
-#[CoversClass(Timing::class)]
+#[UsesClass(ClientId::class)]
+#[UsesClass(DateTime::class)]
+#[UsesClass(Duration::class)]
+#[UsesClass(ListOfTasksInAProject::class)]
+#[UsesClass(ListOfTasksInDays::class)]
+#[UsesClass(ProjectId::class)]
+#[UsesClass(Task::class)]
+#[UsesClass(TaskInAList::class)]
+#[UsesClass(Timing::class)]
 class ListOfTasksInProjectsTest extends BasicTestCase
 {
     use GroupFactoryMethods;

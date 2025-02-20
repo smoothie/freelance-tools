@@ -4,7 +4,7 @@
   <phar name="composer-normalize" version="^2.43.0" installed="2.45.0" location="./tools/composer-normalize" copy="true"/>
   <phar name="php-cs-fixer" version="^3.59.3" installed="3.65.0" location="./tools/php-cs-fixer" copy="true"/>
   <phar name="phpunit" version="^11.2.7" installed="11.5.1" location="./tools/phpunit" copy="true"/>
-  <phar name="psalm" version="^5.25.0" installed="5.26.1" location="./tools/psalm" copy="true"/>
   <phar name="deptrac" version="^2.0.1" installed="2.0.4" location="./tools/deptrac" copy="true"/>
   <phar name="behat/behat" version="^3.16.0" installed="3.16.0" location="./tools/behat" copy="true"/>
+  <phar name="phpstan" version="^2.1.6" installed="2.1.6" location="./tools/phpstan" copy="true"/>
 </phive>

@@ -34,13 +34,6 @@ final class Duration
         return $this->seconds;
     }
 
-    public function asHumanReadable(): string
-    {
-        // todo
-
-        return $this->seconds.'s';
-    }
-
     public function add(self $duration): void
     {
         $this->seconds += $duration->asInt();

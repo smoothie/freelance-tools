@@ -18,6 +18,9 @@ class ListOfTasksInProjects
     {
     }
 
+    /**
+     * @param list<mixed> $tasks
+     */
     public static function fromTasks(array $tasks, ?ListType $listType = null): self
     {
         Assert::allIsInstanceOf($tasks, Task::class);
@@ -39,6 +42,9 @@ class ListOfTasksInProjects
         return $this->listType;
     }
 
+    /**
+     * @return ListOfTasksInAProject[]
+     */
     public function lists(): array
     {
         return $this->lists;
@@ -63,31 +69,4 @@ class ListOfTasksInProjects
 
         $this->lists = $cloned->lists;
     }
-
-    //    public function toArray(): array
-    //    {
-    //       $result = [];
-    //        foreach ($this->lists as $project => $list) {
-    //            $result[$project] = [
-    //                'totalDuration' => $list->totalDuration()->asInt(),
-    //                $this->listType->value => [],
-    //            ];
-    //
-    //            foreach ($list->listsOfTasksInDays() as $listOfTasksInDays) {
-    //                $result[$project][$this->listType->value][$listOfTasksInDays->group()] = [
-    //                    'duration' => $listOfTasksInDays->duration()->asInt(),
-    //                    'tasks' => [],
-    //                ];
-    //
-    //                foreach ($listOfTasksInDays->tasks() as $task) {
-    //                    $result[$project][$this->listType->value][$listOfTasksInDays->group()]['tasks'][] = [
-    //                        'description' => $task->description(),
-    //                        'duration' => $task->duration()->asInt(),
-    //                    ];
-    //                }
-    //            }
-    //        }
-    //
-    //        return $result;
-    //    }
 }

@@ -6,6 +6,9 @@ namespace App\Infrastructure\Doctrine\Lexer;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 
+/**
+ * @extends AbstractLexer<TokenType, string>
+ */
 class Lexer extends AbstractLexer
 {
     protected function getCatchablePatterns(): array

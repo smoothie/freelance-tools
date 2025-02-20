@@ -5,6 +5,9 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->files()
     ->in([
+        __DIR__.'/bin',
+        __DIR__.'/public',
+        __DIR__.'/migrations',
         __DIR__.'/src',
         __DIR__.'/config',
         __DIR__.'/tests',

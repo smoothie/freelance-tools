@@ -14,6 +14,10 @@ use Webmozart\Assert\Assert;
 
 class GenerateTimesheet
 {
+    /**
+     * @param array{name: string, company: string} $approvedBy
+     * @param array{name: string, street: string, location: string} $providedBy
+     */
     public function __construct(
         private string $timesheetId,
         private string $project,

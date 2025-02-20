@@ -11,7 +11,10 @@ use App\Domain\Model\Task;
 class ListOfTasksInAProject
 {
     private Duration $totalDuration;
-    /** @var ListOfTasksInDays[] */
+
+    /**
+     * @var ListOfTasksInDays[]
+     */
     private array $listOfTasksInDays = [];
 
     public function __construct(
@@ -36,6 +39,9 @@ class ListOfTasksInAProject
         return $this->listType;
     }
 
+    /**
+     * @return ListOfTasksInDays[]
+     */
     public function listsOfTasksInDays(): array
     {
         return $this->listOfTasksInDays;

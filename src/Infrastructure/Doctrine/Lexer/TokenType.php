@@ -40,6 +40,9 @@ enum TokenType: int
     case T_LAST_DAY_OF_THE_MONTH = 211;
     case T_LAST_DAY_OF_LAST_MONTH = 212;
 
+    /**
+     * @return array<string, TokenType>
+     */
     public static function scalar(): array
     {
         return [
@@ -49,6 +52,9 @@ enum TokenType: int
         ];
     }
 
+    /**
+     * @return array<string, TokenType>
+     */
     public static function filters(): array
     {
         return [

@@ -6,6 +6,15 @@ namespace App\Domain\Model;
 
 class PerformancePeriod
 {
+    public const string PERIOD_MONTH_LAST = 'LAST_MONTH';
+    public const string PERIOD_MONTH_CURRENT = 'CURRENT_MONTH';
+
+    public const string FIRST_DAY_OF_THE_MONTH = 'FIRST_DAY_OF_THE_MONTH';
+    public const string FIRST_DAY_OF_LAST_MONTH = 'FIRST_DAY_OF_LAST_MONTH';
+
+    public const string LAST_DAY_OF_THE_MONTH = 'LAST_DAY_OF_THE_MONTH';
+    public const string LAST_DAY_OF_LAST_MONTH = 'LAST_DAY_OF_LAST_MONTH';
+
     public function __construct(
         private string $performancePeriodId,
         private string $performancePeriodStartsOn,
@@ -15,17 +24,17 @@ class PerformancePeriod
 
     public static function fromString(string $performancePeriodId): self
     {
-        $performancePeriodStartsOn = match ($performancePeriodId) {
-            'CURRENT_MONTH' => 'FIRST_DAY_OF_THE_MONTH',
-            'LAST_MONTH' => 'FIRST_DAY_OF_LAST_MONTH',
+        $performancePeriodStartsOn = match (mb_strtoupper($performancePeriodId)) {
+            self::PERIOD_MONTH_CURRENT => self::FIRST_DAY_OF_THE_MONTH,
+            self::PERIOD_MONTH_LAST => self::FIRST_DAY_OF_LAST_MONTH,
             default => throw new \LogicException(
                 \sprintf('Unsupported performance period ID: "%s"', $performancePeriodId),
             ),
         };
 
-        $performancePeriodEndsOn = match ($performancePeriodId) {
-            'CURRENT_MONTH' => 'LAST_DAY_OF_THE_MONTH',
-            'LAST_MONTH' => 'LAST_DAY_OF_LAST_MONTH',
+        $performancePeriodEndsOn = match (mb_strtoupper($performancePeriodId)) {
+            self::PERIOD_MONTH_CURRENT => self::LAST_DAY_OF_THE_MONTH,
+            self::PERIOD_MONTH_LAST => self::LAST_DAY_OF_LAST_MONTH,
             default => throw new \LogicException(
                 \sprintf('Unsupported performance period ID: "%s"', $performancePeriodId),
             ),
@@ -55,9 +64,9 @@ class PerformancePeriod
 
     public function filterCriteria(): FilterCriteria
     {
-        return match ($this->performancePeriodId) {
-            'CURRENT_MONTH',
-            'LAST_MONTH' => FilterCriteria::fromString(
+        return match (mb_strtoupper($this->performancePeriodId)) {
+            self::PERIOD_MONTH_CURRENT,
+            self::PERIOD_MONTH_LAST => FilterCriteria::fromString(
                 \sprintf(
                     '(startDate >= :%s) AND (endDate <= :%s)',
                     $this->performancePeriodStartsOn,

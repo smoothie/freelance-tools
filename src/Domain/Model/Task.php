@@ -23,9 +23,6 @@ class Task
     ) {
     }
 
-    /**
-     * @return string
-     */
     public function projectId(): ProjectId
     {
         return ProjectId::fromString($this->projectId);

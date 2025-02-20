@@ -10,11 +10,13 @@ use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\UsesClass;
 
 #[Small]
+#[Group('domain')]
 #[Group('common')]
 #[CoversClass(Duration::class)]
-#[CoversClass(DateTime::class)]
+#[UsesClass(DateTime::class)]
 class DurationTest extends BasicTestCase
 {
     public function testThatWeCanAddSeconds(): void

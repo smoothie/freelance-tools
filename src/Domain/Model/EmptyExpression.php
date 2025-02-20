@@ -20,7 +20,7 @@ class EmptyExpression extends Expression
         return '';
     }
 
-    public function value(): array|int|string|null
+    public function value(): string|array|null
     {
         return null;
     }

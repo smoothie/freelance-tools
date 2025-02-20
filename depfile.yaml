@@ -23,13 +23,15 @@ deptrac:
     - name: VendorApplication
       collectors:
         - type: classLike
-          value: ^(Psr)\\.*
+          value: ^(Psr|Symfony\\Contracts)\\.*
     - name: VendorInfrastructure
       collectors:
         - type: classLike
-          value: ^(Doctrine|Symfony|ApiPlatform|Twig)\\.*
+          value: ^(Doctrine|Dompdf|ApiPlatform|Twig|Ramsey)\\.*
         - type: classLike
-          value: ^Smoothie\\ContractorTools\\(Symfony|Doctrine|Contracts)\\.*
+          value: ^Symfony\\(Component)\\.*
+        - type: classLike
+          value: ^App\\(Symfony|Doctrine|Contracts)\\.*
 
   ruleset:
     Domain:

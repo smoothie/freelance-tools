@@ -42,12 +42,16 @@ class TimesheetReport implements Component
         return $this->title;
     }
 
-    public function fileName(string $extension = ''): string
+    public function fileName(string $extension = '', ?DateTime $now = null): string
     {
+        if ($now === null) {
+            $now = DateTime::fromDateTime(new \DateTimeImmutable('now'));
+        }
+
         return \sprintf(
             '%s%s',
             implode(' - ', array_filter([
-                (new \DateTimeImmutable('now'))->format('Y-m-d'),
+                $now->asDateString(),
                 $this->billedTo,
                 strcmp($this->billedTo, $this->approvedBy->company()) === 0
                     ? null
@@ -64,6 +68,9 @@ class TimesheetReport implements Component
         return 'pdf/timesheet/report.html.twig';
     }
 
+    /**
+     * @return array{timesheetReportId: TimesheetReportId, project: ProjectId, title: string, approvedBy: ApprovedBy, approvedAt: DateTime, billedTo: string, billedBy: string, providedBy: ProvidedBy, startDate: DateTime, endDate: DateTime, totalDuration: Duration, listOfTasks: ListOfTasksInAProject,  lastPageNumber: ?int}
+     */
     public function context(): array
     {
         return [

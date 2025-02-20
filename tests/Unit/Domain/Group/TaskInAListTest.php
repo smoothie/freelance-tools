@@ -10,11 +10,12 @@ use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\UsesClass;
 
 #[Small]
 #[Group('group')]
 #[CoversClass(TaskInAList::class)]
-#[CoversClass(Duration::class)]
+#[UsesClass(Duration::class)]
 class TaskInAListTest extends BasicTestCase
 {
     use GroupFactoryMethods;

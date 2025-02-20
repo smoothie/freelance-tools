@@ -30,6 +30,9 @@ class ListOfTasksInDays
         return $this->duration;
     }
 
+    /**
+     * @return TaskInAList[]
+     */
     public function tasks(): array
     {
         return $this->tasks;

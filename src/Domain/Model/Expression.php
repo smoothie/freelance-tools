@@ -6,10 +6,13 @@ namespace App\Domain\Model;
 
 class Expression
 {
+    /**
+     * @param string|string[]|null $value
+     */
     public function __construct(
         private string $fieldName,
         private string $operator,
-        private string|int|array|null $value,
+        private string|array|null $value,
     ) {
     }
 
@@ -23,7 +26,10 @@ class Expression
         return $this->operator;
     }
 
-    public function value(): array|int|string|null
+    /**
+     * @return string|string[]|null
+     */
+    public function value(): array|string|null
     {
         return $this->value;
     }

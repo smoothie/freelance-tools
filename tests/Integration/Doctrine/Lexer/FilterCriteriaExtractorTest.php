@@ -17,13 +17,14 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Large;
+use PHPUnit\Framework\Attributes\UsesClass;
 
 #[Large]
 #[Group('integration')]
 #[Group('integration-doctrine')]
 #[CoversClass(FilterCriteriaQueryParser::class)]
-#[CoversClass(Expression::class)]
-#[CoversClass(FilterExpressions::class)]
+#[UsesClass(Expression::class)]
+#[UsesClass(FilterExpressions::class)]
 class FilterCriteriaExtractorTest extends BasicTestCase
 {
     #[DataProvider('providePerformancePeriodFilterCriteria')]

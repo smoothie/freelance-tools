@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 class FilterExpressions
 {
     /**
-     * @param Expression[] $expressions
+     * @param list<mixed> $expressions
      */
     public function __construct(private array $expressions)
     {
@@ -51,6 +51,9 @@ class FilterExpressions
         return $this->getByFieldName('description');
     }
 
+    /**
+     * @return Expression[]
+     */
     public function toArray(): array
     {
         return $this->expressions;

@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TogglApiClient
 {
-    private array $cached = [];
+    private ?TogglMe $me = null;
 
     public function __construct(private HttpClientInterface $client)
     {
@@ -16,8 +16,8 @@ class TogglApiClient
 
     public function whoIsMe(): TogglMe
     {
-        if (\array_key_exists('me', $this->cached)) {
-            return $this->cached['me'];
+        if ($this->me !== null) {
+            return $this->me;
         }
 
         $response = $this->client->request('GET', 'me', ['query' => ['with_related_data' => true]]);
@@ -26,9 +26,9 @@ class TogglApiClient
         $content = $response->toArray(false);
 
         $me = new TogglMe(
-            tags: array_map(static fn (array $item) => ['id' => $item['id'], 'name' => $item['name']], $content['tags']),
+            tags: array_map(static fn (array $item): array => ['id' => $item['id'], 'name' => $item['name']], $content['tags']),
             projects: array_map(
-                static fn (array $item) => [
+                static fn (array $item): array => [
                     'id' => $item['id'],
                     'name' => $item['name'],
                     'client' => $item['client_name'],
@@ -37,7 +37,7 @@ class TogglApiClient
             ),
         );
 
-        $this->cached['me'] = $me;
+        $this->me = $me;
 
         return $me;
     }

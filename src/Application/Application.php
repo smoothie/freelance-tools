@@ -11,8 +11,6 @@ use App\Domain\Model\Group\ListOfTasksInProjects;
 use App\Domain\Model\TimesheetReport;
 use App\Domain\Service\ComponentRenderer;
 use App\Domain\Service\WorkTimeProcessor;
-use App\Infrastructure\DomPdf\DomPdfComponentRenderer;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
@@ -21,7 +19,6 @@ class Application implements ApplicationInterface
 {
     public function __construct(
         private Clock $clock,
-        #[Autowire(service: DomPdfComponentRenderer::class)]
         private ComponentRenderer $componentRenderer,
         private WorkTimeProcessor $workTimeProcessor,
         private EventDispatcherInterface $eventDispatcher,

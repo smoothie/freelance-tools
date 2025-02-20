@@ -15,7 +15,6 @@ use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Webmozart\Assert\Assert;
 
 class TogglReportClient
 {
@@ -34,18 +33,21 @@ class TogglReportClient
     {
         try {
             $tasks = $this->fetchAndTransform($filterCriteria);
-            Assert::allIsInstanceOf($tasks, Task::class);
 
             return $tasks;
         } catch (TransportExceptionInterface $exception) {
         } catch (DecodingExceptionInterface $exception) {
         } catch (HttpExceptionInterface $exception) {
         }
+
         // TODO handle not so good cases
 
         return [];
     }
 
+    /**
+     * @return Task[]
+     */
     private function fetchAndTransform(FilterCriteria $filterCriteria): array
     {
         $expressions = $this->extractor->parse($filterCriteria);
@@ -56,7 +58,9 @@ class TogglReportClient
         $data = [
             'grouped' => true,
             'first_row_number' => 1,
-            'start_date' => DateTime::fromDateString($expressions->startDate()->value())->asPhpDateTime()->format('Y-m-d'),
+            'start_date' => DateTime::fromDateString($expressions->startDate()->value())->asPhpDateTime()->format(
+                'Y-m-d',
+            ),
             'end_date' => DateTime::fromDateString($expressions->endDate()->value())->asPhpDateTime()->format('Y-m-d'),
         ];
 
@@ -73,18 +77,28 @@ class TogglReportClient
 
             $response = $this->reportClient->request('POST', 'search/time_entries', ['json' => $data]);
             $content = $response->toArray();
+
             foreach ($content as $item) {
                 $task = new Task(
                     projectId: $projectMap[$item['project_id']],
                     clientId: $clientMap[$item['project_id']],
                     description: $item['description'],
-                    tags: array_map(static fn (string $tagId) => $tagMap[$tagId], $item['tag_ids']),
-                    timings: array_map(static fn (array $data) => new Timing(
-                        startTime: (\DateTimeImmutable::createFromFormat(\DateTimeImmutable::RFC3339, $data['start']))
-                            ->format('Y-m-d H:i:s'),
-                        endTime: (\DateTimeImmutable::createFromFormat(\DateTimeImmutable::RFC3339, $data['stop']))
-                            ->format('Y-m-d H:i:s'),
-                    ), $item['time_entries']),
+                    tags: array_map(
+                        static fn (string $tagId): string => $tagMap[$tagId],
+                        $item['tag_ids'],
+                    ),
+                    timings: array_map(
+                        static fn (array $data): Timing => new Timing(
+                            startTime: (\DateTimeImmutable::createFromFormat(
+                                \DateTimeImmutable::RFC3339,
+                                $data['start'],
+                            ))
+                                ->format('Y-m-d H:i:s'),
+                            endTime: (\DateTimeImmutable::createFromFormat(\DateTimeImmutable::RFC3339, $data['stop']))
+                                ->format('Y-m-d H:i:s'),
+                        ),
+                        $item['time_entries'],
+                    ),
                 );
 
                 $tasks[] = $task;

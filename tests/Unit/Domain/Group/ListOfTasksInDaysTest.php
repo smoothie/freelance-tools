@@ -11,12 +11,13 @@ use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\UsesClass;
 
 #[Small]
 #[Group('group')]
 #[CoversClass(ListOfTasksInDays::class)]
-#[CoversClass(Duration::class)]
-#[CoversClass(TaskInAList::class)]
+#[UsesClass(Duration::class)]
+#[UsesClass(TaskInAList::class)]
 class ListOfTasksInDaysTest extends BasicTestCase
 {
     use GroupFactoryMethods;

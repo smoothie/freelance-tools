@@ -25,6 +25,9 @@ class GenerateTimesheetCommand extends Command
 {
     private SymfonyStyle $io;
 
+    /**
+     * @param array{name: string, location: string, street: string} $providedBy
+     */
     public function __construct(
         private ApplicationInterface $application,
         #[Autowire(param: 'tools.default_providedBy')]
@@ -108,6 +111,8 @@ class GenerateTimesheetCommand extends Command
         );
 
         $this->application->generateTimesheet($command);
+
+        $this->io->success('Timesheet generated.');
 
         return Command::SUCCESS;
     }

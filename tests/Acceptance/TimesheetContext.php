@@ -31,15 +31,15 @@ final class TimesheetContext extends FeatureContext
     {
         $command = new GenerateTimesheet(
             timesheetId: Uuid::uuid4()->toString(),
-            exportFormat: 'PDF',
             project: 'cheesecake-agile',
+            approvedBy: ['name' => 'Marc Eichenseher', 'company' => 'pobbd'],
+            providedBy: $this->defaultProvidedBy(),
+            performancePeriod: 'LAST_MONTH',
+            exportFormat: 'PDF',
+            startDate: '2025-01-01',
             approvedAt: '2025-02-14',
             billedTo: 'pobbd',
             billedBy: 'Marc Timite',
-            startDate: '2025-01-01',
-            performancePeriod: 'LAST_MONTH',
-            approvedBy: ['name' => 'Marc Eichenseher', 'company' => 'pobbd'],
-            providedBy: $this->defaultProvidedBy(),
         );
 
         $this->command = $command;

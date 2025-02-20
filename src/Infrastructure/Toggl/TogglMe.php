@@ -8,10 +8,12 @@ use Webmozart\Assert\Assert;
 
 class TogglMe
 {
+    /**
+     * @param list<array{id: int, name: string}> $tags
+     * @param list<array{id: int, name: string, client: string}> $projects
+     */
     public function __construct(
-        /** @var list<array{id: int, name: string}> */
         private array $tags,
-        /** @var list<array{id: int, name: string, client: string}> */
         private array $projects,
     ) {
         foreach ($tags as $tag) {
@@ -28,40 +30,55 @@ class TogglMe
         }
     }
 
+    /**
+     * @return list<array{id: int, name: string}>
+     */
     public function tags(): array
     {
         return $this->tags;
     }
 
+    /**
+     * @return list<array{id: int, name: string, client: string}>
+     */
     public function projects(): array
     {
         return $this->projects;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function tagMap(): array
     {
         $result = [];
-        foreach ($this->tags as $tag) {
+        foreach ($this->tags() as $tag) {
             $result[$tag['id']] = $tag['name'];
         }
 
         return $result;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function projectMap(): array
     {
         $result = [];
-        foreach ($this->projects as $project) {
+        foreach ($this->projects() as $project) {
             $result[$project['id']] = $project['name'];
         }
 
         return $result;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function clientMap(): array
     {
         $result = [];
-        foreach ($this->projects as $project) {
+        foreach ($this->projects() as $project) {
             $result[$project['id']] = $project['client'];
         }
 

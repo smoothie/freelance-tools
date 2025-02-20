@@ -17,6 +17,9 @@ class DomPdfBuilder
 
     private ?string $title = null;
 
+    /**
+     * @param list<array{file: string, style: array{family: string, style: string, weight: string}}> $fonts
+     */
     public function __construct(
         #[Autowire(param: 'tools.dompdf_creator')]
         private string $creator,
