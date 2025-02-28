@@ -1,6 +1,6 @@
 {
     "name": "smoothie/freelance-tools",
-    "description": "A package to generate my timesheets, bills and profiles..",
+    "description": "A highly opinionated package that automates my generation of timesheets, invoices, and freelancer profiles.",
     "license": "Apache-2.0",
     "type": "project",
     "require": {

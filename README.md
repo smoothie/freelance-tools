@@ -1,6 +1,6 @@
 # smoothie's Freelance Tools
 
-A highly opinionated PHP package that automates the generation of timesheets, invoices, and freelancer profiles. For me.
+A highly opinionated package that automates my generation of timesheets, invoices, and freelancer profiles.
 
 Currently, this package provides the following features:
 
