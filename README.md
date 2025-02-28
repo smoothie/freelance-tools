@@ -103,7 +103,7 @@ Done.
 
 ## Contributing
 
-Contributions are welcome! A contributing guide will be added soon.
+While I do not really know why anyone would, but contributions are welcome! As well as feedback.
 
 ## License
 
