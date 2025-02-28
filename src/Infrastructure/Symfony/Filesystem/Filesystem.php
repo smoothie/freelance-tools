@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Symfony\Filesystem;
 
+use App\Application\FilesystemInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
 use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Finder\Finder;
 
 class Filesystem implements FilesystemInterface
 {
@@ -22,5 +24,13 @@ class Filesystem implements FilesystemInterface
         $path = Path::canonicalize(\sprintf('%s/%s', $this->exportDirectory, $file));
 
         $this->filesystem->dumpFile($path, $content);
+    }
+
+    public function numberOfFilesInExportDirectory(string $pattern): int
+    {
+        $finder = new Finder();
+        $files = $finder->in([$this->exportDirectory])->name($pattern);
+
+        return $files->count();
     }
 }

@@ -14,12 +14,24 @@ class ToolsExtension extends Extension implements ConfigurationInterface
     public function load(array $configs, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this, $configs);
-
         $container->setParameter('tools.default_author', 'smoothie <hello@marceichenseher.de>');
 
+        $this->applyOrganizations($config, $container);
         $this->applyToggle($container);
         $this->applyDomPdf($config, $container);
         $this->applyDefaults($config, $container);
+    }
+
+    /**
+     * @param array<string, array<string, mixed>> $config
+     */
+    private function applyOrganizations(array $config, ContainerBuilder $container): void
+    {
+        if (! \array_key_exists('organizations', $config)) {
+            return;
+        }
+
+        $container->setParameter('tools.organizations', $config['organizations']);
     }
 
     private function applyToggle(ContainerBuilder $container): void
@@ -107,6 +119,14 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->scalarNode('name')->defaultValue('%env(string:TOOLS_PROVIDED_BY_NAME)%')->cannotBeEmpty()->end()
             ->scalarNode('street')->defaultValue('%env(string:TOOLS_PROVIDED_BY_STREET)%')->cannotBeEmpty()->end()
             ->scalarNode('location')->defaultValue('%env(string:TOOLS_PROVIDED_BY_LOCATION)%')->cannotBeEmpty()->end()
+            ->scalarNode('vatId')->defaultValue('%env(string:TOOLS_PROVIDED_BY_VATID)%')->cannotBeEmpty()->end()
+            ->scalarNode('country')->defaultValue('%env(string:TOOLS_PROVIDED_BY_COUNTRY)%')->cannotBeEmpty()->end()
+            ->scalarNode('phone')->defaultValue('%env(string:TOOLS_PROVIDED_BY_PHONE)%')->cannotBeEmpty()->end()
+            ->scalarNode('mail')->defaultValue('%env(string:TOOLS_PROVIDED_BY_MAIL)%')->cannotBeEmpty()->end()
+            ->scalarNode('web')->defaultValue('%env(string:TOOLS_PROVIDED_BY_WEB)%')->cannotBeEmpty()->end()
+            ->scalarNode('bank')->defaultValue('%env(string:TOOLS_PROVIDED_BY_BANK)%')->cannotBeEmpty()->end()
+            ->scalarNode('iban')->defaultValue('%env(string:TOOLS_PROVIDED_BY_IBAN)%')->cannotBeEmpty()->end()
+            ->scalarNode('bic')->defaultValue('%env(string:TOOLS_PROVIDED_BY_BIC)%')->cannotBeEmpty()->end()
             ->end()
             ->end();
 
@@ -135,6 +155,26 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->end()
             ->end()
             ->end();
+
+        $treeBuilder
+            ->getRootNode()
+            ->children()
+            ->arrayNode('organizations')->arrayPrototype()->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('project')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('street')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('location')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('country')->defaultValue('DE')->cannotBeEmpty()->end()
+            ->scalarNode('vatId')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('description')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('taxRate')->defaultValue(19.0)->cannotBeEmpty()->end()
+            ->scalarNode('pricePerHour')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('termOfPaymentInDays')->defaultValue(30)->cannotBeEmpty()->end()
+            ->end()
+            ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

@@ -4,7 +4,7 @@ Feature: Generating timesheets
 
   Scenario: The timesheet was generated
     Given we have tracked some tasks with timings
-    And we have prepared a command
+    And we have prepared a command to generate a timesheet
     When we try to generate a timesheet
     Then the timesheet should have been rendered
     And the timesheet should have been generated

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance;
 
-use App\Infrastructure\Symfony\Filesystem\FilesystemInterface;
+use App\Application\FilesystemInterface;
 
 class InMemoryFilesystem implements FilesystemInterface
 {
     protected array $files = [];
+    private array $numberOfFiles = [];
 
     public function dumpExport(string $file, string $content): void
     {
@@ -27,5 +28,21 @@ class InMemoryFilesystem implements FilesystemInterface
     public function getFileContents(string $file): string
     {
         return $this->files[$file][0];
+    }
+
+    public function setNumberOfFiles(string $pattern, int $numberOfFiles): void
+    {
+        $this->numberOfFiles[$pattern] = $numberOfFiles;
+    }
+
+    public function numberOfFilesInExportDirectory(string $pattern): int
+    {
+        return $this->numberOfFiles[$pattern] ?? 0;
+    }
+
+    public function clear(): void
+    {
+        $this->numberOfFiles = [];
+        $this->files = [];
     }
 }

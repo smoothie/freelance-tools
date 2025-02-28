@@ -37,6 +37,16 @@ class TimesheetReport implements Component
         return $this->timesheetReportId;
     }
 
+    public function totalDuration(): Duration
+    {
+        return $this->totalDuration;
+    }
+
+    public function endDate(): DateTime
+    {
+        return $this->endDate;
+    }
+
     public function title(): string
     {
         return $this->title;

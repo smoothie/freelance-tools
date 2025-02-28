@@ -1,0 +1,70 @@
+{% trans_default_domain 'tools' %}
+
+{% extends 'pdf/partials/din5008-b.html.twig' %}
+
+{% block infobox %}
+<table>
+    <tr>
+        <th>Leistungszeitraum</th>
+        <td>{{ deliveredAt | date_to_performance_period }}</td>
+    </tr>
+    <tr>
+        <th>Rechnungsdatum</th>
+        <td>{{ billingDate | to_date }}</td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+    <p>Ich danke für ihr Vertrauen und freue mich, Ihnen folgende Leistungen in Rechnung zu stellen:</p>
+    <div class="invoice">
+        <table class="table -invoice">
+            <thead>
+            <tr>
+                <th>Pos.</th>
+                <th>Bezeichnung</th>
+                <th>Menge</th>
+                <th>Einzel (EUR)</th>
+                <th>Gesamt (EUR)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in invoiceItems %}
+            <tr>
+                <td>{{ item.position }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.quantity }} {{ item.unit | unit }}</td>
+                <td>{{ item.pricePerItem | amount_to_human }}</td>
+                <td>{{ item.priceTotal | amount_to_human }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">Summe Netto</td>
+                <td>{{ netAmount | amount_to_human }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">Umsatzsteuer {{ taxRate | amount_to_human }}%</td>
+                <td>{{ vatAmount | amount_to_human }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2">Rechnungsbetrag</td>
+                <td>{{ grossAmount | amount_to_human }}</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="info">
+        <p>Zahlung innerhalb von {{ dueDate.termOfPaymentInDays }} Tagen ab Rechnungseingang ohne Abzüge an die unten angegebene Bankverbindung. Das
+            Zahlungsziel endet somit am {{ dueDate.dueDate | to_date }}.</p>
+    </div>
+{% endblock %}

@@ -24,12 +24,19 @@ deptrac:
       collectors:
         - type: classLike
           value: ^(Psr|Symfony\\Contracts)\\.*
+        - type: classLike
+          value: ^Symfony\\(Component)\\.*Interface
     - name: VendorInfrastructure
       collectors:
         - type: classLike
-          value: ^(Doctrine|Dompdf|ApiPlatform|Twig|Ramsey)\\.*
-        - type: classLike
-          value: ^Symfony\\(Component)\\.*
+          value: ^(Doctrine|Dompdf|horstoeko|Twig|Ramsey|libphonenumber)\\.*
+        - type: bool
+          must:
+            - type: classLike
+              value: ^Symfony\\(Component|Bundle)\\.*
+          must_not:
+            - type: layer
+              value: VendorApplication
         - type: classLike
           value: ^App\\(Symfony|Doctrine|Contracts)\\.*
 

@@ -7,17 +7,16 @@ namespace App\Tests\Acceptance;
 use App\Application\ApplicationInterface;
 use App\Domain\Model\Common\DateTime;
 use Behat\Behat\Context\Context;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Webmozart\Assert\Assert;
 
 abstract class FeatureContext implements Context
 {
+    public const string DATE_TIME_INSTANTIATED_AT = '2025-02-17 14:09:00';
+
     public function __construct(
         private ServiceContainerForAcceptanceTesting $serviceContainer,
-        #[Autowire(param: 'tools.default_providedBy')]
-        private array $providedBy,
     ) {
-        $this->serviceContainer->setCurrentTime(DateTime::fromString('2025-02-17 14:09:00'));
+        $this->serviceContainer->setCurrentTime(DateTime::fromString(self::DATE_TIME_INSTANTIATED_AT));
     }
 
     protected function application(): ApplicationInterface
@@ -32,7 +31,20 @@ abstract class FeatureContext implements Context
 
     public function defaultProvidedBy(): array
     {
-        return $this->providedBy;
+        return $this->serviceContainer->providedBy();
+    }
+
+    public function anOrganization(): array
+    {
+        return [
+            'project' => 'cheesecake-agile',
+            'name' => 'Cheese Squad',
+            'street' => 'A Street',
+            'location' => '66113 Saarbrücken',
+            'country' => 'DE',
+            'vatId' => 'DE000000000',
+            'description' => 'Some project specific description',
+        ];
     }
 
     public function eventHasBeenDispatched(string $eventName): void

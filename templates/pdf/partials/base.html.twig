@@ -1,0 +1,349 @@
+{% trans_default_domain 'tools' %}
+<html lang="de-DE">
+<head>
+    <title>{{ title }}</title>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @media print {
+          html, body {
+            width: 210mm;
+            height: 297mm;
+          }
+            html {
+                background: #eee;
+                height: 257mm;
+                width: 170mm;
+              /*  background-color: #FF0000; */
+            }
+            body {
+                background: #fff;
+                padding: 20mm;
+                margin: 0;
+            }
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Regular.ttf);
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Medium.ttf);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Bold.ttf);
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Black.ttf);
+            font-weight: 900;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Regular.ttf);
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Medium.ttf);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Bold.ttf);
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Black.ttf);
+            font-weight: 900;
+        }
+
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+            font-family: "Mulish", Helvetica, Arial, sans-serif;
+            color: #212121;
+            line-height: 1;
+        }
+
+        body {
+            /*padding: 40px;*/
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        * {
+            color: #212121;
+            font-family: "Mulish", Helvetica, Arial, sans-serif;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #212121;
+            font-family: "Mulish", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+        }
+
+        p {
+            color: #212121;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        address {
+            margin: 0;
+            font-style: normal;
+            color: #212121;
+        }
+
+        .text {
+            font-size: 1.4rem;
+            color: #212121;
+        }
+
+        .text.-end {
+            text-align: right;
+        }
+
+        .text.-xs {
+            font-size: 1.2rem
+        }
+
+        .text.-decorated {
+            width: 100%;
+            display: block;
+        }
+
+        .row {
+            margin-top: 20px;
+            display: block;
+        }
+
+        .row:before,
+        .row:after {
+            content: '';
+            display: block;
+        }
+
+        .row:after {
+            clear: both;
+        }
+
+        .row .rowCell {
+            float: left;
+            padding-bottom: 5px;
+        }
+
+        .rowCell.-xs {
+            width: 20%;
+        }
+
+        .rowCell.-s {
+            width: 25%;
+        }
+
+        .rowCell.-l {
+            width: 35%;
+        }
+
+        .rowCell.-end {
+            width: 35%;
+        }
+
+        .rowCell.-xl {
+            width: 75%;
+        }
+
+        .-pl-xs {
+            padding-left: 5px;
+        }
+
+        .-pl-s {
+            padding-left: 10px;
+        }
+
+        .rowCell.-underlined {
+            border-bottom: 0.75pt solid #212121;
+        }
+
+        .header {
+            margin-bottom: 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            /*page-break-inside: avoid;*/
+        }
+
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table-cell {
+            text-align: left;
+        }
+
+        .table-cell.-center {
+            text-align: center;
+        }
+
+        /*.table-cell.-end {*/
+        /*    text-align: end;*/
+        /*}*/
+
+        .table .table-row {
+            border: 0.75pt solid #212121;
+        }
+
+        .table .table-footer .table-row {
+            border: none;
+        }
+
+        .table .table-footer .table-row .table-cell:last-of-type {
+            border: 0.75pt solid #212121;
+        }
+
+        .table .table-row .table-cell > * {
+            padding: 5px 10px;
+        }
+
+        .table .title {
+            font-size: 1.3rem;
+        }
+
+        .table .text {
+            font-size: 1.2rem;
+        }
+
+        .text.-decorated > * {
+            display: inline-block;
+            padding: 5px;
+        }
+
+        .table.-four .table-row .table-cell {
+            width: 15%
+        }
+
+        .table.-four .table-row .table-cell:nth-of-type(2) {
+            width: 45%
+        }
+
+        .table.-four .table-row .table-cell:nth-of-type(3) {
+            width: 25%
+        }
+
+        .table.-three .table-row .table-cell {
+            width: 15%
+        }
+
+        .table.-three .table-row .table-cell:nth-of-type(1) {
+            width: 45%
+        }
+
+        .table.-three .table-row .table-cell:nth-of-type(2) {
+            width: 25%
+        }
+
+        .underlined {
+            border-bottom: 0.75pt solid;
+            margin-left: 5px;
+            margin-right: 5px;
+            min-width: 90px;
+        }
+
+
+        .underlined.-xl {
+            min-width: 120px;
+            width: 50%;
+        }
+
+        @page {
+            size: A4;
+            margin: 27mm 20mm 20mm 25mm;
+        }
+
+        .header {
+            position: fixed;
+            top: -40px;
+            left: 0;
+            right: 0;
+            height: 40px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+        }
+
+        p {
+            page-break-after: always;
+        }
+
+        p:last-child {
+            page-break-after: never;
+        }
+
+        footer .pagenum:before {
+            content: counter(page);
+        }
+
+    </style>
+</head>
+<body>
+<header class="header">
+    <address class="address -horizontal">
+        <span class="text -xs">{{ providedBy.name }}</span>
+        <span class="separator">-</span>
+        <span class="text -xs">{{ providedBy.street }}</span>
+        <span class="separator">-</span>
+        <span class="text -xs">{{ providedBy.location }}</span>
+    </address>
+    <h1>{{ title }}</h1>
+</header>
+
+<footer class="footer">
+    <div class="row">
+        <div class="rowCell -xl">
+            <p class="text -xs">{{ title }}</p>
+        </div>
+        <div class="rowCell -s">
+            <p class="text -xs -end">Seite <span class="pagenum"></span> von {{ lastPageNumber | default('') }}</p>
+        </div>
+    </div>
+</footer>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

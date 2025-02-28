@@ -1,0 +1,442 @@
+{% trans_default_domain 'tools' %}
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>{{ title }}</title>
+    <style>
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Regular.ttf);
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Medium.ttf);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Bold.ttf);
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url(../../fonts/Poppins/Poppins-Black.ttf);
+            font-weight: 900;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Regular.ttf);
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Medium.ttf);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Bold.ttf);
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: "Mulish";
+            src: url(../../fonts/Mulish/Mulish-Black.ttf);
+            font-weight: 900;
+        }
+
+
+        html {
+            box-sizing: border-box;
+            padding: 0;
+            font-size: 11pt;
+            line-height: 1;
+            font-family: "Mulish", Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            color: #212121;
+            font-family: "Mulish", Helvetica, Arial, sans-serif;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+        }
+
+        @page {
+            size: A4;
+            width: 210mm;
+            height: 297mm;
+            margin: 45mm 0 0;
+        }
+
+        .page {
+            /*background: #212121;*/
+            width: 210mm;
+        }
+
+        .pageHeader {
+            position: fixed;
+            /*background: #FFCC33;*/
+            height: 45mm;
+            width: 165mm;
+            top: -45mm;
+            z-index: 1;
+        }
+
+        .pageMeta {
+            /*background: #00A5E3;*/
+            position: relative;
+            height: 50mm;
+            width: 165mm;
+            z-index: 1;
+            padding-bottom: 8.46mm;
+            margin: 0;
+        }
+
+        .pageMeta:after {
+            clear: both;
+        }
+
+        .pageContent {
+            /*background: #bada55;*/
+            /*height: 100%;*/
+            top: 0;
+            position: relative;
+            padding-bottom: 43.46mm;
+        }
+
+        h1, h2, h3, h4, h5, h6, p, table, span, address, ul, li, ol, td, th {
+            color: #212121;
+            margin: 0;
+            font-size: 11pt;
+        }
+
+        h1 {
+            margin-bottom: 28.6pt;
+        }
+
+        .pageNumber {
+            /*background: #CC7832;*/
+            height: 10mm;
+            /*margin-bottom: 4.23mm;*/
+            position: fixed;
+            bottom: 29.23mm;
+            left: 0;
+            width: 165mm;
+            z-index: 1;
+        }
+
+        .pageFooter {
+            /*background: #FF00FF;*/
+            height: 25mm;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 165mm;
+            z-index: 1;
+        }
+
+        .pageFoldMark {
+            position: fixed;
+            width: 5mm;
+            border: 0.125mm solid #212121;
+            background: #212121;
+            left: 0;
+            /*height: 1px;*/
+            z-index: 1;
+        }
+
+        .pageFoldMark.-one {
+            top: 60mm; /** 105mm - 45mm */
+        }
+
+        .pageFoldMark.-two {
+            top: 103.5mm; /** 148.5mm; - 45mm */
+            width: 7.5mm;
+        }
+
+        .pageFoldMark.-three {
+            top: 165mm; /** 210mm - 45mm */
+        }
+
+        p {
+            margin: 0 0 10pt;
+            line-height: 1.1;
+            /*page-break-inside: avoid;*/
+        }
+
+        .address {
+            margin: 0;
+            font-style: normal;
+            /*border: 1px solid red;*/
+        }
+
+        .address.-returnInformation {
+            font-size: 8pt;
+            height: 45pt;
+            /*border: 1px solid red;*/
+        }
+
+        .address.-returnInformation span {
+            font-size: 8pt;
+        }
+
+        .address.-recipient {
+            height: 85.8pt; /** (11pt + line height (3.3)) x 6  **/
+            /*border: 1px solid #fff;*/
+        }
+
+        .address.-recipient > span {
+            display: block;
+        }
+
+        .pageMeta__left {
+            width: 80mm;
+            height: 45mm;
+            float: left;
+            /*border: 1px solid seashell;*/
+        }
+
+        .pageMeta__right {
+            width: 75mm;
+            height: 45mm;
+            /*border: 1px solid grey;*/
+            float: right;
+            clear: right;
+            padding: 0;
+            margin: 5mm 0 0;
+        }
+
+        .infobox table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .infobox td,
+        .infobox th {
+            text-align: left;
+        }
+
+        .infobox th {
+            width: 60%;
+        }
+
+        .pageHeader,
+        .pageNumber,
+        .pageFooter,
+        .pageMeta,
+        .pageContent {
+            padding-left: 25mm;
+            padding-right: 20mm;
+        }
+
+        .table.-invoice {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 22pt;
+            /*border: 1px solid #fff;*/
+        }
+
+        .table.-invoice th {
+            padding-top: 6.6pt;
+            padding-bottom: 6.6pt;
+            text-align: left;
+            border-bottom: 1px solid #212121;
+            font-size: 10pt;
+            /*width: 22.5%;*/
+        }
+
+        .table.-invoice td {
+            padding-top: 6.6pt;
+            padding-bottom: 6.6pt;
+            vertical-align: top;
+            font-size: 10pt;
+        }
+
+        /*.table.-invoice th:nth-of-type(1) {*/
+        /*    width: 7.5%;*/
+        /*}*/
+        .table.-invoice th:nth-of-type(2) {
+            width: 40%;
+        }
+
+        .table.-invoice th:nth-of-type(3) {
+            width: 15%;
+        }
+
+        .table.-invoice th:nth-of-type(4) {
+            text-align: right;
+            width: 17.5%;
+        }
+
+        .table.-invoice th:nth-of-type(5) {
+            text-align: right;
+            width: 17.5%;
+        }
+
+        .table.-invoice tfoot tr:nth-of-type(1) td {
+            padding-top: 33pt;
+            /*padding-top: 28.6pt;*/
+            /*padding-top: 10pt;*/
+        }
+
+
+        .table.-invoice tfoot tr:nth-of-type(1) td:nth-of-type(3),
+        .table.-invoice tfoot tr:nth-of-type(1) td:nth-of-type(4),
+        .table.-invoice tfoot tr:nth-of-type(2) td:nth-of-type(3),
+        .table.-invoice tfoot tr:nth-of-type(2) td:nth-of-type(4) {
+            border-bottom: 1px solid #212121;
+        }
+
+        .table.-invoice tfoot tr:nth-of-type(3) td:nth-of-type(3),
+        .table.-invoice tfoot tr:nth-of-type(3) td:nth-of-type(4) {
+            border-bottom: 2px solid #212121;
+            border-radius: 3px;
+        }
+
+        .table.-invoice tfoot td:nth-of-type(4),
+        .table.-invoice tbody td:nth-of-type(4),
+        .table.-invoice tbody td:nth-of-type(5) {
+            text-align: right;
+        }
+
+        .pageContent {
+            page-break-before: avoid;
+            page-break-after: avoid;
+
+        }
+
+        .signature {
+            /*page-break-before: avoid;*/
+            page-break-inside: avoid;
+        }
+
+        .signature_greetings {
+            margin: 0;
+        }
+
+        .signature__name {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .pageFooter {
+            /*width: 210mm;*/
+        }
+        .pageFooter p {
+            margin: 0;
+            font-size: 8pt;
+            color: #4d4d4d;
+        }
+
+        .pageFooter .footer__left,
+        .pageFooter .footer__center,
+        .pageFooter .footer__right {
+            float: left;
+            width: 33.32%;
+        }
+
+        .pageNumber p {
+            font-size: 8pt;
+            color: #4d4d4d;
+            text-align: right;
+        }
+
+        .pagenum:before {
+            font-size: 8pt;
+            color: #4d4d4d;
+            content: counter(page);
+        }
+    </style>
+</head>
+<body class="page">
+<div class="pageFoldMark -one"></div>
+<div class="pageFoldMark -two"></div>
+<div class="pageFoldMark -three"></div>
+<div class="pageHeader"></div>
+<div class="pageNumber">
+    <p>Seite <span class="pagenum"></span> von {{ lastPageNumber | default('') }}</p>
+</div>
+
+<div class="pageMeta">
+    <div class="pageMeta__left">
+        <div class="pageMeta__sender">
+            <address class="address -returnInformation">
+                <span>{{ sender.name }}</span>
+                <span class="separator">-</span>
+                <span>{{ sender.street }}</span>
+                <span class="separator">-</span>
+                <span>{{ sender.location }}</span>
+            </address>
+        </div>
+        <div class="pageMeta__receiver">
+            <address class="address -recipient">
+                <span>{{ recipient.name }}</span>
+                <span>{{ recipient.street }}</span>
+                <span>{{ recipient.location }}</span>
+                {% if recipient.country is not empty %}
+                <span>{{ recipient.country | country }}</span>
+                {% else %}
+                <br>
+                {% endif %}
+                <br>
+                <span>Ust-IdNr. {{ recipient.vatId }}</span>
+            </address>
+        </div>
+    </div>
+    <div class="pageMeta__right">
+        <div class="infobox">
+            {% block infobox %}{% endblock %}
+        </div>
+    </div>
+</div>
+<div class="pageContent">
+    {% block content %}{% endblock %}
+
+    <div class="signature">
+        <br>
+        <br>
+        <br>
+        <p class="signature_greetings">Herzliche Grüße aus {{ sender.location | split(' ')[1] }}</p>
+        <p class="signature__name">{{ sender.name }}</p>
+    </div>
+</div>
+<div class="pageFooter">
+    <div class="footer__left">
+        <address class="address -footer">
+            <p>{{ sender.name }}</p>
+            <p>{{ sender.street }}</p>
+            <p>{{ sender.location }}</p>
+            <p>Ust-IdNr: {{ sender.vatId }}</p>
+        </address>
+    </div>
+    <div class="footer__center">
+        <div class="contact">
+            <p>Tel: <a href="tel:{{ sender.contactInformation.phone | to_e164_phone_number }}">{{ sender.contactInformation.phone | to_pretty_phone_number }}</a></p>
+            <p>Mail: <a href="mailto:{{ sender.contactInformation.mail }}">{{ sender.contactInformation.mail }}</a></p>
+            <p>Web: <a href="{{ sender.contactInformation.web }}">{{ sender.contactInformation.web }}</a></p>
+        </div>
+    </div>
+    <div class="footer__right">
+        <div class="bankInformation">
+            <p>{{ sender.paymentInformation.bank }}</p>
+            <p>IBAN: {{ sender.paymentInformation.iban }}</p>
+            <p>BIC: {{ sender.paymentInformation.bic }}</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

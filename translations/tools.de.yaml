@@ -1,7 +1,13 @@
 ---
 
 label:
-  monthlyHours: "Monatsstunden"
+  monthlyHours: 'Monatsstunden'
 
 timesheet:
-  title: "Stundenzettel - MM.YYYY"
+  title: 'Stundenzettel - MM.YYYY'
+
+invoice:
+  title: 'Rechnung Nr. INVOICE_NUMBER'
+
+unit:
+  HUR: 'Stunden'

@@ -5,6 +5,7 @@ default:
       paths: [ "%paths.base%/tests/Acceptance/features" ]
       contexts:
         - App\Tests\Acceptance\TimesheetContext
+        - App\Tests\Acceptance\InvoiceContext
   extensions:
     FriendsOfBehat\SymfonyExtension:
       bootstrap: tests/bootstrap.php

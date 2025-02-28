@@ -6,6 +6,7 @@ namespace App\Tests\Acceptance;
 
 use App\Application\ApplicationInterface;
 use App\Application\GenerateTimesheet;
+use App\Domain\Model\Common\DateTime;
 use App\Domain\Model\Task;
 use App\Domain\Model\Timing;
 use Behat\Step\Given;
@@ -26,7 +27,7 @@ final class TimesheetContext extends FeatureContext
         }
     }
 
-    #[Given('we have prepared a command')]
+    #[Given('we have prepared a command to generate a timesheet')]
     public function weHavePreparedACommand(): void
     {
         $command = new GenerateTimesheet(
@@ -51,36 +52,26 @@ final class TimesheetContext extends FeatureContext
         $this->application()->generateTimesheet($this->command);
     }
 
+    #[When('a timesheet report was generated')]
+    public function weAssumeATimesheetWasGenerated(): void
+    {
+        $this->weHaveTrackedSomeTasks();
+        $this->weHavePreparedACommand();
+        $this->weGenerateATimesheet();
+        $this->serviceContainer()->setCurrentTime(DateTime::fromString(self::DATE_TIME_INSTANTIATED_AT));
+        //        $this->serviceContainer()->filesystem()->clear();
+        $this->serviceContainer()->eventDispatcher()->reset();
+
+        $this->application()->whenATimesheetReportWasGenerated($this->serviceContainer()->lastGeneratedATimesheetReport());
+    }
+
     #[Then('the timesheet should have been rendered')]
     public function aTimesheetHasBeenRendered(): void
     {
-        $generated = $this->serviceContainer()->componentRenderer()->generated();
-        Assert::count($generated, 1, 'We have assumed that we rendered exactly one timesheet');
-        $generated = current($generated);
-        $context = $generated['context'];
-        Assert::same(
-            $generated['template'],
-            'pdf/timesheet/report.html.twig',
-            'Assumed that we render PDF for timesheet report',
-        );
-        Assert::same(
-            $generated['title'],
-            $this->serviceContainer()
-                ->translator()
-                ->trans(
-                    'timesheet.title',
-                    ['MM.YYYY' => '12.2024'],
-                    domain: 'tools',
-                ),
-            'Assumed, that the title is provided as context.',
-        );
-        Assert::same(
-            $context['project']->asString(),
-            $this->command->project()->asString(),
-            'Assumed, that the project is provided as context',
-        );
-
-        Assert::notEmpty($generated['rendered']);
+        $filesystem = $this->serviceContainer()->filesystem();
+        $today = (new \DateTimeImmutable())->format('Y-m-d');
+        Assert::true($filesystem->wasFileDumped($today.' - pobbd - Stundenzettel - 12-2024 - Marc Timite.pdf'), 'We have assumed that we rendered exactly one pdf');
+        $filesystem->clear();
     }
 
     #[Then('the timesheet should have been generated')]

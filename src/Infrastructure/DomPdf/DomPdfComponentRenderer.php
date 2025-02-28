@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\DomPdf;
 
+use App\Application\FilesystemInterface;
 use App\Domain\Model\Component;
 use App\Domain\Service\ComponentRenderer;
-use App\Infrastructure\Symfony\Filesystem\FilesystemInterface;
 use App\Infrastructure\Twig\TwigComponentRenderer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 

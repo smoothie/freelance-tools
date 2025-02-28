@@ -36,7 +36,7 @@ $config
         'declare_strict_types' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
         'phpdoc_to_param_type' => true,
-        'date_time_immutable' => true,
+//        'date_time_immutable' => true,
         'not_operator_with_successor_space' => true,
         'method_chaining_indentation' => true,
         'single_line_throw' => false,

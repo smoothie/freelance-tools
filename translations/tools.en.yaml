@@ -1,7 +1,13 @@
 ---
 
 label:
-  monthlyHours: "Monthly hours"
+  monthlyHours: 'Monthly hours'
 
 timesheet:
-  title: "Timesheet - MM.YYYY"
+  title: 'Timesheet - MM.YYYY'
+
+invoice:
+  title: 'Invoice No. INVOICE_NUMBER'
+
+unit:
+  HUR: 'hours'

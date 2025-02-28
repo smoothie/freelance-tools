@@ -1,9 +1,20 @@
+imports:
+  - { resource: '../../var/config/' }
+
 tools:
   #default:
   #  providedBy:
   #    name: some contractor
   #    street: some street + house number
   #    location: some city + zip
+  #    vatId: #vatid
+  #    country: #countryCode e.g. DE
+  #    phone: #phone
+  #    mail: #mail
+  #    web: #web
+  #    bank: #bank
+  #    iban: #iban
+  #    bic: #bic
   dompdf:
     #creator: Marc Eichenseher
     #producer: smoothie <hello@marceichenseher.com>

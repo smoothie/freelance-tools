@@ -34,6 +34,19 @@ final class Duration
         return $this->seconds;
     }
 
+    public function asHours(): int
+    {
+        $seconds = $this->seconds;
+        $hours = floor($seconds / 3600);
+        $minutes = floor($seconds / 60) % 60;
+
+        if ($minutes >= 30) {
+            ++$hours;
+        }
+
+        return (int) $hours;
+    }
+
     public function add(self $duration): void
     {
         $this->seconds += $duration->asInt();
