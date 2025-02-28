@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Group;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain\Group;
 
-use App\Domain\Model\ClientId;
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\Group\ListType;
-use App\Domain\Model\Group\TaskInAList;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\Task;
-use App\Domain\Model\Timing;
+use Smoothie\FreelanceTools\Domain\Model\ClientId;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListType;
+use Smoothie\FreelanceTools\Domain\Model\Group\TaskInAList;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\Timing;
 
 trait GroupFactoryMethods
 {

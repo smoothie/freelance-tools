@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\TimesheetReport;
-use App\Domain\Model\TimesheetReportId;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
 
 class GeneratedATimesheetReport
 {

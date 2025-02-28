@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Symfony\Command;
+namespace Smoothie\FreelanceTools\Infrastructure\Symfony\Command;
 
-use App\Application\ApplicationInterface;
-use App\Application\GenerateTimesheet;
-use App\Domain\Model\Common\DateTime;
 use Ramsey\Uuid\Uuid;
+use Smoothie\FreelanceTools\Application\ApplicationInterface;
+use Smoothie\FreelanceTools\Application\GenerateTimesheet;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Group;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain\Group;
 
-use App\Domain\Model\ClientId;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\Group\ListOfTasksInAProject;
-use App\Domain\Model\Group\ListOfTasksInDays;
-use App\Domain\Model\Group\TaskInAList;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\Task;
-use App\Domain\Model\Timing;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\ClientId;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInAProject;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInDays;
+use Smoothie\FreelanceTools\Domain\Model\Group\TaskInAList;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\Timing;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('group')]

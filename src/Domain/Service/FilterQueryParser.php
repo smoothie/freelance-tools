@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Service;
+namespace Smoothie\FreelanceTools\Domain\Service;
 
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\FilterExpressions;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\FilterExpressions;
 
 interface FilterQueryParser
 {

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Component;
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\Group\ListOfTasksInProjects;
-use App\Domain\Model\Invoice;
-use App\Domain\Model\InvoiceId;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\TimesheetReport;
-use App\Domain\Service\ComponentRenderer;
-use App\Domain\Service\WorkTimeProcessor;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInProjects;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
+use Smoothie\FreelanceTools\Domain\Service\ComponentRenderer;
+use Smoothie\FreelanceTools\Domain\Service\WorkTimeProcessor;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

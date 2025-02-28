@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Application\ApplicationInterface;
-use App\Application\GenerateTimesheet;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Task;
-use App\Domain\Model\Timing;
 use Behat\Step\Given;
 use Behat\Step\Then;
 use Behat\Step\When;
 use Ramsey\Uuid\Uuid;
+use Smoothie\FreelanceTools\Application\ApplicationInterface;
+use Smoothie\FreelanceTools\Application\GenerateTimesheet;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\Timing;
 use Webmozart\Assert\Assert;
 
 final class TimesheetContext extends FeatureContext

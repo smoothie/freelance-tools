@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\Invoice;
-use App\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
 
 class GeneratedAnInvoice
 {

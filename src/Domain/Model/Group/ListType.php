@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model\Group;
+namespace Smoothie\FreelanceTools\Domain\Model\Group;
 
 enum ListType: string
 {

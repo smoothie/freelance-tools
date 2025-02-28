@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\Task;
-use App\Domain\Service\WorkTimeProcessor;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Service\WorkTimeProcessor;
 
 class InMemoryWorkTimeProcessor implements WorkTimeProcessor
 {

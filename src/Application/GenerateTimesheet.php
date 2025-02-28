@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\ApprovedBy;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\PerformancePeriod;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\ProvidedBy;
-use App\Domain\Model\TimesheetReportId;
+use Smoothie\FreelanceTools\Domain\Model\ApprovedBy;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\PerformancePeriod;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\ProvidedBy;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
 use Webmozart\Assert\Assert;
 
 class GenerateTimesheet

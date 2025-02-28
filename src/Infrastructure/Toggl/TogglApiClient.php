@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Toggl;
+namespace Smoothie\FreelanceTools\Infrastructure\Toggl;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

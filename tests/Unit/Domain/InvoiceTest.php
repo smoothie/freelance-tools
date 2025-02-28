@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain;
 
-use App\Domain\Model\BilledBy;
-use App\Domain\Model\BilledTo;
-use App\Domain\Model\Common\Amount;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\ContactInformation;
-use App\Domain\Model\DueDate;
-use App\Domain\Model\Invoice;
-use App\Domain\Model\InvoiceId;
-use App\Domain\Model\InvoiceItem;
-use App\Domain\Model\PaymentInformation;
-use App\Domain\Model\ProjectId;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\BilledBy;
+use Smoothie\FreelanceTools\Domain\Model\BilledTo;
+use Smoothie\FreelanceTools\Domain\Model\Common\Amount;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\ContactInformation;
+use Smoothie\FreelanceTools\Domain\Model\DueDate;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceItem;
+use Smoothie\FreelanceTools\Domain\Model\PaymentInformation;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('domain')]

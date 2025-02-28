@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Infrastructure\Event;
+use Smoothie\FreelanceTools\Infrastructure\Event;
 
 final class EventDispatcherSpy
 {

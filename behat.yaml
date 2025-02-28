@@ -4,10 +4,11 @@ default:
     acceptance:
       paths: [ "%paths.base%/tests/Acceptance/features" ]
       contexts:
-        - App\Tests\Acceptance\TimesheetContext
-        - App\Tests\Acceptance\InvoiceContext
+        - Smoothie\FreelanceTools\Tests\Acceptance\TimesheetContext
+        - Smoothie\FreelanceTools\Tests\Acceptance\InvoiceContext
   extensions:
     FriendsOfBehat\SymfonyExtension:
       bootstrap: tests/bootstrap.php
       kernel:
         environment: acceptance
+        class: Smoothie\FreelanceTools\Kernel

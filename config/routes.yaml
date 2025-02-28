@@ -1,5 +1,5 @@
 controllers:
     resource:
         path: ../src/Infrastructure/Symfony/Controller/
-        namespace: App\Infrastructure\Symfony\Controller
+        namespace: Smoothie\FreelanceTools\Infrastructure\Symfony\Controller
     type: attribute

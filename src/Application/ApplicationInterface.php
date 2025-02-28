@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\Component;
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\Group\ListOfTasksInProjects;
-use App\Domain\Model\Invoice;
-use App\Domain\Service\WorkTimeProcessor;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInProjects;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Service\WorkTimeProcessor;
 
 interface ApplicationInterface
 {

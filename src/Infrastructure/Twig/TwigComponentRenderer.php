@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Twig;
+namespace Smoothie\FreelanceTools\Infrastructure\Twig;
 
-use App\Domain\Model\Component;
-use App\Domain\Service\ComponentRenderer;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Service\ComponentRenderer;
 use Twig\Environment;
 
 class TwigComponentRenderer implements ComponentRenderer

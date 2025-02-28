@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model\Group;
+namespace Smoothie\FreelanceTools\Domain\Model\Group;
 
-use App\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\Task;
 use Webmozart\Assert\Assert;
 
 class ListOfTasksInProjects

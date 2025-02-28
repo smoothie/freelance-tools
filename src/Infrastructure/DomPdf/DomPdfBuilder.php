@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\DomPdf;
+namespace Smoothie\FreelanceTools\Infrastructure\DomPdf;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;

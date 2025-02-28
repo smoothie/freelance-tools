@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\horstoeko;
+namespace Smoothie\FreelanceTools\Infrastructure\horstoeko;
 
-use App\Application\FilesystemInterface;
-use App\Domain\Model\Component;
-use App\Domain\Model\Invoice;
-use App\Domain\Service\ComponentRenderer;
+use Smoothie\FreelanceTools\Application\FilesystemInterface;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Service\ComponentRenderer;
 
 class ZugferdComponentRenderer implements ComponentRenderer
 {

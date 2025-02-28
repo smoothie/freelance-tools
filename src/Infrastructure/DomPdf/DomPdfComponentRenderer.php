@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\DomPdf;
+namespace Smoothie\FreelanceTools\Infrastructure\DomPdf;
 
-use App\Application\FilesystemInterface;
-use App\Domain\Model\Component;
-use App\Domain\Service\ComponentRenderer;
-use App\Infrastructure\Twig\TwigComponentRenderer;
+use Smoothie\FreelanceTools\Application\FilesystemInterface;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Service\ComponentRenderer;
+use Smoothie\FreelanceTools\Infrastructure\Twig\TwigComponentRenderer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class DomPdfComponentRenderer implements ComponentRenderer

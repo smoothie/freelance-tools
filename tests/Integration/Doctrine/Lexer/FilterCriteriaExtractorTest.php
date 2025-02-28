@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Doctrine\Lexer;
+namespace Smoothie\FreelanceTools\Tests\Integration\Doctrine\Lexer;
 
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Expression;
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\FilterExpressions;
-use App\Domain\Model\PerformancePeriod;
-use App\Infrastructure\Doctrine\Lexer\FilterCriteriaQueryParser;
-use App\Infrastructure\Doctrine\Lexer\Lexer;
-use App\Infrastructure\SystemClock;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Large;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Expression;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\FilterExpressions;
+use Smoothie\FreelanceTools\Domain\Model\PerformancePeriod;
+use Smoothie\FreelanceTools\Infrastructure\Doctrine\Lexer\FilterCriteriaQueryParser;
+use Smoothie\FreelanceTools\Infrastructure\Doctrine\Lexer\Lexer;
+use Smoothie\FreelanceTools\Infrastructure\SystemClock;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Large]
 #[Group('integration')]

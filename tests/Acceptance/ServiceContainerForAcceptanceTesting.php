@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Application\Application;
-use App\Application\ApplicationInterface;
-use App\Application\Clock;
-use App\Application\GeneratedAnInvoice;
-use App\Application\GeneratedATimesheetReport;
-use App\Domain\Model\Common\DateTime;
-use App\Infrastructure\DomPdf\DomPdfBuilder;
-use App\Infrastructure\DomPdf\DomPdfComponentRenderer;
-use App\Infrastructure\horstoeko\EInvoiceBuilder;
-use App\Infrastructure\horstoeko\ZugferdComponentRenderer;
-use App\Infrastructure\horstoeko\ZugferdDocumentMerger;
-use App\Infrastructure\SystemClock;
-use App\Infrastructure\Twig\TwigComponentRenderer;
+use Smoothie\FreelanceTools\Application\Application;
+use Smoothie\FreelanceTools\Application\ApplicationInterface;
+use Smoothie\FreelanceTools\Application\Clock;
+use Smoothie\FreelanceTools\Application\GeneratedAnInvoice;
+use Smoothie\FreelanceTools\Application\GeneratedATimesheetReport;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfBuilder;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfComponentRenderer;
+use Smoothie\FreelanceTools\Infrastructure\horstoeko\EInvoiceBuilder;
+use Smoothie\FreelanceTools\Infrastructure\horstoeko\ZugferdComponentRenderer;
+use Smoothie\FreelanceTools\Infrastructure\horstoeko\ZugferdDocumentMerger;
+use Smoothie\FreelanceTools\Infrastructure\SystemClock;
+use Smoothie\FreelanceTools\Infrastructure\Twig\TwigComponentRenderer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

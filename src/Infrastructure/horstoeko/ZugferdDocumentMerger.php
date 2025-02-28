@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\horstoeko;
+namespace Smoothie\FreelanceTools\Infrastructure\horstoeko;
 
-use App\Application\PdfAndXmlMerger;
 use horstoeko\zugferd\ZugferdDocumentPdfMerger;
+use Smoothie\FreelanceTools\Application\PdfAndXmlMerger;
 
 class ZugferdDocumentMerger implements PdfAndXmlMerger
 {

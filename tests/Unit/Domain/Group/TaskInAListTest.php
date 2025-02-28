@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Group;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain\Group;
 
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\Group\TaskInAList;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Group\TaskInAList;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('group')]

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Symfony\Controller;
+namespace Smoothie\FreelanceTools\Infrastructure\Symfony\Controller;
 
-use App\Domain\Model\ApprovedBy;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Group\ListOfTasksInAProject;
-use App\Domain\Model\Group\ListType;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\ProvidedBy;
-use App\Domain\Model\Task;
-use App\Domain\Model\TimesheetReport;
-use App\Domain\Model\TimesheetReportId;
-use App\Domain\Model\Timing;
-use App\Infrastructure\DomPdf\DomPdfBuilder;
-use App\Infrastructure\Symfony\Filesystem\Filesystem;
+use Smoothie\FreelanceTools\Domain\Model\ApprovedBy;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInAProject;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListType;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\ProvidedBy;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
+use Smoothie\FreelanceTools\Domain\Model\Timing;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfBuilder;
+use Smoothie\FreelanceTools\Infrastructure\Symfony\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\HttpFoundation\Response;

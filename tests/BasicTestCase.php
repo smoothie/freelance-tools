@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests;
+namespace Smoothie\FreelanceTools\Tests;
 
 use PHPUnit\Framework\TestCase;
 

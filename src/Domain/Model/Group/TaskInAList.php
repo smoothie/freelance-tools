@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model\Group;
+namespace Smoothie\FreelanceTools\Domain\Model\Group;
 
-use App\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
 
 class TaskInAList
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Doctrine\Lexer;
+namespace Smoothie\FreelanceTools\Infrastructure\Doctrine\Lexer;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 

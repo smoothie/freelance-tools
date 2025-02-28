@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Doctrine\Lexer;
+namespace Smoothie\FreelanceTools\Infrastructure\Doctrine\Lexer;
 
-use App\Application\Clock;
-use App\Domain\Model\Expression;
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\FilterExpressions;
-use App\Domain\Service\FilterQueryParser;
+use Smoothie\FreelanceTools\Application\Clock;
+use Smoothie\FreelanceTools\Domain\Model\Expression;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\FilterExpressions;
+use Smoothie\FreelanceTools\Domain\Service\FilterQueryParser;
 
 class FilterCriteriaQueryParser implements FilterQueryParser
 {

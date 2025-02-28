@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\horstoeko;
+namespace Smoothie\FreelanceTools\Infrastructure\horstoeko;
 
-use App\Domain\Model\Invoice;
 use horstoeko\zugferd\codelists\ZugferdCurrencyCodes;
 use horstoeko\zugferd\codelists\ZugferdDocumentType;
 use horstoeko\zugferd\codelists\ZugferdElectronicAddressScheme;
@@ -15,6 +14,7 @@ use horstoeko\zugferd\codelists\ZugferdVatTypeCodes;
 use horstoeko\zugferd\ZugferdDocumentBuilder;
 use horstoeko\zugferd\ZugferdProfiles;
 use horstoeko\zugferd\ZugferdXsdValidator;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
 
 class EInvoiceBuilder
 {

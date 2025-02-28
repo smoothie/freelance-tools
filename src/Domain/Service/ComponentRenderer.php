@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Service;
+namespace Smoothie\FreelanceTools\Domain\Service;
 
-use App\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Model\Component;
 
 interface ComponentRenderer
 {

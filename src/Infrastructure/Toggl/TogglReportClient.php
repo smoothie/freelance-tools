@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Toggl;
+namespace Smoothie\FreelanceTools\Infrastructure\Toggl;
 
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\Task;
-use App\Domain\Model\Timing;
-use App\Infrastructure\Doctrine\Lexer\FilterCriteriaQueryParser;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\Task;
+use Smoothie\FreelanceTools\Domain\Model\Timing;
+use Smoothie\FreelanceTools\Infrastructure\Doctrine\Lexer\FilterCriteriaQueryParser;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;

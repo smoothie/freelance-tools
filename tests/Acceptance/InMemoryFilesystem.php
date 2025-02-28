@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Application\FilesystemInterface;
+use Smoothie\FreelanceTools\Application\FilesystemInterface;
 
 class InMemoryFilesystem implements FilesystemInterface
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
-use App\Domain\Model\BilledBy;
-use App\Domain\Model\BilledTo;
-use App\Domain\Model\Common\Amount;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\ContactInformation;
-use App\Domain\Model\DueDate;
-use App\Domain\Model\InvoiceId;
-use App\Domain\Model\InvoiceItem;
-use App\Domain\Model\PaymentInformation;
-use App\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\BilledBy;
+use Smoothie\FreelanceTools\Domain\Model\BilledTo;
+use Smoothie\FreelanceTools\Domain\Model\Common\Amount;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\ContactInformation;
+use Smoothie\FreelanceTools\Domain\Model\DueDate;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceItem;
+use Smoothie\FreelanceTools\Domain\Model\PaymentInformation;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
 
 class GenerateInvoice
 {

@@ -38,7 +38,7 @@ deptrac:
             - type: layer
               value: VendorApplication
         - type: classLike
-          value: ^App\\(Symfony|Doctrine|Contracts)\\.*
+          value: ^Smoothie\\FreelanceTools\\(Symfony|Doctrine|Contracts)\\.*
 
   ruleset:
     Domain:

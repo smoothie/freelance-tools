@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Application\ApplicationInterface;
-use App\Application\GenerateInvoice;
 use Behat\Step\Given;
 use Behat\Step\Then;
 use Behat\Step\When;
+use Smoothie\FreelanceTools\Application\ApplicationInterface;
+use Smoothie\FreelanceTools\Application\GenerateInvoice;
 use Webmozart\Assert\Assert;
 
 final class InvoiceContext extends FeatureContext

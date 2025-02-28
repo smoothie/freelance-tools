@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\DomPdf;
+namespace Smoothie\FreelanceTools\Tests\Integration\DomPdf;
 
-use App\Domain\Model\ApprovedBy;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\Group\ListOfTasksInAProject;
-use App\Domain\Model\Group\ListType;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\ProvidedBy;
-use App\Domain\Model\TimesheetReport;
-use App\Domain\Model\TimesheetReportId;
-use App\Infrastructure\DomPdf\DomPdfBuilder;
-use App\Infrastructure\DomPdf\DomPdfComponentRenderer;
-use App\Tests\Acceptance\InMemoryFilesystem;
-use App\Tests\Unit\Domain\Group\GroupFactoryMethods;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Large;
+use Smoothie\FreelanceTools\Domain\Model\ApprovedBy;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInAProject;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListType;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\ProvidedBy;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfBuilder;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfComponentRenderer;
+use Smoothie\FreelanceTools\Tests\Acceptance\InMemoryFilesystem;
+use Smoothie\FreelanceTools\Tests\Unit\Domain\Group\GroupFactoryMethods;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 #[Large]

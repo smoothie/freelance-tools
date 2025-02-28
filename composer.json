@@ -1,6 +1,6 @@
 {
-    "name": "smoothie/contractor-tools",
-    "description": "Package for freelance (billing, sheets, cv) stuff.",
+    "name": "smoothie/freelance-tools",
+    "description": "A package to generate my timesheets, bills and profiles..",
     "license": "Apache-2.0",
     "type": "project",
     "require": {
@@ -50,12 +50,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Smoothie\\FreelanceTools\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Smoothie\\FreelanceTools\\Tests\\": "tests/"
         }
     },
     "config": {

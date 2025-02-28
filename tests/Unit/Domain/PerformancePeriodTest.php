@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain;
 
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Model\PerformancePeriod;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Model\PerformancePeriod;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('domain')]

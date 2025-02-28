@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Symfony\Filesystem;
+namespace Smoothie\FreelanceTools\Infrastructure\Symfony\Filesystem;
 
-use App\Application\FilesystemInterface;
+use Smoothie\FreelanceTools\Application\FilesystemInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
 use Symfony\Component\Filesystem\Path;

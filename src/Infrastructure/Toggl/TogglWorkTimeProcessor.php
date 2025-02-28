@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Toggl;
+namespace Smoothie\FreelanceTools\Infrastructure\Toggl;
 
-use App\Domain\Model\FilterCriteria;
-use App\Domain\Service\WorkTimeProcessor;
+use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
+use Smoothie\FreelanceTools\Domain\Service\WorkTimeProcessor;
 
 class TogglWorkTimeProcessor implements WorkTimeProcessor
 {

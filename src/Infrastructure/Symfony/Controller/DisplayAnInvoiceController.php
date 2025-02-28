@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Symfony\Controller;
+namespace Smoothie\FreelanceTools\Infrastructure\Symfony\Controller;
 
-use App\Domain\Model\BilledBy;
-use App\Domain\Model\BilledTo;
-use App\Domain\Model\Common\Amount;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\ContactInformation;
-use App\Domain\Model\DueDate;
-use App\Domain\Model\Invoice;
-use App\Domain\Model\InvoiceId;
-use App\Domain\Model\InvoiceItem;
-use App\Domain\Model\PaymentInformation;
-use App\Domain\Model\ProjectId;
-use App\Infrastructure\DomPdf\DomPdfBuilder;
-use App\Infrastructure\horstoeko\EInvoiceBuilder;
-use App\Infrastructure\Symfony\Filesystem\Filesystem;
 use horstoeko\zugferd\ZugferdDocumentPdfMerger;
+use Smoothie\FreelanceTools\Domain\Model\BilledBy;
+use Smoothie\FreelanceTools\Domain\Model\BilledTo;
+use Smoothie\FreelanceTools\Domain\Model\Common\Amount;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\ContactInformation;
+use Smoothie\FreelanceTools\Domain\Model\DueDate;
+use Smoothie\FreelanceTools\Domain\Model\Invoice;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\InvoiceItem;
+use Smoothie\FreelanceTools\Domain\Model\PaymentInformation;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Infrastructure\DomPdf\DomPdfBuilder;
+use Smoothie\FreelanceTools\Infrastructure\horstoeko\EInvoiceBuilder;
+use Smoothie\FreelanceTools\Infrastructure\Symfony\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\HttpFoundation\Response;

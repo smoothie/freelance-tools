@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Twig;
+namespace Smoothie\FreelanceTools\Infrastructure\Twig;
 
-use App\Domain\Model\Common\Amount;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Common\Duration;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
+use Smoothie\FreelanceTools\Domain\Model\Common\Amount;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
 use Symfony\Component\Intl\Countries;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;

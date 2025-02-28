@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application;
+namespace Smoothie\FreelanceTools\Application;
 
 interface FilesystemInterface
 {

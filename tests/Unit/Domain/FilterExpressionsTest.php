@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain;
 
-use App\Domain\Model\EmptyExpression;
-use App\Domain\Model\Expression;
-use App\Domain\Model\FilterExpressions;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
+use Smoothie\FreelanceTools\Domain\Model\EmptyExpression;
+use Smoothie\FreelanceTools\Domain\Model\Expression;
+use Smoothie\FreelanceTools\Domain\Model\FilterExpressions;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('domain')]

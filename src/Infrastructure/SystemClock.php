@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure;
+namespace Smoothie\FreelanceTools\Infrastructure;
 
-use App\Application\Clock;
-use App\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Application\Clock;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
 
 class SystemClock implements Clock
 {

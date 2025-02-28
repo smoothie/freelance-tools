@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance;
+namespace Smoothie\FreelanceTools\Tests\Acceptance;
 
-use App\Application\ApplicationInterface;
-use App\Domain\Model\Common\DateTime;
 use Behat\Behat\Context\Context;
+use Smoothie\FreelanceTools\Application\ApplicationInterface;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
 use Webmozart\Assert\Assert;
 
 abstract class FeatureContext implements Context

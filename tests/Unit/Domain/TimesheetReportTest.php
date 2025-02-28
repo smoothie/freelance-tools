@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain;
+namespace Smoothie\FreelanceTools\Tests\Unit\Domain;
 
-use App\Domain\Model\ApprovedBy;
-use App\Domain\Model\Common\DateTime;
-use App\Domain\Model\Common\Duration;
-use App\Domain\Model\Component;
-use App\Domain\Model\Group\ListOfTasksInAProject;
-use App\Domain\Model\Group\ListType;
-use App\Domain\Model\ProjectId;
-use App\Domain\Model\ProvidedBy;
-use App\Domain\Model\TimesheetReport;
-use App\Domain\Model\TimesheetReportId;
-use App\Tests\BasicTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Smoothie\FreelanceTools\Domain\Model\ApprovedBy;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Duration;
+use Smoothie\FreelanceTools\Domain\Model\Component;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInAProject;
+use Smoothie\FreelanceTools\Domain\Model\Group\ListType;
+use Smoothie\FreelanceTools\Domain\Model\ProjectId;
+use Smoothie\FreelanceTools\Domain\Model\ProvidedBy;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
+use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
+use Smoothie\FreelanceTools\Tests\BasicTestCase;
 
 #[Small]
 #[Group('domain')]

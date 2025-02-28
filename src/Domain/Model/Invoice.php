@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Model;
+namespace Smoothie\FreelanceTools\Domain\Model;
 
-use App\Domain\Model\Common\Amount;
-use App\Domain\Model\Common\DateTime;
+use Smoothie\FreelanceTools\Domain\Model\Common\Amount;
+use Smoothie\FreelanceTools\Domain\Model\Common\DateTime;
 use Webmozart\Assert\Assert;
 
 class Invoice implements Component
