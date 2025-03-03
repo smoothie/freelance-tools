@@ -27,15 +27,16 @@ final class TimesheetContext extends FeatureContext
         }
     }
 
+    #[Given('we have prepared a command to generate a timesheet for the :PERFORMANCE_PERIOD')]
     #[Given('we have prepared a command to generate a timesheet')]
-    public function weHavePreparedACommand(): void
+    public function weHavePreparedACommand(string $performancePeriod = 'LAST_MONTH'): void
     {
         $command = new GenerateTimesheet(
             timesheetId: Uuid::uuid4()->toString(),
             project: 'cheesecake-agile',
             approvedBy: ['name' => 'Marc Eichenseher', 'company' => 'pobbd'],
             providedBy: $this->defaultProvidedBy(),
-            performancePeriod: 'LAST_MONTH',
+            performancePeriod: $performancePeriod,
             exportFormat: 'PDF',
             startDate: '2025-01-01',
             approvedAt: '2025-02-14',
@@ -52,14 +53,14 @@ final class TimesheetContext extends FeatureContext
         $this->application()->generateTimesheet($this->command);
     }
 
+    #[When('a timesheet report was generated for the :PERFORMANCE_PERIOD')]
     #[When('a timesheet report was generated')]
-    public function weAssumeATimesheetWasGenerated(): void
+    public function weAssumeATimesheetWasGenerated(string $performancePeriod = 'LAST_MONTH'): void
     {
         $this->weHaveTrackedSomeTasks();
-        $this->weHavePreparedACommand();
+        $this->weHavePreparedACommand($performancePeriod);
         $this->weGenerateATimesheet();
         $this->serviceContainer()->setCurrentTime(DateTime::fromString(self::DATE_TIME_INSTANTIATED_AT));
-        //        $this->serviceContainer()->filesystem()->clear();
         $this->serviceContainer()->eventDispatcher()->reset();
 
         $this->application()->whenATimesheetReportWasGenerated($this->serviceContainer()->lastGeneratedATimesheetReport());

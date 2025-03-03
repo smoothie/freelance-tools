@@ -84,7 +84,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
         $rendered = $this->renderComponent($report);
 
         $this->eventDispatcher->dispatch(
-            new GeneratedATimesheetReport($report, $command->exportFormat(), $rendered),
+            new GeneratedATimesheetReport($report, $command->exportFormat(), $rendered, $performancePeriod),
             self::EVENT_GENERATED_TIMESHEET,
         );
     }
@@ -155,7 +155,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
 
     public function getNextInvoiceNumber(DateTime $billingDate): string
     {
-        $prefix = $billingDate->asPhpDateTime()->format('Ym');
+        $prefix = $billingDate->asPhpDateTime()->modify('+1 month')->format('Ym');
         $pattern = \sprintf('*%s-*.pdf', $prefix);
         $lastIncrementor = $this->filesystem->numberOfFilesInExportDirectory($pattern);
         $nextIncrementor = $lastIncrementor + 1;

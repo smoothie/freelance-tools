@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Smoothie\FreelanceTools\Application;
 
+use Smoothie\FreelanceTools\Domain\Model\PerformancePeriod;
 use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
 use Smoothie\FreelanceTools\Domain\Model\TimesheetReportId;
 
@@ -13,6 +14,7 @@ class GeneratedATimesheetReport
         private TimesheetReport $timesheetReport,
         private string $exportFormat,
         private string $rendered,
+        private PerformancePeriod $performancePeriod,
     ) {
     }
 
@@ -26,13 +28,18 @@ class GeneratedATimesheetReport
         return $this->timesheetReport;
     }
 
+    public function exportFormat(): string
+    {
+        return $this->exportFormat;
+    }
+
     public function rendered(): string
     {
         return $this->rendered;
     }
 
-    public function exportFormat(): string
+    public function performancePeriod(): PerformancePeriod
     {
-        return $this->exportFormat;
+        return $this->performancePeriod;
     }
 }
