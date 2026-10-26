@@ -25,8 +25,6 @@
 
 {% block closingSignature %}{% if documentType != 'final' %}{{ parent() }}{% endif %}{% endblock %}
 
-{% block signatureSpacing %}{% if documentType != 'final' and invoiceItems | length == 1 %}<br><br><br>{% endif %}{% endblock %}
-
 {% block content %}
 <h1>{{ title }}</h1>
     {% if documentType == 'quote' %}

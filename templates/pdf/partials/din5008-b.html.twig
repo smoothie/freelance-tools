@@ -322,8 +322,9 @@
         }
 
         .signature {
-            /*page-break-before: avoid;*/
+            page-break-before: avoid;
             page-break-inside: avoid;
+            margin-top: 12pt;
         }
 
         .signature_greetings {
@@ -415,7 +416,6 @@
 
     {% block closingSignature %}
     <div class="signature">
-        {% block signatureSpacing %}<br><br><br>{% endblock %}
         <p class="signature_greetings">Herzliche Grüße aus {{ sender.location | split(' ')[1] }}</p>
         <p class="signature__name">{{ sender.name }}</p>
     </div>

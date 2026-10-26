@@ -34,4 +34,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Export actual service periods rather than using the payment due date as a delivery date.
 - Show fully paid final invoices without a redundant payment demand.
 - Prevent Classic footer columns from splitting short documents across many pages.
+- Keep Classic greetings with preceding content instead of creating a separate greeting-only page.
 - Match Marc invoice typography and grid tables to the supplied references; keep short settlements on one page and metadata labels intact.
