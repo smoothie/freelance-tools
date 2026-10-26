@@ -5,160 +5,82 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <style>
-        @font-face {
-            font-family: "Poppins";
-            src: url(/Poppins/Poppins-SemiBold.ttf) format("truetype");
-            font-weight: 600;
-        }
-        @font-face {
-            font-family: "Poppins";
-            src: url(/Poppins/Poppins-Black.ttf) format("truetype");
-            font-weight: 900;
-        }
-        @font-face {
-            font-family: "Mulish";
-            src: url(/Mulish/Mulish-Regular.ttf) format("truetype");
-            font-weight: 400;
-        }
-        @font-face {
-            font-family: "Mulish";
-            src: url(/Mulish/Mulish-SemiBold.ttf) format("truetype");
-            font-weight: 600;
-        }
-        @page {
-            size: A4;
-            margin: 45mm 20mm 32mm 25mm;
-        }
-        body {
-            margin: 0;
-            color: #212121;
-            font-family: "Mulish", sans-serif;
-            font-size: 11pt;
-            line-height: 1.2;
-        }
-        h1, h2, p, address { margin: 0; }
-        h1, h2 {
-            font-family: "Poppins", sans-serif;
-            font-weight: 600;
-        }
-        h1 { font-size: 22pt; margin-bottom: 6mm; }
-        h2 { font-size: 12.5pt; margin: 6mm 0 3mm; }
-        p { margin-bottom: 3mm; }
+        @font-face { font-family: "Marc Poppins"; src: url(/Marc/poppins-latin-600-normal.ttf) format("truetype"); font-weight: 600; }
+        @font-face { font-family: "Marc Poppins"; src: url(/Marc/poppins-latin-900-normal.ttf) format("truetype"); font-weight: 900; }
+        @font-face { font-family: "Marc Mulish"; src: url(/Marc/mulish-latin-400-normal.ttf) format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Marc Mulish"; src: url(/Marc/mulish-latin-600-normal.ttf) format("truetype"); font-weight: 600; }
+        @page { size: A4; margin: 45mm 20mm 25mm 25mm; }
+        body { margin: 0; color: #000000; font-family: "Marc Mulish", sans-serif; font-size: 10.5pt; line-height: 1.15; }
+        h1, h2, p, address, dl, dd { margin: 0; }
+        h1, h2 { font-family: "Marc Poppins", sans-serif; font-weight: 600; page-break-after: avoid; }
+        h1 { font-size: 12pt; line-height: 1.2; margin-bottom: 12pt; }
+        h2 { font-size: 11.5pt; margin: 11pt 0 6pt; }
+        p { margin-bottom: 7pt; orphans: 2; widows: 2; }
+        strong, th { font-weight: 600; }
         address { font-style: normal; }
-        a { color: #212121; text-decoration: none; }
-        .pageHeader {
-            position: fixed;
-            top: -31mm;
-            left: 0;
-            right: 0;
-            border-top: 1mm solid #FFCC33;
-            padding-top: 3mm;
-        }
-        .senderName {
-            font-family: "Poppins", sans-serif;
-            font-weight: 900;
-            font-size: 22pt;
-            white-space: nowrap;
-        }
-        .headerContact { font-size: 8pt; margin-top: 1mm; }
-        .pageMeta { position: relative; height: 50mm; }
-        .returnAddress { width: 80mm; font-size: 8pt; }
-        .recipient { position: absolute; top: 17.7mm; left: 0; width: 80mm; line-height: 0.8; }
+        a { color: #000000; text-decoration: underline; }
+        .pageHeader { position: fixed; top: -31mm; left: 0; right: 0; border-top: 1mm solid #FFCC33; padding-top: 3mm; }
+        .senderName { font-family: "Marc Poppins", sans-serif; font-weight: 900; font-size: 18pt; line-height: 1; white-space: nowrap; margin: 0; }
+        .headerContact { font-size: 8pt; margin: 1.5mm 0 0; }
+        .pageMeta { position: relative; height: 51.2mm; }
+        .returnAddress { width: 95mm; font-size: 8pt; line-height: 12pt; }
+        .recipient { position: absolute; top: 17.7mm; left: 0; width: 95mm; font-size: 11pt; line-height: 0.9; }
         .recipient span { display: block; }
-        .infobox { position: absolute; top: 0; left: 100mm; width: 65mm; }
-        .infobox table { width: 100%; font-size: 9pt; }
-        .infobox th { width: 53%; font-weight: 600; text-align: left; }
-        .infobox td { text-align: right; }
-        .infobox th, .infobox td { padding: 0 0 1.5mm; vertical-align: top; }
-        .foldMark { position: fixed; left: -25mm; width: 5mm; border-top: 0.25mm solid #212121; }
-        .foldMark.first { top: 60mm; }
-        .foldMark.middle { top: 103.5mm; width: 7.5mm; }
-        .foldMark.last { top: 165mm; }
-        .pageFooter {
-            position: fixed;
-            bottom: -25mm;
-            left: 0;
-            right: 0;
-            border-top: 0.25mm solid #D9D9D9;
-            padding-top: 2mm;
-            font-size: 8pt;
-        }
-        .pageFooter table { width: 100%; table-layout: fixed; }
-        .pageFooter td { vertical-align: top; width: 33.33%; }
+        .infobox { position: absolute; top: 4mm; left: 100mm; width: 65mm; font-size: 9pt; line-height: 10pt; }
+        .infobox dt { font-weight: 600; }
+        .infobox dd { margin: 0; overflow-wrap: break-word; }
+        .pageFooter { position: fixed; bottom: -14mm; left: 0; right: 0; font-size: 8pt; line-height: 12pt; color: #595959; }
         .pageFooter p { margin: 0; }
-        .pageNumber { text-align: right; margin-top: 2mm; }
+        .pageNumber { position: absolute; top: 0; right: 0; }
         .pagenum:before { content: counter(page); }
-        table { border-collapse: collapse; border-spacing: 0; }
-        .positions { width: 100%; table-layout: fixed; margin-top: 5mm; }
-        .positions thead { display: table-header-group; }
-        .positions tr, .payments tr { page-break-inside: avoid; }
-        .positions th, .positions td {
-            padding: 2.5mm 1mm;
-            border-bottom: 0.25mm solid #D9D9D9;
-            vertical-align: top;
-            font-size: 9pt;
-            text-align: left;
-            overflow-wrap: break-word;
-        }
-        .positions th { font-weight: 600; }
-        .positions .position { width: 6%; }
-        .positions .description { width: 40%; }
-        .positions .quantity { width: 16%; }
-        .positions .money { width: 19%; text-align: right; }
-        .totals { width: 100%; margin-top: 5mm; page-break-inside: avoid; }
-        .totals td { padding: 2mm 1mm; text-align: right; }
-        .totals td:first-child { width: 75%; }
-        .totals .total td { border-top: 0.5mm solid #FFCC33; font-weight: 600; }
-        .payments { width: 100%; font-size: 9pt; }
-        .payments th, .payments td { padding: 2mm 1mm; text-align: right; border-bottom: 0.25mm solid #D9D9D9; }
-        .payments th:first-child, .payments td:first-child { text-align: left; width: 46%; }
-        .payments th { font-weight: 600; }
-        .paymentTerms { margin-top: 6mm; page-break-inside: avoid; }
-        .notes { margin-top: 5mm; }
+        table { border-collapse: collapse; border-spacing: 0; width: 100%; table-layout: fixed; }
+        thead { display: table-header-group; }
+        tr { page-break-inside: avoid; }
+        .positions, .totals, .settlement { font-size: 9.5pt; line-height: 1.1; }
+        .positions th, .positions td, .totals th, .totals td, .settlement th, .settlement td { border: 0.5pt solid #D9D9D9; padding: 4.25pt 4.75pt; text-align: left; vertical-align: top; overflow-wrap: break-word; }
+        th { background: #F4F4F4; }
+        .positions .description { width: 50%; }
+        .positions.compact .description { width: 70%; }
+        .positions .quantity { width: 15%; }
+        .positions.compact .quantity { width: 12%; }
+        .positions .unitPrice { width: 17%; }
+        .positions .money { width: 18%; text-align: right; }
+        .totals, .settlement { margin-top: 7pt; margin-bottom: 7pt; page-break-inside: avoid; }
+        .totals .label { width: 70%; }
+        .totals .money { width: 30%; text-align: right; }
+        .settlement .label { width: 39%; }
+        .settlement .money { width: 20.33%; text-align: right; }
+        .settlement tbody th { background: #FFFFFF; font-weight: 400; }
+        .settlement thead .money { text-align: left; }
+        .settlement thead .money:last-child { text-align: right; }
+        .total, .settlement .total th { font-weight: 600; }
+        .performance, .reference, .receipt, .notes, .paymentTerms { font-size: 10pt; }
+        .receipt { font-size: 9.5pt; }
+        .notes { margin-bottom: 7pt; orphans: 2; widows: 2; }
+        .paymentTerms { page-break-inside: avoid; }
+        .bankDetails { font-size: 9pt; line-height: 1.15; page-break-inside: avoid; }
     </style>
 </head>
 <body>
-<header class="pageHeader">
+<header class="pageHeader" aria-label="Absender">
     <p class="senderName">{{ sender.name }}</p>
-    <p class="headerContact">{{ sender.contactInformation.mail }} · {{ sender.contactInformation.web }}</p>
+    <p class="headerContact">{{ sender.contactInformation.mail }} · {{ sender.contactInformation.phone | to_pretty_phone_number }}</p>
 </header>
-<div class="foldMark first"></div>
-<div class="foldMark middle"></div>
-<div class="foldMark last"></div>
-<footer class="pageFooter">
-    <table>
-        <tr>
-            <td>
-                <p>{{ sender.name }}</p>
-                <p>{{ sender.street }}</p>
-                <p>{{ sender.location }}</p>
-                {% if sender.vatId is not empty %}<p>USt-IdNr.: {{ sender.vatId }}</p>{% endif %}
-            </td>
-            <td>
-                <p>Tel: {{ sender.contactInformation.phone | to_pretty_phone_number }}</p>
-                <p>{{ sender.contactInformation.mail }}</p>
-                <p>{{ sender.contactInformation.web }}</p>
-            </td>
-            <td>
-                <p>{{ sender.paymentInformation.bank }}</p>
-                <p>IBAN: {{ sender.paymentInformation.iban }}</p>
-                <p>BIC: {{ sender.paymentInformation.bic }}</p>
-            </td>
-        </tr>
-    </table>
-    <div class="pageNumber">Seite <span class="pagenum"></span>{% if lastPageNumber | default(null) %} von {{ lastPageNumber }}{% endif %}</div>
+<footer class="pageFooter" aria-label="Kontakt und Seitenzahl">
+    <p>{{ sender.contactInformation.mail }} · {{ sender.contactInformation.phone | to_pretty_phone_number }}</p>
+    <p>{{ sender.contactInformation.web }} · {{ sender.street }} · {{ sender.location }}</p>
+    <div class="pageNumber">Seite <span class="pagenum"></span>{% if lastPageNumber | default(null) %} / {{ lastPageNumber }}{% endif %}</div>
 </footer>
-<section class="pageMeta">
+<section class="pageMeta" aria-label="Empfänger und Dokumentdaten">
     <address class="returnAddress">{{ sender.name }} · {{ sender.street }} · {{ sender.location }}</address>
     <address class="recipient">
         <span>{{ recipient.name }}</span>
         <span>{{ recipient.street }}</span>
         <span>{{ recipient.location }}</span>
-        {% if recipient.country is not empty %}<span>{{ recipient.country | country }}</span>{% endif %}
-        {% if recipient.vatId is not empty %}<span>USt-IdNr.: {{ recipient.vatId }}</span>{% endif %}
+        {% if recipient.country is not empty and recipient.country != sender.country %}<span>{{ recipient.country | country }}</span>{% endif %}
     </address>
     <div class="infobox">{% block infobox %}{% endblock %}</div>
 </section>
-<main>{% block content %}{% endblock %}</main>
+<main aria-label="{{ title }}">{% block content %}{% endblock %}</main>
 </body>
 </html>

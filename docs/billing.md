@@ -120,6 +120,12 @@ For tracked projects, service dates are derived from the performance period. If 
 
 `classic` retains the existing layout and is the default. `marc` adds the yellow line, Poppins/Mulish typefaces and Form-B-oriented letter zones from the supplied examples. It supports invoice, advance, final and quote variants. The choice is available per customer, per request or as a CLI override. Template identifiers are allowlisted; arbitrary filesystem paths are not accepted.
 
+The Marc template follows the concrete invoice PDFs: compact 12 pt headings, grey grid tables and a net/VAT/gross settlement table, rather than applying the generic 22 pt document-title rule. Its reference font files use isolated font families so Classic keeps its existing font metrics. Metadata labels and values occupy separate lines; expected service dates appear in the body, outside the narrow metadata column.
+
+Classic keeps its original ordinary-invoice styling. Footer columns use absolute positions rather than floats, which otherwise corrupt Dompdf pagination. New final invoices use compact settlement wording without the ordinary invoice's greeting block.
+
+The integration examples generate the final merged PDFs, YAML, XML and HTML source under `var/billing-examples/`. Page-count regressions require every short invoice/advance/final example to fit on one page in both layouts; offers allow two pages and the 35-position case at most six. The HTML source exposes landmarks, headings and table headers for inspection, but is not a browser-equivalent PDF preview. Browser review compares rasterized PDFs with the supplied reference PDFs. The reviewed Classic invoice and Marc final HTML passed axe WCAG A/AA checks with no reported violations; this does not establish tagged PDF or PDF/UA accessibility conformance, nor pixel identity for arbitrary content.
+
 The new template is tested for letter-zone coordinates, embedded fonts, multipage tables, repeated footer and page numbers. This is not a declaration of complete DIN compliance. The original `Marc_Page_Design` folder remains untracked; only the required new font and templates are included.
 
 ## Advances and final invoices

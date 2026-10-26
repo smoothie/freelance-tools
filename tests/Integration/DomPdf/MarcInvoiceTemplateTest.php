@@ -37,16 +37,16 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         $classic = $twig->render('pdf/timesheet/invoice.html.twig', $invoice->context());
 
         self::assertStringContainsString('#FFCC33', $html);
-        self::assertStringContainsString('Poppins-SemiBold.ttf', $html);
-        self::assertStringContainsString('Poppins-Black.ttf', $html);
-        self::assertStringContainsString('Mulish-Regular.ttf', $html);
+        self::assertStringContainsString('poppins-latin-600-normal.ttf', $html);
+        self::assertStringContainsString('poppins-latin-900-normal.ttf', $html);
+        self::assertStringContainsString('mulish-latin-400-normal.ttf', $html);
         self::assertStringContainsString('Rechnung Nr.', $html);
         self::assertStringContainsString('Bake and chill cheesecakes', $html);
         self::assertStringContainsString('03.03.2025', $html);
         self::assertStringContainsString('DE11 1111 0000 1111 1111 1111', $html);
         self::assertStringNotContainsString('<img', $html);
         self::assertStringNotContainsString('Bestellnummer', $html);
-        self::assertStringNotContainsString('Verrechnete Anzahlungen', $html);
+        self::assertStringNotContainsString('Verrechnete Anzahlung:', $html);
         self::assertStringContainsString('Ich danke', $classic);
         self::assertStringNotContainsString('senderName', $classic);
     }
@@ -64,7 +64,7 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         $quote = $twig->render('pdf/marc/invoice.html.twig', array_replace($context, ['documentType' => 'quote']));
 
         self::assertStringContainsString('Anzahlungsrechnung Nr.', $advance);
-        self::assertStringContainsString('Voraussichtliche Leistung', $advance);
+        self::assertStringContainsString('Voraussichtlicher Leistungszeitraum', $advance);
         self::assertStringContainsString('Bestellnummer', $advance);
         self::assertStringContainsString('PO-42', $advance);
         self::assertStringContainsString('Website &lt;Projekt&gt;', $advance);
@@ -92,13 +92,14 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         ]));
 
         self::assertStringContainsString('Schlussrechnung Nr.', $html);
-        self::assertStringContainsString('Verrechnete Anzahlungen', $html);
+        self::assertStringContainsString('Verrechnete Anzahlung:', $html);
         self::assertStringContainsString('ADV-2025-001 vom 01.01.2025', $html);
         self::assertStringContainsString('Zahlungseingang: 10.01.2025', $html);
         self::assertStringContainsString('350,00', $html);
         self::assertStringContainsString('66,50', $html);
-        self::assertStringContainsString('Abzüglich erhaltener Anzahlungen', $html);
-        self::assertStringContainsString('Verbleibender Zahlbetrag</td><td>416,50 EUR', $html);
+        self::assertStringContainsString('Abzüglich erhaltener Anzahlung', $html);
+        self::assertStringContainsString('Verbleibender Zahlbetrag</th>', $html);
+        self::assertStringContainsString('<td class="money">416,50</td>', $html);
     }
 
     public function testThatAShortMarcInvoiceGeneratesOnePageWithEmbeddedFonts(): void
@@ -110,9 +111,9 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         $pdf = $builder->initialize('Marc invoice')->load($html)->build();
 
         self::assertStringStartsWith('%PDF-', $pdf);
-        self::assertStringContainsString('Poppins-Black', $pdf);
+        self::assertTrue(str_contains($pdf, 'PoppinsBlack'), 'The reference Poppins Black font must be embedded.');
         self::assertStringContainsString('PoppinsSemiBold', $pdf);
-        self::assertStringContainsString('Mulish-Regular', $pdf);
+        self::assertTrue(str_contains($pdf, '+Mulish'), 'The reference Mulish font must be embedded.');
     }
 
     public function testThatLetterZonesHaveMeasuredFormBOffsets(): void
@@ -140,9 +141,10 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         self::assertEqualsWithDelta(62.7, $boxes['recipient'][1] / $pointsPerMillimetre, 0.1);
         self::assertLessThanOrEqual(90, ($boxes['recipient'][1] + $boxes['recipient'][3]) / $pointsPerMillimetre);
         self::assertEqualsWithDelta(125, $boxes['infobox'][0] / $pointsPerMillimetre, 0.1);
-        self::assertEqualsWithDelta(105, $boxes['foldMark first'][1] / $pointsPerMillimetre, 0.1);
-        self::assertEqualsWithDelta(148.5, $boxes['foldMark middle'][1] / $pointsPerMillimetre, 0.1);
-        self::assertEqualsWithDelta(210, $boxes['foldMark last'][1] / $pointsPerMillimetre, 0.1);
+        self::assertEqualsWithDelta(49, $boxes['infobox'][1] / $pointsPerMillimetre, 0.1);
+        self::assertStringContainsString('font-size: 12pt; line-height: 1.2', $html);
+        self::assertStringContainsString('font-size: 9.5pt; line-height: 1.1', $html);
+        self::assertStringContainsString('border: 0.5pt solid #D9D9D9', $html);
     }
 
     public function testThatLongInvoicesGenerateMultiplePagesWithRepeatedTableHeadingsAndFooter(): void
@@ -168,7 +170,7 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         self::assertSame($pageCount, $builder->initialize('Long Marc invoice')->getPageNumber($html));
         self::assertStringContainsString('Position 65:', $html);
         self::assertStringContainsString('display: table-header-group', $html);
-        self::assertStringContainsString('von '.$pageCount, $html);
+        self::assertStringContainsString('/ '.$pageCount, $html);
         self::assertStringContainsString('class="pageFooter"', $html);
         $pdf = $builder->initialize('Long Marc invoice')->load($html)->build();
         self::assertStringStartsWith('%PDF-', $pdf);
@@ -177,7 +179,7 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         self::assertCount($pageCount, $pages);
         foreach ($pages as $page) {
             self::assertStringContainsString(mb_convert_encoding('Anotherstreet 4', 'UTF-16BE'), $page);
-            self::assertStringContainsString(mb_convert_encoding('Pos.', 'UTF-16BE'), $page);
+            self::assertStringContainsString(mb_convert_encoding('Leistung', 'UTF-16BE'), $page);
         }
         self::assertStringContainsString(mb_convert_encoding('Position 65:', 'UTF-16BE'), implode('', $pages));
     }
