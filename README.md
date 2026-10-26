@@ -16,6 +16,9 @@ print it out into either a timesheet or an e-invoice.
 
 ## Installation
 
+PHP 8.3 or newer is required. The application uses Symfony 7.4 LTS.
+For a checkout, run `composer install` to install the audited versions recorded in `composer.lock`.
+
 Run
 
 ```shell
@@ -82,6 +85,7 @@ tools:
       taxRate: 19.00,
       pricePerHour: 133.7,
       termOfPaymentInDays: 30,
+      orderNumber: 'PO-2025-001',
     }
 
 ```
@@ -99,7 +103,23 @@ bin/console tools:generate-timesheet
 
 ```
 
-Done.
+`orderNumber` is optional. When configured, it appears in the invoice PDF and as the buyer's order reference in the e-invoice XML.
+
+The `--performancePeriod` option accepts `CURRENT_MONTH`, `LAST_MONTH` (default), and `LAST_TWO_MONTHS`.
+`LAST_TWO_MONTHS` covers the two completed calendar months before `--startDate`, including year boundaries:
+
+```shell
+bin/console tools:generate-timesheet cheesecake-agile --performancePeriod=LAST_TWO_MONTHS --startDate=2025-01-15 --approvedBy="SomePerson Name" --approvedByCompany="Cheesecake Factory"
+```
+
+This example covers November and December 2024. Both months appear on the invoice.
+Invoice numbers use the billing month (`YYYYMM`), not the following month.
+
+## Quality checks
+
+Run `make check-ci` (or `make check-quality`) for dependency validation and audit, linters, code style, static analysis, architecture checks, and all test suites.
+PHPStan runs from Composer's locked dependencies so its Symfony extension and analyzer remain compatible.
+These checks run on the current PHP installation; this repository has no application image-build target.
 
 ## Contributing
 

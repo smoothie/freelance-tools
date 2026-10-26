@@ -66,14 +66,24 @@ class TwigExtension extends AbstractExtension
         }
     }
 
-    public function toPerformancePeriod(DateTime $date, string $locale = 'de_DE'): string
+    /**
+     * @param list<DateTime> $dates
+     *
+     * @return list<string|false>
+     */
+    public function toPerformancePeriod(array $dates, string $locale = 'de_DE'): array
     {
-        return \IntlDateFormatter::create(
-            $locale,
-            timeType: \IntlDateFormatter::NONE,
-            pattern: 'MMMM Y',
-        )
-            ->format($date->asPhpDateTime());
+        $result = [];
+        foreach ($dates as $date) {
+            $result[] = \IntlDateFormatter::create(
+                locale: $locale,
+                timeType: \IntlDateFormatter::NONE,
+                pattern: 'MMMM yyyy',
+            )
+                ->format($date->asPhpDateTime());
+        }
+
+        return $result;
     }
 
     public function unit(string $unit): string

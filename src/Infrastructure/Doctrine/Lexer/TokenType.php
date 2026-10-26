@@ -39,6 +39,7 @@ enum TokenType: int
     case T_FIRST_DAY_OF_LAST_MONTH = 210;
     case T_LAST_DAY_OF_THE_MONTH = 211;
     case T_LAST_DAY_OF_LAST_MONTH = 212;
+    case T_FIRST_DAY_OF_LAST_BEFORE_MONTH = 213;
 
     /**
      * @return array<string, TokenType>
@@ -60,6 +61,7 @@ enum TokenType: int
         return [
             'FIRST_DAY_OF_THE_MONTH' => self::T_FIRST_DAY_OF_THE_MONTH,
             'FIRST_DAY_OF_LAST_MONTH' => self::T_FIRST_DAY_OF_LAST_MONTH,
+            'FIRST_DAY_OF_LAST_BEFORE_MONTH' => self::T_FIRST_DAY_OF_LAST_BEFORE_MONTH,
             'LAST_DAY_OF_THE_MONTH' => self::T_LAST_DAY_OF_THE_MONTH,
             'LAST_DAY_OF_LAST_MONTH' => self::T_LAST_DAY_OF_LAST_MONTH,
         ];
@@ -70,6 +72,7 @@ enum TokenType: int
         return match (mb_strtoupper($filter)) {
             'FIRST_DAY_OF_THE_MONTH' => self::T_FIRST_DAY_OF_THE_MONTH,
             'FIRST_DAY_OF_LAST_MONTH' => self::T_FIRST_DAY_OF_LAST_MONTH,
+            'FIRST_DAY_OF_LAST_BEFORE_MONTH' => self::T_FIRST_DAY_OF_LAST_BEFORE_MONTH,
             'LAST_DAY_OF_THE_MONTH' => self::T_LAST_DAY_OF_THE_MONTH,
             'LAST_DAY_OF_LAST_MONTH' => self::T_LAST_DAY_OF_LAST_MONTH,
             default => self::T_NONE,

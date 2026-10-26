@@ -47,7 +47,7 @@ services:
     decorates: http_client
     arguments:
       $client: '@tools.toggl_http_client'
-      $store: '@http_cache.store'
+      $cache: '@http_cache.store'
       $defaultOptions:
         base_uri: '%tools.toggl_api_url%'
         auth_basic: [ '%tools.toggl_api_key%', api_token ]

@@ -17,6 +17,9 @@ class Invoice implements Component
      */
     private array $invoiceItems = [];
 
+    /**
+     * @param list<DateTime> $deliveredAt
+     */
     public function __construct(
         private string $title,
         private ProjectId $projectId,
@@ -27,8 +30,9 @@ class Invoice implements Component
         private DueDate $dueDate,
         private BilledBy $billedBy,
         private BilledTo $billedTo,
-        private DateTime $deliveredAt,
+        private array $deliveredAt,
         private ?int $lastPageNumber = null,
+        private string $orderNumber = '',
     ) {
         Assert::notEmpty($taxRate->asFloat(), 'Tax rate should not be empty');
 
@@ -97,7 +101,10 @@ class Invoice implements Component
         return $this->billedTo;
     }
 
-    public function deliveredAt(): DateTime
+    /**
+     * @return list<DateTime>
+     */
+    public function deliveredAt(): array
     {
         return $this->deliveredAt;
     }
@@ -142,6 +149,7 @@ class Invoice implements Component
             'recipient' => $this->billedTo(),
             'deliveredAt' => $this->deliveredAt(),
             'lastPageNumber' => $this->lastPageNumber,
+            'orderNumber' => $this->orderNumber(),
         ];
     }
 
@@ -166,5 +174,10 @@ class Invoice implements Component
     public function setPageNumber(int $pageNumber): void
     {
         $this->lastPageNumber = $pageNumber;
+    }
+
+    public function orderNumber(): string
+    {
+        return $this->orderNumber;
     }
 }

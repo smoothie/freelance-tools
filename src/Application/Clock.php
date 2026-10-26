@@ -18,5 +18,7 @@ interface Clock
 
     public function lastDayOfTheMonth(): DateTime;
 
+    public function firstDayOfLastBeforeMonth(): DateTime;
+
     public function firstDayOfTheMonth(): DateTime;
 }
