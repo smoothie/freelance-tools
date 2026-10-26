@@ -1,0 +1,21 @@
+number: 'FINAL-2026-001'
+customerId: example-customer
+documentType: final
+templateId: marc
+billingDate: '2026-02-01'
+deliveredAt: ['2026-01-01', '2026-01-31']
+reference: 'ADV-2026-001'
+documentNotes: 'Website total less the received 50% advance payment.'
+items:
+  - description: Website design and implementation
+    quantity: '1'
+    unit: C62
+    pricePerItem: '1499.00'
+advancePayments:
+  - invoiceNumber: 'ADV-2026-001'
+    invoiceDate: '2026-01-01'
+    receivedAt: '2026-01-15'
+    netAmount: '749.50'
+    vatAmount: '142.41'
+    grossAmount: '891.91'
+termOfPaymentInDays: 14

@@ -1,6 +1,10 @@
 {% trans_default_domain 'tools' %}
 
 {% extends 'pdf/partials/din5008-b.html.twig' %}
+{% set hourlyOnly = true %}
+{% for item in invoiceItems %}
+    {% if item.unit != 'HUR' %}{% set hourlyOnly = false %}{% endif %}
+{% endfor %}
 
 {% block infobox %}
 <table>
@@ -11,7 +15,7 @@
     </tr>
     {% endfor %}
     <tr>
-        <th>Rechnungsdatum</th>
+        <th>{{ documentType == 'quote' ? 'Angebotsdatum' : 'Rechnungsdatum' }}</th>
         <td>{{ billingDate | to_date }}</td>
     </tr>
     {% if orderNumber is not empty %}
@@ -23,18 +27,29 @@
 </table>
 {% endblock %}
 
+{% block closingSignature %}{% if documentType != 'final' %}{{ parent() }}{% endif %}{% endblock %}
+
 {% block content %}
 <h1>{{ title }}</h1>
+    {% if documentType == 'quote' %}
+    <p>Angebot für die folgenden Leistungen. Dieses Angebot ist bis {{ dueDate.dueDate | to_date }} gültig und noch keine Rechnung.</p>
+    {% elseif documentType == 'advance' %}
+    <p>Vereinbarte Vorauszahlung vor Erbringung der folgenden Leistungen:</p>
+    {% elseif documentType == 'final' %}
+    <p>Vollständige Leistung abzüglich tatsächlich erhaltener Anzahlungen:</p>
+    {% else %}
     <p>Ich danke für ihr Vertrauen und freue mich, Ihnen folgende Leistungen in Rechnung zu stellen:</p>
+    {% endif %}
+    {% if reference is not empty %}<p>Auftrags- / Angebotsreferenz: {{ reference }}</p>{% endif %}
     <div class="invoice">
-        <table class="table -invoice">
+        <table class="table -invoice{{ documentType == 'final' ? ' -final' : '' }}" aria-label="Rechnungspositionen und Beträge">
             <thead>
             <tr>
-                <th>Pos.</th>
-                <th>Bezeichnung</th>
-                <th>Menge</th>
-                <th>Einzel (EUR)</th>
-                <th>Gesamt (EUR)</th>
+                <th scope="col">Pos.</th>
+                <th scope="col">Bezeichnung</th>
+                <th scope="col">Anzahl</th>
+                <th scope="col">{{ hourlyOnly ? 'Stundensatz' : 'Einzelpreis' }}</th>
+                <th scope="col">Gesamt (EUR)</th>
             </tr>
             </thead>
             <tbody>
@@ -42,8 +57,8 @@
             <tr>
                 <td>{{ item.position }}</td>
                 <td>{{ item.description }}</td>
-                <td>{{ item.quantity }} {{ item.unit | unit }}</td>
-                <td>{{ item.pricePerItem | amount_to_human }}</td>
+                <td>{{ item.durationInSeconds is not null ? (item.durationInSeconds | sec_to_hour_and_minute(true)) : item.quantityAsDecimal }} {{ item.durationInSeconds is not null ? 'h' : (item.unit | unit) }}</td>
+                <td>{{ item.pricePerItem | amount_to_human('de_DE', 6) }}</td>
                 <td>{{ item.priceTotal | amount_to_human }}</td>
             </tr>
             {% endfor %}
@@ -67,12 +82,35 @@
                 <td colspan="2">Rechnungsbetrag</td>
                 <td>{{ grossAmount | amount_to_human }}</td>
             </tr>
+            {% if documentType == 'final' %}
+            {% set remainingNet = netAmount %}
+            {% set remainingVat = vatAmount %}
+            {% for payment in payments %}
+            {% set remainingNet = remainingNet.subtract(payment.netAmount) %}
+            {% set remainingVat = remainingVat.subtract(payment.vatAmount) %}
+            <tr>
+                <td colspan="4">Erhaltene Anzahlung {{ payment.invoiceNumber }} vom {{ payment.invoiceDate | to_date }}, Eingang {{ payment.receivedAt | to_date }}; Netto {{ payment.netAmount | amount_to_human }} EUR, USt {{ payment.vatAmount | amount_to_human }} EUR</td>
+                <td>−{{ payment.grossAmount | amount_to_human }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">Rest netto {{ remainingNet | amount_to_human }} EUR, USt {{ remainingVat | amount_to_human }} EUR; Zahlbetrag (EUR)</td>
+                <td>{{ payableAmount | amount_to_human }}</td>
+            </tr>
+            {% endif %}
             </tfoot>
         </table>
     </div>
 
+    {% if documentNotes is not empty %}<p style="white-space: pre-line">{{ documentNotes }}</p>{% endif %}
+    {% if documentType == 'final' and payableAmount.asDecimal == '0.00' %}
+    <p>Die Rechnung ist vollständig bezahlt. Kein weiterer Zahlbetrag.</p>
+    {% elseif documentType == 'final' %}
+    <p>Zahlung bis {{ dueDate.dueDate | to_date }} ohne Abzug an die angegebene Bankverbindung.</p>
+    {% elseif documentType != 'quote' %}
     <div class="info">
         <p>Zahlung innerhalb von {{ dueDate.termOfPaymentInDays }} Tagen ab Rechnungseingang ohne Abzüge an die unten angegebene Bankverbindung. Das
             Zahlungsziel endet somit am {{ dueDate.dueDate | to_date }}.</p>
     </div>
+    {% endif %}
 {% endblock %}

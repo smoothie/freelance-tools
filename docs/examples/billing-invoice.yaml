@@ -1,0 +1,12 @@
+number: 'INV-2026-001'
+customerId: example-customer
+documentType: invoice
+templateId: classic
+billingDate: '2026-02-01'
+deliveredAt: ['2026-01-01', '2026-01-31']
+items:
+  - description: Website design and implementation
+    quantity: '1'
+    unit: C62
+    pricePerItem: '1499.00'
+termOfPaymentInDays: 14

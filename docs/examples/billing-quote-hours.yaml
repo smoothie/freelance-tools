@@ -1,0 +1,19 @@
+number: 'QUOTE-HOURS-2026-001'
+customerId: example-customer
+documentType: quote
+templateId: marc
+billingDate: '2026-02-01'
+deliveredAt: ['2026-02-09', '2026-02-13']
+documentNotes: |-
+  Leistungsziel: Prüfung und Behebung der abgestimmten Fehler im bestehenden Kontaktformular einschließlich dokumentiertem Funktionstest auf dem Testsystem.
+  Erstes Arbeitspaket: Fehleranalyse und Reparatur innerhalb eines freigegebenen Budgets von zehn Stunden. Die Beträge stellen das Budget dar; abgerechnet werden ausschließlich die tatsächlich geleisteten und dokumentierten Stunden.
+  Vor einer Überschreitung des Budgets ist eine ausdrückliche Freigabe erforderlich. Nicht enthalten sind ein neues Design, zusätzliche Formulare, Schnittstellen sowie Hosting oder dauerhafte Betreuung.
+  Der Auftraggeber stellt Testzugang, reproduzierbare Fehlerbeschreibung und Testdaten bereit. Die Ergebnisprüfung erfolgt gemeinsam anhand des erfolgreichen Formularversands und der dokumentierten Tests.
+  Der erwartete Zeitraum wird erst nach bestätigter Verfügbarkeit verbindlich. Abrechnung nach Abschluss des Arbeitspakets; Zahlungsziel der späteren Rechnung 14 Tage.
+  Beauftragung durch Bestätigung per E-Mail unter Angabe der Angebotsnummer.
+items:
+  - description: Technische Unterstützung – freigegebenes Stundenbudget
+    quantity: '10'
+    unit: HUR
+    pricePerItem: '90.00'
+termOfPaymentInDays: 30

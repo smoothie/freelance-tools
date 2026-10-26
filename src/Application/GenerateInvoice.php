@@ -22,6 +22,7 @@ class GenerateInvoice
      * @param array{name: string, street: string, location: string, vatId: string, country: string, phone: string, mail: string, web: string, bank: string, iban: string, bic: string} $billedBy
      * @param array{name: string, street: string, location: string, vatId: string, country: string } $billedTo
      * @param list<string> $deliveredAt
+     * @param list<InvoiceItem> $items
      */
     public function __construct(
         private string $invoiceId,
@@ -37,6 +38,8 @@ class GenerateInvoice
         private array $billedTo,
         private string $exportFormat = 'PDF',
         private string $orderNumber = '',
+        private array $items = [],
+        private string $templateId = 'classic',
     ) {
     }
 
@@ -87,6 +90,10 @@ class GenerateInvoice
      */
     public function invoiceItems(): array
     {
+        if ($this->items !== []) {
+            return $this->items;
+        }
+
         return [
             new InvoiceItem(
                 1,
@@ -142,6 +149,11 @@ class GenerateInvoice
             static fn (string $dateTime): DateTime => DateTime::fromDateString($dateTime),
             $this->deliveredAt,
         );
+    }
+
+    public function templateId(): string
+    {
+        return $this->templateId;
     }
 
     public function orderNumber(): string

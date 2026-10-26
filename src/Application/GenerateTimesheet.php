@@ -29,8 +29,17 @@ class GenerateTimesheet
         private ?string $approvedAt = null,
         private ?string $billedTo = null,
         private ?string $billedBy = null,
+        private ?string $templateId = null,
     ) {
         Assert::notEmpty($providedBy);
+        if ($templateId !== null) {
+            Assert::inArray($templateId, ['classic', 'marc']);
+        }
+    }
+
+    public function templateId(): ?string
+    {
+        return $this->templateId;
     }
 
     public function timesheetId(): TimesheetReportId

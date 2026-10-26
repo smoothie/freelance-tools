@@ -1,0 +1,14 @@
+number: 'ADV-2026-001'
+customerId: example-customer
+documentType: advance
+templateId: marc
+billingDate: '2026-01-01'
+deliveredAt: ['2026-01-01', '2026-01-31']
+reference: 'QUOTE-2025-001'
+documentNotes: '50% advance for a website priced at EUR 1499.00 net.'
+items:
+  - description: 'Website: 50% advance'
+    quantity: '1'
+    unit: C62
+    pricePerItem: '749.50'
+termOfPaymentInDays: 14

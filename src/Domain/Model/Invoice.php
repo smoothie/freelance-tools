@@ -19,6 +19,7 @@ class Invoice implements Component
 
     /**
      * @param list<DateTime> $deliveredAt
+     * @param list<AdvancePayment> $advancePayments
      */
     public function __construct(
         private string $title,
@@ -33,8 +34,27 @@ class Invoice implements Component
         private array $deliveredAt,
         private ?int $lastPageNumber = null,
         private string $orderNumber = '',
+        private string $templateId = 'classic',
+        private string $documentType = 'invoice',
+        private string $reference = '',
+        private string $documentNotes = '',
+        private array $advancePayments = [],
     ) {
-        Assert::notEmpty($taxRate->asFloat(), 'Tax rate should not be empty');
+        Assert::greaterThan($taxRate->asFloat(), 0, 'A positive standard VAT rate is required.');
+        Assert::lessThanEq($taxRate->asFloat(), 100);
+        Assert::true($taxRate->isEqualTo($taxRate->rounded()), 'VAT rate must have at most two decimal places.');
+        Assert::inArray($templateId, ['classic', 'marc']);
+        Assert::inArray($documentType, ['invoice', 'advance', 'final', 'quote']);
+        Assert::true($advancePayments === [] || $documentType === 'final', 'Only final invoices can deduct payments.');
+        $references = [];
+        foreach ($advancePayments as $payment) {
+            Assert::isInstanceOf($payment, AdvancePayment::class);
+            Assert::false(isset($references[$payment->invoiceNumber()]), 'Duplicate advance invoice reference.');
+            Assert::notEq($payment->invoiceNumber(), $invoiceId->asString());
+            Assert::lessThanEq($payment->receivedAt()->asDateString(), $billingDate->asDateString());
+            Assert::same($payment->netAmount()->multiply($taxRate->multiply(0.01))->rounded()->asDecimal(), $payment->vatAmount()->asDecimal(), 'Advance VAT does not match the invoice VAT rate.');
+            $references[$payment->invoiceNumber()] = true;
+        }
 
         $this->netAmount = Amount::fromFloat(0.0);
     }
@@ -46,16 +66,12 @@ class Invoice implements Component
 
     public function vatAmount(): Amount
     {
-        $taxRateInPercent = ($this->taxRate->asFloat() / 100);
-
-        return $this->netAmount->multiply($taxRateInPercent);
+        return $this->netAmount->multiply($this->taxRate->multiply(0.01))->rounded();
     }
 
     public function grossAmount(): Amount
     {
-        $taxRate = 1 + ($this->taxRate->asFloat() / 100);
-
-        return $this->netAmount->multiply($taxRate);
+        return $this->netAmount()->add($this->vatAmount())->rounded();
     }
 
     /**
@@ -116,7 +132,10 @@ class Invoice implements Component
 
     public function addInvoiceItem(InvoiceItem $invoiceItem): void
     {
-        $this->netAmount = $this->netAmount->add($invoiceItem->priceTotal());
+        foreach ($this->invoiceItems as $existing) {
+            Assert::notEq($existing->position(), $invoiceItem->position(), 'Duplicate invoice position.');
+        }
+        $this->netAmount = $this->netAmount->add($invoiceItem->priceTotal())->rounded();
 
         $this->invoiceItems[] = $invoiceItem;
     }
@@ -128,7 +147,9 @@ class Invoice implements Component
 
     public function template(): string
     {
-        return 'pdf/timesheet/invoice.html.twig';
+        return $this->templateId === 'marc'
+            ? 'pdf/marc/invoice.html.twig'
+            : 'pdf/timesheet/invoice.html.twig';
     }
 
     public function context(): array
@@ -150,6 +171,12 @@ class Invoice implements Component
             'deliveredAt' => $this->deliveredAt(),
             'lastPageNumber' => $this->lastPageNumber,
             'orderNumber' => $this->orderNumber(),
+            'documentType' => $this->documentType(),
+            'reference' => $this->reference(),
+            'documentNotes' => $this->documentNotes(),
+            'payments' => $this->advancePayments(),
+            'prepaidAmount' => $this->prepaidAmount(),
+            'payableAmount' => $this->payableAmount(),
         ];
     }
 
@@ -174,6 +201,47 @@ class Invoice implements Component
     public function setPageNumber(int $pageNumber): void
     {
         $this->lastPageNumber = $pageNumber;
+    }
+
+    public function documentType(): string
+    {
+        return $this->documentType;
+    }
+
+    public function reference(): string
+    {
+        return $this->reference;
+    }
+
+    public function documentNotes(): string
+    {
+        return $this->documentNotes;
+    }
+
+    /**
+     * @return list<AdvancePayment>
+     */
+    public function advancePayments(): array
+    {
+        return $this->advancePayments;
+    }
+
+    public function prepaidAmount(): Amount
+    {
+        $amount = Amount::fromFloat(0.0);
+        foreach ($this->advancePayments as $payment) {
+            $amount = $amount->add($payment->grossAmount());
+        }
+
+        return $amount;
+    }
+
+    public function payableAmount(): Amount
+    {
+        $amount = $this->grossAmount()->subtract($this->prepaidAmount())->rounded();
+        Assert::greaterThanEq($amount->asFloat(), 0, 'Payments exceed the invoice total.');
+
+        return $amount;
     }
 
     public function orderNumber(): string

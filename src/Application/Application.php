@@ -24,7 +24,7 @@ use Webmozart\Assert\Assert;
 class Application implements ApplicationInterface, EventSubscriberInterface
 {
     /**
-     * @param list<array{ project: string, name: string, street: string, location: string, country: string, vatId: string, description: string, taxRate: float, pricePerHour: float, termOfPaymentInDays: int, orderNumber?: string|null}> $organizations
+     * @param list<array{ project: string, name: string, street: string, location: string, country: string, vatId: string, description: string, taxRate: float, pricePerHour: float, termOfPaymentInDays: int, orderNumber?: string|null, templateId?: string}> $organizations
      * @param array{name: string, street: string, location: string, vatId: string, country: string, phone: string, mail: string, web: string, bank: string, iban: string, bic: string} $providedBy
      */
     public function __construct(
@@ -90,6 +90,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
                 exportFormat: $command->exportFormat(),
                 rendered: $rendered,
                 performancePeriod: $performancePeriod,
+                templateId: $command->templateId(),
             ),
             self::EVENT_GENERATED_TIMESHEET,
         );
@@ -111,6 +112,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
             billedTo: $command->billedTo(),
             deliveredAt: $command->deliveredAt(),
             orderNumber: $command->orderNumber(),
+            templateId: $command->templateId(),
         );
 
         foreach ($command->invoiceItems() as $item) {
@@ -159,6 +161,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
             billedBy: $this->providedBy,
             billedTo: $organization,
             orderNumber: (string) ($organization['orderNumber'] ?? ''),
+            templateId: $event->templateId() ?? $organization['templateId'] ?? 'classic',
         );
 
         $this->generateInvoice($command);
@@ -208,7 +211,8 @@ class Application implements ApplicationInterface, EventSubscriberInterface
      *     taxRate: float,
      *     pricePerHour: float,
      *     termOfPaymentInDays: int,
-     *     orderNumber?: string|null
+     *     orderNumber?: string|null,
+     *     templateId?: string
      * }
      */
     private function identifyOrganization(ProjectId $projectId): array

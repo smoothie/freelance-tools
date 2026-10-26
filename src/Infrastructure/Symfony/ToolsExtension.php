@@ -162,6 +162,8 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->arrayNode('organizations')->arrayPrototype()->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('project')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('customerId')->defaultNull()->end()
+            ->enumNode('templateId')->values(['classic', 'marc'])->defaultValue('classic')->end()
             ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('street')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('location')->isRequired()->cannotBeEmpty()->end()

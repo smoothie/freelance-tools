@@ -15,7 +15,13 @@ class GeneratedATimesheetReport
         private string $exportFormat,
         private string $rendered,
         private PerformancePeriod $performancePeriod,
+        private ?string $templateId = null,
     ) {
+    }
+
+    public function templateId(): ?string
+    {
+        return $this->templateId;
     }
 
     public function timesheetReportId(): TimesheetReportId
