@@ -35,4 +35,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Show fully paid final invoices without a redundant payment demand.
 - Prevent Classic footer columns from splitting short documents across many pages.
 - Keep Classic greetings with preceding content instead of creating a separate greeting-only page.
+- Label PDF counts as Anzahl and hourly rates as Stundensatz; use Einzelpreis for package or mixed positions.
 - Match Marc invoice typography and grid tables to the supplied references; keep short settlements on one page and metadata labels intact.

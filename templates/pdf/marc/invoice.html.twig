@@ -3,7 +3,9 @@
 {% set kind = documentType | default('invoice') %}
 {% set documentLabel = {invoice: 'Rechnung', advance: 'Anzahlungsrechnung', final: 'Schlussrechnung', quote: 'Angebot'}[kind] | default('Rechnung') %}
 {% set showUnitPrice = false %}
+{% set hourlyOnly = true %}
 {% for item in invoiceItems %}
+    {% if item.unit != 'HUR' %}{% set hourlyOnly = false %}{% endif %}
     {% if item.unit != 'C62' or item.quantityAsDecimal != '1' %}{% set showUnitPrice = true %}{% endif %}
 {% endfor %}
 
@@ -28,8 +30,8 @@
 <table class="positions{{ showUnitPrice ? '' : ' compact' }}" aria-label="Leistungspositionen">
     <thead><tr>
         <th scope="col" class="description">Leistung</th>
-        <th scope="col" class="quantity">Menge</th>
-        {% if showUnitPrice %}<th scope="col" class="unitPrice">EUR / Einheit</th>{% endif %}
+        <th scope="col" class="quantity">Anzahl</th>
+        {% if showUnitPrice %}<th scope="col" class="unitPrice">{{ hourlyOnly ? 'Stundensatz' : 'Einzelpreis' }} EUR</th>{% endif %}
         <th scope="col" class="money">Netto EUR</th>
     </tr></thead>
     <tbody>

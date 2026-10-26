@@ -127,6 +127,7 @@ bin/console tools:generate-document --input=invoice.yaml --template=marc
 The optional CLI accepts YAML, JSON or standard input. The same typed application API works without the CLI.
 Configure a shared `customerId` on related projects to combine them; the existing timesheet command remains unchanged.
 Manual positions use decimal strings, for example `quantity: '1'`, `unit: C62`, `pricePerItem: '1499.00'`.
+Both PDF layouts label the count as `Anzahl` and purely hourly prices as `Stundensatz`; packages and mixed units use `Einzelpreis`.
 Offers export PDF only. Invoice XML retains the EN16931 CII profile; XSD validation alone is **not** XRechnung certification.
 
 See [the billing interface and workflow guide](docs/billing.md) for configuration, PHP API, CLI overrides, rounding rules, limitations and runnable input examples.

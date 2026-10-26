@@ -1,6 +1,10 @@
 {% trans_default_domain 'tools' %}
 
 {% extends 'pdf/partials/din5008-b.html.twig' %}
+{% set hourlyOnly = true %}
+{% for item in invoiceItems %}
+    {% if item.unit != 'HUR' %}{% set hourlyOnly = false %}{% endif %}
+{% endfor %}
 
 {% block infobox %}
 <table>
@@ -43,8 +47,8 @@
             <tr>
                 <th scope="col">Pos.</th>
                 <th scope="col">Bezeichnung</th>
-                <th scope="col">Menge</th>
-                <th scope="col">Einzel (EUR)</th>
+                <th scope="col">Anzahl</th>
+                <th scope="col">{{ hourlyOnly ? 'Stundensatz' : 'Einzelpreis' }}</th>
                 <th scope="col">Gesamt (EUR)</th>
             </tr>
             </thead>

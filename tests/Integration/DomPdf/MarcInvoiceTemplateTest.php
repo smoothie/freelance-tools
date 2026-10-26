@@ -51,6 +51,28 @@ class MarcInvoiceTemplateTest extends KernelTestCase
         self::assertStringNotContainsString('senderName', $classic);
     }
 
+    public function testThatColumnLabelsDistinguishHourlyRatesFromOtherUnitPrices(): void
+    {
+        $hourly = new InvoiceItem(1, '2.5', 'Support', Amount::fromString('90.00'), 'HUR');
+        $tracked = InvoiceItem::fromTrackedSeconds(1, 3607, 'Tracked support', Amount::fromString('90.00'));
+        $package = new InvoiceItem(1, '2', 'Package', Amount::fromString('100.00'), 'C62');
+        $twig = self::getContainer()->get(Environment::class);
+        foreach (['pdf/marc/invoice.html.twig', 'pdf/timesheet/invoice.html.twig'] as $template) {
+            foreach ([[$hourly], [$tracked], [$package], [$package, $hourly->withPosition(2)]] as $items) {
+                $html = $twig->render($template, array_replace($this->anInvoice()->context(), ['invoiceItems' => $items]));
+                $document = new \DOMDocument();
+                @$document->loadHTML($html);
+                $xpath = new \DOMXPath($document);
+                $headings = $xpath->evaluate('string(//table[contains(@class, "positions") or contains(@class, "-invoice")]/thead)');
+                self::assertIsString($headings);
+                self::assertStringContainsString('Anzahl', $headings);
+                self::assertStringNotContainsString('Menge', $headings);
+                self::assertStringContainsString($items[0]->unit() === 'HUR' ? 'Stundensatz' : 'Einzelpreis', $headings);
+                self::assertStringNotContainsString($items[0]->unit() === 'HUR' ? 'Einzelpreis' : 'Stundensatz', $headings);
+            }
+        }
+    }
+
     public function testThatAdvanceAndQuoteHaveAppropriateLabelsAndTerms(): void
     {
         $context = $this->anInvoice()->context();
