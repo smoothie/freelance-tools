@@ -8,6 +8,12 @@ Feature: Generating invoices
     Then the invoice should have been rendered
     And the invoice should have been generated
 
+  Scenario: The invoice was generated for two completed months
+    Given we have prepared a command to generate an invoice
+    When a timesheet report was generated for the "LAST_TWO_MONTHS"
+    Then the invoice should have been rendered
+    And the invoice should have been generated
+
   Scenario: The invoice was for current month generated
     Given we have prepared a command to generate an invoice
     When a timesheet report was generated for the "CURRENT_MONTH"

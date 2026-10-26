@@ -71,6 +71,26 @@ class FilterCriteriaExtractorTest extends BasicTestCase
                 new Expression('endDate', '<=', '2024-12-31'),
             ],
         ];
+        yield 'LAST_TWO_MONTHS_ACROSS_YEAR_BOUNDARY' => [
+            'assertions' => [
+                'query' => PerformancePeriod::fromString('LAST_TWO_MONTHS')->filterCriteria()->getQuery(),
+                'currentDate' => '2025-01-31',
+            ],
+            'expectations' => [
+                new Expression('startDate', '>=', '2024-11-01'),
+                new Expression('endDate', '<=', '2024-12-31'),
+            ],
+        ];
+        yield 'LAST_TWO_MONTHS_IN_LEAP_YEAR' => [
+            'assertions' => [
+                'query' => PerformancePeriod::fromString('LAST_TWO_MONTHS')->filterCriteria()->getQuery(),
+                'currentDate' => '2024-04-30',
+            ],
+            'expectations' => [
+                new Expression('startDate', '>=', '2024-02-01'),
+                new Expression('endDate', '<=', '2024-03-31'),
+            ],
+        ];
         yield 'ONLY_PERFORMANCE_PERIOD_CURRENT_MONTH' => [
             'assertions' => [
                 'query' => PerformancePeriod::fromString('CURRENT_MONTH')->filterCriteria()->getQuery(),

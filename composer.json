@@ -4,26 +4,26 @@
     "license": "Apache-2.0",
     "type": "project",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/lexer": "^3.0",
-        "dompdf/dompdf": "^3.1",
+        "dompdf/dompdf": "^3.1.6",
         "giggsey/libphonenumber-for-php": "^8.13",
         "horstoeko/zugferd": "^1.0",
         "ramsey/uuid": "^4.7",
-        "symfony/config": "~7.2.0",
-        "symfony/console": "~7.2.0",
-        "symfony/dotenv": "~7.2.0",
-        "symfony/flex": "^2",
-        "symfony/framework-bundle": "~7.2.0",
-        "symfony/http-client": "~7.2.0",
-        "symfony/intl": "~7.2.0",
-        "symfony/runtime": "~7.2.0",
-        "symfony/twig-bundle": "~7.2.0",
-        "symfony/yaml": "~7.2.0",
+        "symfony/config": "~7.4.0",
+        "symfony/console": "~7.4.0",
+        "symfony/dotenv": "~7.4.0",
+        "symfony/flex": "^2.10",
+        "symfony/framework-bundle": "~7.4.0",
+        "symfony/http-client": "~7.4.0",
+        "symfony/intl": "~7.4.0",
+        "symfony/runtime": "~7.4.0",
+        "symfony/twig-bundle": "~7.4.0",
+        "symfony/yaml": "~7.4.0",
         "twig/extra-bundle": "^2.12 || ^3.0",
-        "twig/twig": "^2.12 || ^3.0",
+        "twig/twig": "^3.27",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
@@ -31,7 +31,7 @@
         "friends-of-behat/symfony-extension": "^2.6",
         "phpstan/phpstan-symfony": "^2.0",
         "symfony/maker-bundle": "^1.60",
-        "symfony/stopwatch": "~7.2.0"
+        "symfony/stopwatch": "~7.4.0"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
@@ -46,7 +46,7 @@
     "conflict": {
         "symfony/symfony": "*"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -70,7 +70,7 @@
         "symfony": {
             "allow-contrib": false,
             "docker": false,
-            "require": "7.2.*"
+            "require": "7.4.*"
         }
     },
     "scripts": {

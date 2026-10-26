@@ -43,6 +43,15 @@ class SystemClock implements Clock
         );
     }
 
+    public function firstDayOfLastBeforeMonth(): DateTime
+    {
+        return DateTime::fromString(
+            $this->currentTime()
+                ->modify('first day of -2 months')
+                ->format(DateTime::DATE_TIME_FORMAT),
+        );
+    }
+
     public function lastDayOfTheMonth(): DateTime
     {
         return DateTime::fromString(

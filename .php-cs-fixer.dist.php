@@ -16,6 +16,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__.'/tests/Doubles',
     ])
     ->notPath([
+        'reference.php',
         'decrypt.private.php',
         'encrypt.public.php',
     ])

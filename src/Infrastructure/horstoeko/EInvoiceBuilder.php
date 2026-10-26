@@ -21,6 +21,7 @@ class EInvoiceBuilder
     public function build(Invoice $invoice): string
     {
         $builder = ZugferdDocumentBuilder::createNew(ZugferdProfiles::PROFILE_EN16931);
+
         $builder->setDocumentBusinessProcess('Invoice');
         $builder->setDocumentInformation(
             documentNo: $invoice->invoiceId()->asString(),
@@ -31,6 +32,9 @@ class EInvoiceBuilder
             documentLanguage: 'de_DE',
             effectiveSpecifiedPeriod: new \DateTime($invoice->dueDate()->dueDate()->asString()),
         );
+        if ($invoice->orderNumber() !== '') {
+            $builder->setDocumentBuyerOrderReferencedDocument($invoice->orderNumber());
+        }
         $builder->setDocumentSeller($invoice->billedBy()->name());
         $builder->addDocumentSellerTaxRegistration(
             ZugferdReferenceCodeQualifiers::VAT_REGI_NUMB,

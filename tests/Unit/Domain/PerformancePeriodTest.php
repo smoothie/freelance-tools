@@ -62,6 +62,22 @@ class PerformancePeriodTest extends BasicTestCase
                 'query' => '(startDate >= :FIRST_DAY_OF_LAST_MONTH) AND (endDate <= :LAST_DAY_OF_LAST_MONTH)',
             ],
         ];
+        yield PerformancePeriod::PERIOD_LAST_TWO_MONTHS => [
+            PerformancePeriod::PERIOD_LAST_TWO_MONTHS,
+            'expectation' => [
+                'startsOn' => PerformancePeriod::FIRST_DAY_OF_LAST_BEFORE_MONTH,
+                'endsOn' => PerformancePeriod::LAST_DAY_OF_LAST_MONTH,
+                'query' => '(startDate >= :FIRST_DAY_OF_LAST_BEFORE_MONTH) AND (endDate <= :LAST_DAY_OF_LAST_MONTH)',
+            ],
+        ];
+        yield PerformancePeriod::PERIOD_LAST_TWO_MONTHS.'_mixed_case' => [
+            'laST_Two_Months',
+            'expectation' => [
+                'startsOn' => PerformancePeriod::FIRST_DAY_OF_LAST_BEFORE_MONTH,
+                'endsOn' => PerformancePeriod::LAST_DAY_OF_LAST_MONTH,
+                'query' => '(startDate >= :FIRST_DAY_OF_LAST_BEFORE_MONTH) AND (endDate <= :LAST_DAY_OF_LAST_MONTH)',
+            ],
+        ];
         yield PerformancePeriod::PERIOD_MONTH_CURRENT => [
             PerformancePeriod::PERIOD_MONTH_CURRENT,
             'expectation' => [

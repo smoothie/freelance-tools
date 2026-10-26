@@ -94,7 +94,7 @@ final class DisplayAnInvoiceController extends AbstractController
                 vatId: 'DE900000009',
                 country: 'DE',
             ),
-            deliveredAt: DateTime::fromDateString('2025-01-31'),
+            deliveredAt: [DateTime::fromDateString('2025-01-31')],
             lastPageNumber: 1,
         );
 

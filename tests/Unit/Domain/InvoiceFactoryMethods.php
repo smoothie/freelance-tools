@@ -56,9 +56,12 @@ trait InvoiceFactoryMethods
         );
     }
 
-    protected function aDeliveredAt(): DateTime
+    /**
+     * @return list<DateTime>
+     */
+    protected function aDeliveredAt(): array
     {
-        return DateTime::fromDateString('2025-01-31');
+        return [DateTime::fromDateString('2025-01-31')];
     }
 
     protected function aPageNumber(): int

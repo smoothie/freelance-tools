@@ -50,6 +50,7 @@ class FilterCriteriaQueryParser implements FilterQueryParser
                 TokenType::T_LAST_DAY_OF_LAST_MONTH => $this->clock->lastDayOfLastMonth()->asDateString(),
                 TokenType::T_FIRST_DAY_OF_THE_MONTH => $this->clock->firstDayOfTheMonth()->asDateString(),
                 TokenType::T_LAST_DAY_OF_THE_MONTH => $this->clock->lastDayOfTheMonth()->asDateString(),
+                TokenType::T_FIRST_DAY_OF_LAST_BEFORE_MONTH => $this->clock->firstDayOfLastBeforeMonth()->asDateString(),
                 default => throw new \LogicException(
                     \sprintf('Unsupported filter "%s"', $this->lexer->lookahead->type->value),
                 ),

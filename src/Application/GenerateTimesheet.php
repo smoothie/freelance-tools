@@ -107,7 +107,7 @@ class GenerateTimesheet
     public function performancePeriod(): PerformancePeriod
     {
         $performancePeriod = mb_strtoupper($this->performancePeriod);
-        Assert::inArray($performancePeriod, ['CURRENT_MONTH', 'LAST_MONTH']);
+        Assert::inArray($performancePeriod, ['CURRENT_MONTH', 'LAST_MONTH', 'LAST_TWO_MONTHS']);
 
         return PerformancePeriod::fromString($performancePeriod);
     }

@@ -4,14 +4,22 @@
 
 {% block infobox %}
 <table>
+    {% for delivered in deliveredAt | date_to_performance_period %}
     <tr>
-        <th>Leistungszeitraum</th>
-        <td>{{ deliveredAt | date_to_performance_period }}</td>
+        <th>{{ loop.first ? 'Leistungszeitraum' : '' }}</th>
+        <td>{{ delivered }}</td>
     </tr>
+    {% endfor %}
     <tr>
         <th>Rechnungsdatum</th>
         <td>{{ billingDate | to_date }}</td>
     </tr>
+    {% if orderNumber is not empty %}
+    <tr>
+        <th>Bestellnummer</th>
+        <td>{{ orderNumber }}</td>
+    </tr>
+    {% endif %}
 </table>
 {% endblock %}
 

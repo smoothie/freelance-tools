@@ -21,13 +21,14 @@ class GenerateInvoice
     /**
      * @param array{name: string, street: string, location: string, vatId: string, country: string, phone: string, mail: string, web: string, bank: string, iban: string, bic: string} $billedBy
      * @param array{name: string, street: string, location: string, vatId: string, country: string } $billedTo
+     * @param list<string> $deliveredAt
      */
     public function __construct(
         private string $invoiceId,
         private string $project,
         private string $description,
         private int $durationInSeconds,
-        private string $deliveredAt,
+        private array $deliveredAt,
         private float $taxRate,
         private string $billingDate,
         private float $pricePerHour,
@@ -35,6 +36,7 @@ class GenerateInvoice
         private array $billedBy,
         private array $billedTo,
         private string $exportFormat = 'PDF',
+        private string $orderNumber = '',
     ) {
     }
 
@@ -127,8 +129,23 @@ class GenerateInvoice
         );
     }
 
-    public function deliveredAt(): DateTime
+    /**
+     * @return list<DateTime>
+     */
+    public function deliveredAt(): array
     {
-        return DateTime::fromDateString($this->deliveredAt);
+        if (empty($this->deliveredAt)) {
+            return [];
+        }
+
+        return array_map(
+            static fn (string $dateTime): DateTime => DateTime::fromDateString($dateTime),
+            $this->deliveredAt,
+        );
+    }
+
+    public function orderNumber(): string
+    {
+        return $this->orderNumber;
     }
 }

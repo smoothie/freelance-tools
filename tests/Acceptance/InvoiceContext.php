@@ -23,7 +23,7 @@ final class InvoiceContext extends FeatureContext
             project: 'cheesecake-agile',
             description: 'building cheesy cakey thingy',
             durationInSeconds: 119 * 60 * 60,
-            deliveredAt: '2025-01-03',
+            deliveredAt: ['2025-01-03'],
             taxRate: 19.00,
             billingDate: '2025-02-03',
             pricePerHour: 133.70,

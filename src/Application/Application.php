@@ -10,6 +10,7 @@ use Smoothie\FreelanceTools\Domain\Model\FilterCriteria;
 use Smoothie\FreelanceTools\Domain\Model\Group\ListOfTasksInProjects;
 use Smoothie\FreelanceTools\Domain\Model\Invoice;
 use Smoothie\FreelanceTools\Domain\Model\InvoiceId;
+use Smoothie\FreelanceTools\Domain\Model\PerformancePeriod;
 use Smoothie\FreelanceTools\Domain\Model\ProjectId;
 use Smoothie\FreelanceTools\Domain\Model\TimesheetReport;
 use Smoothie\FreelanceTools\Domain\Service\ComponentRenderer;
@@ -23,7 +24,7 @@ use Webmozart\Assert\Assert;
 class Application implements ApplicationInterface, EventSubscriberInterface
 {
     /**
-     * @param list<array{ project: string, name: string, street: string, location: string, country: string, vatId: string, description: string, taxRate: float, pricePerHour: float, termOfPaymentInDays: int}> $organizations
+     * @param list<array{ project: string, name: string, street: string, location: string, country: string, vatId: string, description: string, taxRate: float, pricePerHour: float, termOfPaymentInDays: int, orderNumber?: string|null}> $organizations
      * @param array{name: string, street: string, location: string, vatId: string, country: string, phone: string, mail: string, web: string, bank: string, iban: string, bic: string} $providedBy
      */
     public function __construct(
@@ -84,7 +85,12 @@ class Application implements ApplicationInterface, EventSubscriberInterface
         $rendered = $this->renderComponent($report);
 
         $this->eventDispatcher->dispatch(
-            new GeneratedATimesheetReport($report, $command->exportFormat(), $rendered, $performancePeriod),
+            new GeneratedATimesheetReport(
+                timesheetReport: $report,
+                exportFormat: $command->exportFormat(),
+                rendered: $rendered,
+                performancePeriod: $performancePeriod,
+            ),
             self::EVENT_GENERATED_TIMESHEET,
         );
     }
@@ -104,6 +110,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
             billedBy: $command->billedBy(),
             billedTo: $command->billedTo(),
             deliveredAt: $command->deliveredAt(),
+            orderNumber: $command->orderNumber(),
         );
 
         foreach ($command->invoiceItems() as $item) {
@@ -135,19 +142,23 @@ class Application implements ApplicationInterface, EventSubscriberInterface
         $organization = $this->identifyOrganization($report->projectId());
         $billingDate = DateTime::fromDateTime($this->clock->currentTime());
         $invoiceId = $this->getNextInvoiceNumber($billingDate);
+        $deliveredAt = $event->performancePeriod()->performancePeriodId() === PerformancePeriod::PERIOD_LAST_TWO_MONTHS
+            ? [$report->startDate()->asDateString(), $report->endDate()->asDateString()]
+            : [$report->startDate()->asDateString()];
 
         $command = new GenerateInvoice(
             invoiceId: $invoiceId,
             project: $report->projectId()->asString(),
             description: $organization['description'],
             durationInSeconds: $report->totalDuration()->asInt(),
-            deliveredAt: $report->endDate()->asDateString(),
+            deliveredAt: $deliveredAt,
             taxRate: (float) $organization['taxRate'],
             billingDate: $billingDate->asDateString(),
             pricePerHour: (float) $organization['pricePerHour'],
             termOfPaymentInDays: (int) $organization['termOfPaymentInDays'],
             billedBy: $this->providedBy,
             billedTo: $organization,
+            orderNumber: (string) ($organization['orderNumber'] ?? ''),
         );
 
         $this->generateInvoice($command);
@@ -155,7 +166,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
 
     public function getNextInvoiceNumber(DateTime $billingDate): string
     {
-        $prefix = $billingDate->asPhpDateTime()->modify('+1 month')->format('Ym');
+        $prefix = $billingDate->asPhpDateTime()->format('Ym');
         $pattern = \sprintf('*%s-*.pdf', $prefix);
         $lastIncrementor = $this->filesystem->numberOfFilesInExportDirectory($pattern);
         $nextIncrementor = $lastIncrementor + 1;
@@ -170,6 +181,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
             'LAST_DAY_OF_LAST_MONTH' => $this->clock->lastDayOfLastMonth(),
             'FIRST_DAY_OF_THE_MONTH' => $this->clock->firstDayOfTheMonth(),
             'LAST_DAY_OF_THE_MONTH' => $this->clock->lastDayOfTheMonth(),
+            'FIRST_DAY_OF_LAST_BEFORE_MONTH' => $this->clock->firstDayOfLastBeforeMonth(),
             default => null,
         };
     }
@@ -185,7 +197,19 @@ class Application implements ApplicationInterface, EventSubscriberInterface
     }
 
     /**
-     * @return array{ project: string, name: string, street: string, location: string, country: string, vatId: string, description: string, taxRate: float, pricePerHour: float, termOfPaymentInDays: int}
+     * @return array{
+     *     project: string,
+     *     name: string,
+     *     street: string,
+     *     location: string,
+     *     country: string,
+     *     vatId: string,
+     *     description: string,
+     *     taxRate: float,
+     *     pricePerHour: float,
+     *     termOfPaymentInDays: int,
+     *     orderNumber?: string|null
+     * }
      */
     private function identifyOrganization(ProjectId $projectId): array
     {

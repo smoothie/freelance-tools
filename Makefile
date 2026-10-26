@@ -5,7 +5,7 @@ APP_ENV=dev
 CURRENT_DIR=$(shell pwd)
 
 .DEFAULT_GOAL:= help
-.PHONY: help
+.PHONY: help check-ci
 
 help: ## Show this help.
 	@echo "Available targets:"
@@ -31,6 +31,8 @@ check-tests: check-unit check-integration check-acceptance ## Run the test suite
 
 check-quality: check-build-php check-linters check-cs check-types check-layers check-tests ## Assure some kind of a quality.
 
+check-ci: check-quality
+
 check-linters: ## Run all the linters.
 	${EXEC_PHP} ./bin/console lint:container --ansi --no-interaction
 	${EXEC_PHP} ./bin/console lint:yaml config src --ansi --no-interaction
@@ -42,7 +44,7 @@ check-cs: ## Ensure application adheres to code style.
 	${EXEC_PHP} ${PATH_QA_BIN}php-cs-fixer check --config=${PATH_QA_CONFIG}.php-cs-fixer.dist.php --no-interaction --ansi
 
 check-types: ## Ensure static code analyzer is happy.
-	${EXEC_PHP} ${PATH_QA_BIN}phpstan analyse --configuration=phpstan.neon.dist --no-progress --error-format=table
+	${EXEC_PHP} ./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress --error-format=table
 
 fix-cs: ## Fix code style.
 	${EXEC_PHP} ${PATH_QA_BIN}php-cs-fixer fix --config=${PATH_QA_CONFIG}.php-cs-fixer.dist.php --no-interaction

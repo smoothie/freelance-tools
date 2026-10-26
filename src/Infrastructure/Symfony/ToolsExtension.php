@@ -170,8 +170,8 @@ class ToolsExtension extends Extension implements ConfigurationInterface
             ->scalarNode('description')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('taxRate')->defaultValue(19.0)->cannotBeEmpty()->end()
             ->scalarNode('pricePerHour')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('orderNumber')->defaultNull()->end()
             ->scalarNode('termOfPaymentInDays')->defaultValue(30)->cannotBeEmpty()->end()
-            ->end()
             ->end()
             ->end()
         ;
