@@ -94,6 +94,12 @@ class InvoiceTest extends BasicTestCase
             'deliveredAt' => $this->aDeliveredAt(),
             'lastPageNumber' => $this->aPageNumber(),
             'orderNumber' => '',
+            'documentType' => 'invoice',
+            'reference' => '',
+            'documentNotes' => '',
+            'payments' => [],
+            'prepaidAmount' => Amount::fromString('0'),
+            'payableAmount' => $grossAmount,
         ];
 
         self::assertEqualsCanonicalizing($context, $invoice->context());

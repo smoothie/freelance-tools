@@ -6,6 +6,9 @@ Currently, this package provides the following features:
 
 1. Generate timesheets
 2. Generate an e-invoice out of that timesheet
+3. Combine selected projects into a customer invoice or enter manual package/hour positions
+4. Generate advance and final invoices with received-payment deductions
+5. Export PDF offers and choose the classic or new Marc document layout
 
 Timesheets are generated based on tracked work hours from an external time-tracking provider.
 
@@ -114,6 +117,19 @@ bin/console tools:generate-timesheet cheesecake-agile --performancePeriod=LAST_T
 
 This example covers November and December 2024. Both months appear on the invoice.
 Invoice numbers use the billing month (`YYYYMM`), not the following month.
+
+## Position-based invoices, advances and offers
+
+```shell
+bin/console tools:generate-document --input=invoice.yaml --template=marc
+```
+
+The optional CLI accepts YAML, JSON or standard input. The same typed application API works without the CLI.
+Configure a shared `customerId` on related projects to combine them; the existing timesheet command remains unchanged.
+Manual positions use decimal strings, for example `quantity: '1'`, `unit: C62`, `pricePerItem: '1499.00'`.
+Offers export PDF only. Invoice XML retains the EN16931 CII profile; XSD validation alone is **not** XRechnung certification.
+
+See [the billing interface and workflow guide](docs/billing.md) for configuration, PHP API, CLI overrides, rounding rules, limitations and runnable input examples.
 
 ## Quality checks
 

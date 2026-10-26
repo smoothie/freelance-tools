@@ -19,7 +19,7 @@ deptrac:
     - name: VendorDomain
       collectors:
         - type: classLike
-          value: ^(Webmozart)\\.*
+          value: ^(Webmozart|Brick\\Math)\\.*
     - name: VendorApplication
       collectors:
         - type: classLike

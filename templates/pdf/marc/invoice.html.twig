@@ -1,0 +1,89 @@
+{% extends 'pdf/marc/base.html.twig' %}
+{% trans_default_domain 'tools' %}
+{% set kind = documentType | default('invoice') %}
+{% set documentLabel = {invoice: 'Rechnung', advance: 'Anzahlungsrechnung', final: 'Schlussrechnung', quote: 'Angebot'}[kind] | default('Rechnung') %}
+
+{% block infobox %}
+<table>
+    <tr><th>{{ documentLabel }} Nr.</th><td>{{ invoiceId }}</td></tr>
+    <tr><th>Datum</th><td>{{ billingDate | to_date }}</td></tr>
+    {% if orderNumber | default('') is not empty %}
+    <tr><th>Bestellnummer</th><td>{{ orderNumber }}</td></tr>
+    {% endif %}
+    {% for delivered in deliveredAt | default([]) | date_to_performance_period %}
+    <tr><th>{{ loop.first ? (kind == 'advance' ? 'Voraussichtliche Leistung' : 'Leistungszeitraum') : '' }}</th><td>{{ delivered }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{% if kind == 'quote' %}
+<p>Dieses Angebot ist bis {{ dueDate.dueDate | to_date }} gültig und noch keine Rechnung. Zur Beauftragung bitte die Angebotsnummer bestätigen.</p>
+{% elseif kind == 'advance' %}
+<p>Vereinbarte Vorauszahlung vor Erbringung der beschriebenen Leistungen.</p>
+{% endif %}
+{% if reference | default('') is not empty %}<p><strong>Referenz:</strong> {{ reference }}</p>{% endif %}
+{% if description | default('') is not empty %}<p>{{ description | nl2br }}</p>{% endif %}
+<table class="positions">
+    <thead>
+        <tr>
+            <th class="position">Pos.</th>
+            <th class="description">Bezeichnung</th>
+            <th class="quantity">Menge</th>
+            <th class="money">Einzel EUR</th>
+            <th class="money">Netto EUR</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in invoiceItems %}
+        <tr>
+            <td class="position">{{ item.position }}</td>
+            <td class="description">{{ item.description | nl2br }}</td>
+            <td class="quantity">{{ item.durationInSeconds is not null ? (item.durationInSeconds | sec_to_hour_and_minute(true)) : item.quantityAsDecimal }} {{ item.unit | unit }}{% if item.durationInSeconds is not null %} (h:mm:ss){% endif %}</td>
+            <td class="money">{{ item.pricePerItem | amount_to_human('de_DE', 6) }}</td>
+            <td class="money">{{ item.priceTotal | amount_to_human }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<table class="totals">
+    <tr><td>Nettosumme</td><td>{{ netAmount | amount_to_human }} EUR</td></tr>
+    <tr><td>Umsatzsteuer {{ taxRate | amount_to_human }} %</td><td>{{ vatAmount | amount_to_human }} EUR</td></tr>
+    <tr class="total"><td>Gesamtbetrag brutto</td><td>{{ grossAmount | amount_to_human }} EUR</td></tr>
+    {% if kind == 'final' and prepaidAmount | default(null) is not null %}
+    {% set remainingNet = netAmount %}
+    {% set remainingVat = vatAmount %}
+    {% for payment in payments | default([]) %}
+        {% set remainingNet = remainingNet.subtract(payment.netAmount) %}
+        {% set remainingVat = remainingVat.subtract(payment.vatAmount) %}
+    {% endfor %}
+    <tr><td>Abzüglich erhaltener Anzahlungen</td><td>− {{ prepaidAmount | amount_to_human }} EUR</td></tr>
+    <tr><td>Verbleibend netto</td><td>{{ remainingNet | amount_to_human }} EUR</td></tr>
+    <tr><td>Verbleibende Umsatzsteuer</td><td>{{ remainingVat | amount_to_human }} EUR</td></tr>
+    <tr class="total"><td>Verbleibender Zahlbetrag</td><td>{{ payableAmount | default(grossAmount) | amount_to_human }} EUR</td></tr>
+    {% endif %}
+</table>
+{% if kind == 'final' and payments | default([]) is not empty %}
+<h2>Verrechnete Anzahlungen</h2>
+<table class="payments">
+    <thead><tr><th>Rechnung / Zahlungseingang</th><th>Netto EUR</th><th>USt EUR</th><th>Brutto EUR</th></tr></thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.invoiceNumber }} vom {{ payment.invoiceDate | to_date }}<br>Zahlungseingang: {{ payment.receivedAt | to_date }}</td>
+            <td>{{ payment.netAmount | amount_to_human }}</td>
+            <td>{{ payment.vatAmount | amount_to_human }}</td>
+            <td>{{ payment.grossAmount | amount_to_human }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if kind != 'quote' %}
+<div class="paymentTerms">
+    <p>Zahlung bis {{ dueDate.dueDate | to_date }} ohne Abzug an die angegebene Bankverbindung. Verwendungszweck: {{ invoiceId }}.</p>
+</div>
+{% endif %}
+{% if documentNotes | default('') is not empty %}<div class="notes">{{ documentNotes | nl2br }}</div>{% endif %}
+{% endblock %}

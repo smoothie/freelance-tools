@@ -1,0 +1,21 @@
+number: 'QUOTE-2025-001'
+customerId: example-customer
+documentType: quote
+templateId: marc
+billingDate: '2025-12-01'
+deliveredAt: ['2026-01-01', '2026-01-31']
+documentNotes: |-
+  Festpreis für die Firmenwebsite gemäß abgestimmter Seitenliste: bis zu zehn Seiten einschließlich Impressum und Datenschutz, bis zu sechs Inhaltsabschnitte je Inhaltsseite und insgesamt bis zu 20 bereitgestellte Bilder.
+  Enthalten sind ein gemeinsames responsives Design, SEO-Grundlagen, Kontaktlinks, Prüfung und Veröffentlichung auf geeignetem Kundenhosting sowie eine gebündelte Korrekturrunde im vereinbarten Umfang.
+  Vollständige Texte, Logo, verwendbare Bilder sowie freigegebene Rechtstexte werden vom Auftraggeber bereitgestellt. Bildrechte und notwendige Zugänge werden vor Beginn geklärt.
+  Nicht enthalten sind Shop, Buchungssystem, individuelle Anwendungen, Schnittstellen, umfangreiche Datenmigration, Text-, Foto- und Logoerstellung sowie Hosting, Domains und laufende Betreuung. Formulare, externe Dienste und Lizenzen bedürfen einer ausdrücklichen Vereinbarung.
+  Umsetzung innerhalb von sieben Werktagen ab vollständiger Materiallieferung, erforderlichen Zugängen, Freigabe und Eingang der vereinbarten Anzahlung; Wartezeiten verschieben den Termin. Der konkrete Zeitraum wird nach vollständiger Vorbereitung bestätigt.
+  Zahlungsplan: 50 % des Nettohonorars vor Leistungsbeginn, Rest vor Veröffentlichung, jeweils zuzüglich Umsatzsteuer. Einweisung und Übergabe erfolgen nach Abschlussprüfung und Freigabe.
+  Zusatzleistungen werden vorab vereinbart: zusätzliche Standardseite 100,00 EUR netto; technische Unterstützung und spätere Änderungen 90,00 EUR netto pro Stunde, jeweils zuzüglich Umsatzsteuer.
+  Beauftragung durch Bestätigung per E-Mail unter Angabe der Angebotsnummer.
+items:
+  - description: Website design and implementation
+    quantity: '1'
+    unit: C62
+    pricePerItem: '1499.00'
+termOfPaymentInDays: 30

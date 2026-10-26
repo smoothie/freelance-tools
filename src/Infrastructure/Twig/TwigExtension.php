@@ -83,18 +83,18 @@ class TwigExtension extends AbstractExtension
                 ->format($date->asPhpDateTime());
         }
 
-        return $result;
+        return array_values(array_unique($result));
     }
 
     public function unit(string $unit): string
     {
         return match ($unit) {
-            'HUR' => $this->translator->trans('unit.'.$unit, domain: 'tools'),
+            'HUR', 'C62' => $this->translator->trans('unit.'.$unit, domain: 'tools'),
             default => $unit,
         };
     }
 
-    public function amountToHumanReadable(int|float|Amount $amount, string $locale = 'de_DE'): string
+    public function amountToHumanReadable(int|float|Amount $amount, string $locale = 'de_DE', int $maximumFractionDigits = 2): string
     {
         if (\is_int($amount)) {
             $amount = Amount::fromFloat((float) $amount);
@@ -103,7 +103,7 @@ class TwigExtension extends AbstractExtension
             $amount = Amount::fromFloat($amount);
         }
 
-        return $amount->asHumanReadable($locale);
+        return $amount->asHumanReadable($locale, $maximumFractionDigits);
     }
 
     public function toDate(string|DateTime|\DateTimeInterface $input): string
@@ -140,7 +140,7 @@ class TwigExtension extends AbstractExtension
         return \sprintf('%1d', $hours);
     }
 
-    public function secondToHumanReadableHourAndMinute(int|Duration $input): string
+    public function secondToHumanReadableHourAndMinute(int|Duration $input, bool $includeSeconds = false): string
     {
         $seconds = $input;
         if ($input instanceof Duration) {
@@ -150,6 +150,8 @@ class TwigExtension extends AbstractExtension
         $hours = floor($seconds / 3600);
         $minutes = floor($seconds / 60) % 60;
 
-        return \sprintf('%1d:%02d', $hours, $minutes);
+        return $includeSeconds
+            ? \sprintf('%1d:%02d:%02d', $hours, $minutes, $seconds % 60)
+            : \sprintf('%1d:%02d', $hours, $minutes);
     }
 }
