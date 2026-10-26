@@ -106,6 +106,14 @@ bin/console tools:generate-timesheet
 
 ```
 
+`--template=marc` or `--template=classic` selects the generated invoice layout:
+
+```shell
+bin/console tools:generate-timesheet cheesecake-agile --approvedBy="SomePerson Name" --approvedByCompany="Cheesecake Factory" --performancePeriod=LAST_MONTH --template=marc
+```
+
+The timesheet itself keeps its existing layout. Invoice template priority is CLI override → organization `templateId` → `classic`. Invalid template values fail before tracked time is requested.
+
 `orderNumber` is optional. When configured, it appears in the invoice PDF and as the buyer's order reference in the e-invoice XML.
 
 The `--performancePeriod` option accepts `CURRENT_MONTH`, `LAST_MONTH` (default), and `LAST_TWO_MONTHS`.

@@ -2,7 +2,7 @@
 
 ## Entry points
 
-The existing `tools:generate-timesheet` command remains available and generates a separate invoice for its project. The new document workflow is opt-in and does not require a CLI caller.
+The existing `tools:generate-timesheet` command remains available and generates a separate invoice for its project. It accepts `--template=classic|marc` for that invoice; the timesheet layout itself remains unchanged. Precedence is explicit CLI override, then the organization's `templateId`, then `classic`. The PHP `GenerateTimesheet` request supports the same nullable `templateId` override, which is carried through the generated-timesheet event to the invoice. The new document workflow is opt-in and does not require a CLI caller.
 
 ```mermaid
 flowchart TD

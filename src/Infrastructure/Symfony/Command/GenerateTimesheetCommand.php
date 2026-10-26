@@ -65,6 +65,11 @@ class GenerateTimesheetCommand extends Command
                 default: 'LAST_MONTH',
             )
             ->addOption(
+                name: 'template',
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'Invoice layout: classic or marc. Defaults to the configured customer layout.',
+            )
+            ->addOption(
                 name: 'billedTo',
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'The person who will receive the bill. Will fallback to the "approvedByCompany" when not set.',
@@ -98,6 +103,12 @@ class GenerateTimesheetCommand extends Command
         $approvedAt = $input->getOption('approvedAt');
         $startDate = $input->getOption('startDate');
         $billedTo = $input->getOption('billedTo');
+        $template = $input->getOption('template');
+        if ($template !== null && ! \in_array($template, ['classic', 'marc'], true)) {
+            $this->io->error('Invalid --template. Expected classic or marc.');
+
+            return Command::INVALID;
+        }
 
         $command = new GenerateTimesheet(
             timesheetId: Uuid::uuid4()->toString(),
@@ -108,6 +119,7 @@ class GenerateTimesheetCommand extends Command
             startDate: $startDate,
             approvedAt: $approvedAt,
             billedTo: $billedTo,
+            templateId: $template,
         );
 
         $this->application->generateTimesheet($command);

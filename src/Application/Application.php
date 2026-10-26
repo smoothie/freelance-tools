@@ -90,6 +90,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
                 exportFormat: $command->exportFormat(),
                 rendered: $rendered,
                 performancePeriod: $performancePeriod,
+                templateId: $command->templateId(),
             ),
             self::EVENT_GENERATED_TIMESHEET,
         );
@@ -160,7 +161,7 @@ class Application implements ApplicationInterface, EventSubscriberInterface
             billedBy: $this->providedBy,
             billedTo: $organization,
             orderNumber: (string) ($organization['orderNumber'] ?? ''),
-            templateId: $organization['templateId'] ?? 'classic',
+            templateId: $event->templateId() ?? $organization['templateId'] ?? 'classic',
         );
 
         $this->generateInvoice($command);

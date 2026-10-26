@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Combine selected tracked projects of an explicitly identified customer into separate invoice positions.
 - Create manual package and hourly invoices from YAML/JSON or a typed PHP request, with optional CLI overrides.
 - Select the new Marc document design while retaining the classic layout as the default.
+- Select the generated invoice layout through `tools:generate-timesheet --template=classic|marc`, overriding the customer default without changing the timesheet.
 - Generate advance and final invoices with received-payment references, VAT breakdowns and remaining balances.
 - Export PDF offers with validity dates and reuse agreed positions for subsequent invoices.
 
